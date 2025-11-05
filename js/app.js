@@ -43,7 +43,7 @@ async function loadStatesData() {
 // Initialize Leaflet map
 async function initMap() {
   // Create map
-  map = L.map('map').setView([37.8, -96], 4);
+  map = L.map('map').setView([37.8, -102], 4.5);
   
   // Add tile layer
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
