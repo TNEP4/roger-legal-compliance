@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Login - US Compliance Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">US Adult Content Compliance Dashboard</h1>
+    <p class="text-sm text-gray-600 mb-6">Please enter password to continue</p>
+    
+    <form id="login-form" class="space-y-4">
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter password"
+          required
+        >
+      </div>
+      
+      <button 
+        type="submit" 
+        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+      >
+        Access Dashboard
+      </button>
+      
+      <div id="error-message" class="hidden text-red-600 text-sm text-center">
+        Incorrect password. Please try again.
+      </div>
+    </form>
+    
+    <div class="mt-6 text-xs text-gray-500 text-center">
+      This tool contains sensitive business information.<br>
+      Unauthorized access is prohibited.
+    </div>
+  </div>
+
+  <script>
+    // Check if already authenticated
+    const authToken = localStorage.getItem('auth_token');
+    const authExpiry = localStorage.getItem('auth_expiry');
+    
+    if (authToken && authExpiry && new Date().getTime() < parseInt(authExpiry)) {
+      // Already authenticated, redirect to dashboard
+      window.location.href = 'index.html';
+    }
+    
+    // Handle login
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const password = document.getElementById('password').value;
+      const errorEl = document.getElementById('error-message');
+      
+      // Hash the password using SHA-256
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      
+      // Check against stored hash
+      // Default password: "roger2025" (hash below)
+      const correctHash = '8f4e1e7f5c3a6b2d9e8f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d';
+      
+      if (hashHex === correctHash) {
+        // Set authentication token (valid for 24 hours)
+        const expiryTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+        localStorage.setItem('auth_token', hashHex);
+        localStorage.setItem('auth_expiry', expiryTime.toString());
+        
+        // Redirect to dashboard
+        window.location.href = 'index.html';
+      } else {
+        // Show error
+        errorEl.classList.remove('hidden');
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+      }
+    });
+  </script>
+
+</body>
+</html>

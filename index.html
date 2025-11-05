@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>US Adult Content Compliance Dashboard</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Auth Check -->
+  <script>
+    // Check authentication before loading page
+    const authToken = localStorage.getItem('auth_token');
+    const authExpiry = localStorage.getItem('auth_expiry');
+    
+    if (!authToken || !authExpiry || new Date().getTime() >= parseInt(authExpiry)) {
+      // Not authenticated or expired, redirect to login
+      window.location.href = 'login.html';
+    }
+  </script>
+  
+  <style>
+    #map { height: 600px; width: 100%; }
+    .state-detail-panel {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .state-detail-panel.open {
+      transform: translateX(0);
+    }
+    .tier-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.375rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+    .tier-0 { background-color: #10b981; color: white; }
+    .tier-1 { background-color: #3b82f6; color: white; }
+    .tier-2 { background-color: #eab308; color: #1f2937; }
+    .tier-3 { background-color: #f97316; color: white; }
+    .tier-4 { background-color: #ef4444; color: white; }
+    details summary { cursor: pointer; }
+    details summary:hover { background-color: #f3f4f6; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">US Adult Content Compliance Dashboard</h1>
+          <p class="text-sm text-gray-600 mt-1">Age verification requirements by state</p>
+        </div>
+        <div class="text-sm text-gray-500">
+          Last updated: <span id="lastUpdated">November 2025</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+    
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white p-4 rounded-lg shadow">
+        <div class="text-sm text-gray-600">No Requirements (Tier 0)</div>
+        <div class="text-2xl font-bold text-green-600" id="tier0-count">-</div>
+        <div class="text-xs text-gray-500" id="tier0-percent">-% of US population</div>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <div class="text-sm text-gray-600">Credit Card OK (Tier 1)</div>
+        <div class="text-2xl font-bold text-blue-600" id="tier1-count">-</div>
+        <div class="text-xs text-gray-500" id="tier1-percent">-% of US population</div>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <div class="text-sm text-gray-600">Transactional Data (Tier 2)</div>
+        <div class="text-2xl font-bold text-yellow-600" id="tier2-count">-</div>
+        <div class="text-xs text-gray-500" id="tier2-percent">-% of US population</div>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <div class="text-sm text-gray-600">Strict / Avoid (Tier 3-4)</div>
+        <div class="text-2xl font-bold text-red-600" id="tier34-count">-</div>
+        <div class="text-xs text-gray-500" id="tier34-percent">-% of US population</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="bg-white rounded-lg shadow mb-6">
+      <div class="border-b border-gray-200">
+        <nav class="flex -mb-px">
+          <button class="tab-btn active px-6 py-3 text-sm font-medium border-b-2 border-blue-500 text-blue-600" data-tab="map">
+            Map View
+          </button>
+          <button class="tab-btn px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="strategy">
+            Market Strategy
+          </button>
+          <button class="tab-btn px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="table">
+            Data Table
+          </button>
+          <button class="tab-btn px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="resources">
+            Resources
+          </button>
+        </nav>
+      </div>
+
+      <!-- Map Tab -->
+      <div id="tab-map" class="tab-content p-6">
+        <div class="mb-4">
+          <h2 class="text-lg font-semibold mb-2">Interactive US Map</h2>
+          <p class="text-sm text-gray-600 mb-4">Click any state to view detailed legal requirements. Colors indicate compliance tier.</p>
+        </div>
+        
+        <!-- Legend -->
+        <div class="flex flex-wrap gap-4 mb-4 text-sm">
+          <div class="flex items-center">
+            <div class="w-4 h-4 rounded tier-0 mr-2"></div>
+            <span>Tier 0: No Requirements</span>
+          </div>
+          <div class="flex items-center">
+            <div class="w-4 h-4 rounded tier-1 mr-2"></div>
+            <span>Tier 1: Credit Card OK</span>
+          </div>
+          <div class="flex items-center">
+            <div class="w-4 h-4 rounded tier-2 mr-2"></div>
+            <span>Tier 2: Transactional Data</span>
+          </div>
+          <div class="flex items-center">
+            <div class="w-4 h-4 rounded tier-3 mr-2"></div>
+            <span>Tier 3: Strict</span>
+          </div>
+          <div class="flex items-center">
+            <div class="w-4 h-4 rounded tier-4 mr-2"></div>
+            <span>Tier 4: Avoid</span>
+          </div>
+        </div>
+        
+        <div id="map"></div>
+      </div>
+
+      <!-- Strategy Tab -->
+      <div id="tab-strategy" class="tab-content p-6 hidden">
+        <h2 class="text-lg font-semibold mb-4">Market Strategy Builder</h2>
+        
+        <!-- Scenario Builder -->
+        <div class="bg-gray-50 p-4 rounded-lg mb-6">
+          <h3 class="font-medium mb-3">Select Tiers to Support:</h3>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input type="checkbox" class="tier-checkbox mr-2" value="0" checked>
+              <span>Tier 0 - No Requirements (26 states)</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" class="tier-checkbox mr-2" value="1" checked>
+              <span>Tier 1 - Credit Card OK (2 states)</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" class="tier-checkbox mr-2" value="2">
+              <span>Tier 2 - Transactional Data (17 states)</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" class="tier-checkbox mr-2" value="3">
+              <span>Tier 3 - Strict Verification (4 states)</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" class="tier-checkbox mr-2" value="4">
+              <span>Tier 4 - Very Strict/Unclear (2 states)</span>
+            </label>
+          </div>
+          
+          <div class="mt-4 p-4 bg-white rounded border-2 border-blue-500">
+            <h4 class="font-semibold text-lg mb-2">Your Market Reach:</h4>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <div class="text-sm text-gray-600">Total States</div>
+                <div class="text-3xl font-bold text-blue-600" id="selected-states">28</div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-600">US Population</div>
+                <div class="text-3xl font-bold text-blue-600" id="selected-percent">42%</div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-600">Total Population</div>
+                <div class="text-lg font-semibold" id="selected-population">144M</div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-600">Implementation Cost</div>
+                <div class="text-lg font-semibold" id="implementation-cost">Low</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommended Strategies -->
+        <div class="space-y-4">
+          <h3 class="font-medium">Recommended Strategies:</h3>
+          
+          <div class="border rounded-lg p-4 bg-green-50 border-green-200">
+            <h4 class="font-semibold text-green-800">🎯 Low-Hanging Fruit (Recommended)</h4>
+            <p class="text-sm text-gray-700 mt-1">Support Tier 0 + Tier 1 (credit cards)</p>
+            <div class="mt-2 text-sm">
+              <strong>Market:</strong> 28 states, ~42% of US population<br>
+              <strong>Cost:</strong> Minimal (standard payment processing)<br>
+              <strong>Risk:</strong> Very low
+            </div>
+          </div>
+
+          <div class="border rounded-lg p-4">
+            <h4 class="font-semibold">📊 Balanced Approach</h4>
+            <p class="text-sm text-gray-700 mt-1">Add Tier 2 (transactional data methods)</p>
+            <div class="mt-2 text-sm">
+              <strong>Market:</strong> 45 states, ~67% of US population<br>
+              <strong>Cost:</strong> Medium (third-party service ~$0.05-0.10 per verification)<br>
+              <strong>Risk:</strong> Moderate
+            </div>
+          </div>
+
+          <div class="border rounded-lg p-4 bg-red-50 border-red-200">
+            <h4 class="font-semibold text-red-800">⚠️ Maximum Reach (Not Recommended)</h4>
+            <p class="text-sm text-gray-700 mt-1">Support all tiers including Tier 3-4</p>
+            <div class="mt-2 text-sm">
+              <strong>Market:</strong> 51 jurisdictions, ~79% of US population<br>
+              <strong>Cost:</strong> High (IAL2 certification, photo matching, data retention)<br>
+              <strong>Risk:</strong> High (complex compliance, severe penalties)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table Tab -->
+      <div id="tab-table" class="tab-content p-6 hidden">
+        <div class="mb-4 flex justify-between items-center">
+          <h2 class="text-lg font-semibold">All States Data</h2>
+          <input type="text" id="search" placeholder="Search states..." class="border rounded px-3 py-2 text-sm">
+        </div>
+        
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200" id="states-table">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="state">
+                  State ↕
+                </th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="tier">
+                  Tier ↕
+                </th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="population">
+                  Pop % ↕
+                </th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  LGBTQ+
+                </th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  ID Req?
+                </th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Max Penalty
+                </th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="table-body">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Resources Tab -->
+      <div id="tab-resources" class="tab-content p-6 hidden">
+        <h2 class="text-lg font-semibold mb-4">Resources & Glossary</h2>
+        
+        <!-- Glossary -->
+        <div class="space-y-4 mb-8">
+          <h3 class="font-medium text-gray-900">Legal Terms Glossary</h3>
+          
+          <details class="border rounded p-3">
+            <summary class="font-medium cursor-pointer">Material Harmful to Minors</summary>
+            <p class="text-sm text-gray-700 mt-2">Content that depicts or describes sexual conduct in a way that is patently offensive according to contemporary community standards and lacks serious literary, artistic, political, or scientific value for minors.</p>
+          </details>
+
+          <details class="border rounded p-3">
+            <summary class="font-medium cursor-pointer">IAL2 (Identity Assurance Level 2)</summary>
+            <p class="text-sm text-gray-700 mt-2">A framework for confirming an individual's ownership of a genuine identity using personal information, identity documentation, and biometric characteristics. Required by Arkansas and Georgia. This is a NIST standard requiring strong identity verification.</p>
+          </details>
+
+          <details class="border rounded p-3">
+            <summary class="font-medium cursor-pointer">Transactional Data</summary>
+            <p class="text-sm text-gray-700 mt-2">A sequence of information that documents an exchange, agreement, or transfer between an individual, commercial entity, or third party. May include records from mortgage, education, employment entities, and other commercial databases. Whether this includes credit cards is unclear in most statutes.</p>
+          </details>
+
+          <details class="border rounded p-3">
+            <summary class="font-medium cursor-pointer">Commercially Reasonable Method</summary>
+            <p class="text-sm text-gray-700 mt-2">Age verification methods that are feasible for businesses to implement and effectively verify that users are 18+. The exact definition varies by state but generally includes digital ID verification services.</p>
+          </details>
+        </div>
+
+        <!-- Legal Disclaimer -->
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-yellow-800 mb-2">⚠️ Legal Disclaimer</h3>
+          <p class="text-sm text-gray-700">
+            This tool is for informational purposes only and does NOT constitute legal advice. Laws are subject to change, interpretation varies, and enforcement is unpredictable. You MUST consult with a qualified attorney licensed in the relevant jurisdictions before making any business decisions based on this information.
+          </p>
+        </div>
+
+        <!-- Data Sources -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h3 class="font-medium mb-2">Data Sources</h3>
+          <ul class="text-sm text-gray-700 space-y-1">
+            <li>• Legal requirements: Original legal research documents (2024-2025)</li>
+            <li>• Population data: US Census Bureau 2025 estimates</li>
+            <li>• LGBTQ+ demographics: Williams Institute, Gallup, MAP</li>
+            <li>• Last updated: November 2025</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- State Detail Panel (Slide-out) -->
+  <div id="state-panel" class="state-detail-panel fixed top-0 right-0 w-full md:w-2/3 lg:w-1/2 h-full bg-white shadow-2xl overflow-y-auto z-50">
+    <div class="p-6">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <h2 class="text-2xl font-bold" id="panel-state-name">State Name</h2>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="tier-badge" id="panel-tier-badge">Tier 0</span>
+            <span class="text-sm text-gray-600" id="panel-lgbtq">LGBTQ+ Density: -</span>
+          </div>
+        </div>
+        <button id="close-panel" class="text-gray-400 hover:text-gray-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Population -->
+        <div class="bg-gray-50 p-4 rounded">
+          <div class="text-sm text-gray-600">Population</div>
+          <div class="text-xl font-bold" id="panel-population">-</div>
+          <div class="text-sm text-gray-600" id="panel-pop-percent">-% of US</div>
+        </div>
+
+        <!-- ID Required -->
+        <div>
+          <h3 class="font-semibold mb-2">ID Verification Required?</h3>
+          <div class="text-lg" id="panel-id-required">-</div>
+        </div>
+
+        <!-- Exact Legal Language -->
+        <div class="border-t pt-4">
+          <h3 class="font-semibold mb-3 text-lg">📜 Exact Legal Language</h3>
+          
+          <details class="border rounded p-3 mb-3" open>
+            <summary class="font-medium text-blue-600 cursor-pointer">Applicability</summary>
+            <pre class="text-sm text-gray-700 mt-2 whitespace-pre-wrap font-sans" id="panel-applicability">-</pre>
+          </details>
+
+          <details class="border rounded p-3 mb-3">
+            <summary class="font-medium text-blue-600 cursor-pointer">ID Requirements</summary>
+            <pre class="text-sm text-gray-700 mt-2 whitespace-pre-wrap font-sans" id="panel-id-requirements">-</pre>
+          </details>
+
+          <details class="border rounded p-3 mb-3">
+            <summary class="font-medium text-blue-600 cursor-pointer">Penalties</summary>
+            <pre class="text-sm text-gray-700 mt-2 whitespace-pre-wrap font-sans" id="panel-penalties">-</pre>
+          </details>
+
+          <div class="text-sm text-gray-600 mt-2">
+            <strong>Citation:</strong> <span id="panel-citation">-</span>
+          </div>
+        </div>
+
+        <!-- Verification Methods -->
+        <div class="border-t pt-4">
+          <h3 class="font-semibold mb-3">✅ Accepted Verification Methods</h3>
+          <div id="panel-methods" class="space-y-1 text-sm">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div id="panel-notes-section" class="border-t pt-4 hidden">
+          <h3 class="font-semibold mb-2">📌 Important Notes</h3>
+          <div class="text-sm text-gray-700 bg-yellow-50 p-3 rounded" id="panel-notes">-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- App JS -->
+  <script src="js/app.js"></script>
+  
+</body>
+</html>

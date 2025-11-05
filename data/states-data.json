@@ -1,0 +1,1839 @@
+[
+  {
+    "state": "Alabama",
+    "abbreviation": "AL",
+    "population": 5197720,
+    "populationPercent": 1.51,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 3,
+      "idRequired": true,
+      "applicabilityExact": "Businesses that knowingly publish or distribute sexual material harmful to minors must use reasonable age verification methods",
+      "idRequirementsExact": "Any commercially available software, application, program, or methodology that, when enabled, provides reasonable assurances that any individual accessing certain published material is 18 years of age or older.",
+      "penaltiesExact": "Up to $10,000 per violation",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false,
+        "commerciallySoftware": true
+      },
+      "penalties": {
+        "perViolation": "$10,000",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "HB 164",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Alaska",
+    "abbreviation": "AK",
+    "population": 726749,
+    "populationPercent": 0.21,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": "No age verification laws currently enacted"
+    }
+  },
+  {
+    "state": "Arizona",
+    "abbreviation": "AZ",
+    "population": 7691740,
+    "populationPercent": 2.24,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "A commercial entity that knowingly and intentionally publishes or distributes material on an internet website, including a social media platform, of which more than one-third is sexual material that is harmful to minors shall use reasonable age verification methods to verify that an individual who attempts to access the material is eighteen years of age or older.",
+      "idRequirementsExact": "Must perform age verification by:\n-providing a form of digital ID that does not cause the information to be transmitted to a governmental entity\n-Use an age verification system that utilizes government-issued IDs or -a commercially reasonable method that relies on public and private transactional data",
+      "penaltiesExact": "$10,000 per day that website is operated in violation of the law; or\n$10,000 per instance where personal information is retained for non-verification purposes.\n\nAND\n\nUp to $250,000 if one or more minors accesses sexual materials harmful to minors",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": true,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "$10,000",
+        "perDay": "$10,000",
+        "ifMinorAccesses": "$250,000",
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "18-701",
+      "effectiveDate": null,
+      "notes": "One-third threshold; very high penalties if minors access content"
+    }
+  },
+  {
+    "state": "Arkansas",
+    "abbreviation": "AR",
+    "population": 3107240,
+    "populationPercent": 0.9,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 3,
+      "idRequired": true,
+      "applicabilityExact": "Websites with obscene sexual material must employ age-verification before it can be accessed",
+      "idRequirementsExact": "Must perform reasonable age verification, which include:\n\n-using digitized IDs\n-government-issued IDs\n-any commercially reasonable age verification that holds an Identity Assurance Level 2 (IAL2)\n\nIdentity Assurance Level 2 is a framework for confirming an individual's ownership of a genuine identity by using personal information, identity documentation, and biometric characteristics",
+      "penaltiesExact": "Liability to an individual for damages resulting from a minor accessing harmful materials",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": true,
+        "transactionalData": false,
+        "ial2Required": true,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": "Yes",
+        "privateRightOfAction": true,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "A.C.A. § 4-88-1305",
+      "effectiveDate": null,
+      "notes": "Requires IAL2 certification - very strict"
+    }
+  },
+  {
+    "state": "California",
+    "abbreviation": "CA",
+    "population": 39663800,
+    "populationPercent": 11.55,
+    "lgbtqDensity": "high",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "N/A",
+      "idRequirementsExact": "N/A",
+      "penaltiesExact": "N/A",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "AB 1043",
+      "effectiveDate": "2027-01-01",
+      "notes": "AB 1043 is a new law signed October 2025, which will go into effect January 2027. It applies to device operating systems and app stores – NOT website providers."
+    }
+  },
+  {
+    "state": "Colorado",
+    "abbreviation": "CO",
+    "population": 6013650,
+    "populationPercent": 1.75,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Connecticut",
+    "abbreviation": "CT",
+    "population": 3707120,
+    "populationPercent": 1.08,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Delaware",
+    "abbreviation": "DE",
+    "population": 1041320,
+    "populationPercent": 0.3,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 4,
+      "idRequired": false,
+      "applicabilityExact": "Exhibits for sale, sells, displays, transfers, gives gratis, loans, rents or advertises to a known minor any book, pamphlet, magazine or printed matter, however reproduced, or sound recording or picture, photograph, drawing, sculpture, motion picture film or similar visual representation that such person knows to be in whole or in part harmful to minors.",
+      "idRequirementsExact": "N/A",
+      "penaltiesExact": "N/A",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "11 Del.C. § 1365",
+      "effectiveDate": null,
+      "notes": "This law seemingly applies only to providers of adult-oriented materials in physical locations, but it could be used to hold a business like ChatRoger accountable if it is found to knowingly distribute harmful materials to underage consumers."
+    }
+  },
+  {
+    "state": "District of Columbia",
+    "abbreviation": "DC",
+    "population": 701974,
+    "populationPercent": 0.2,
+    "lgbtqDensity": "high",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Florida",
+    "abbreviation": "FL",
+    "population": 23839600,
+    "populationPercent": 6.94,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 3,
+      "idRequired": true,
+      "applicabilityExact": "Websites with harmful to minor content must verify the age of individuals before it can be accessed",
+      "idRequirementsExact": "Must offer two methods:\n\n-Anonymous age verification which does not require user to disclose PI\n-Standard commercially reasonable method",
+      "penaltiesExact": "Violations are deemed unfair and deceptive practice.\n\nThe government may collect a civil penalty of up to $50,000 per violation and reasonable attorney fees and court costs.\n\nConsistent pattern of conduct may lead to punitive damages.",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": true,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "$50,000",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "501.1737",
+      "effectiveDate": null,
+      "notes": "Requires anonymous option; government enforcement"
+    }
+  },
+  {
+    "state": "Georgia",
+    "abbreviation": "GA",
+    "population": 11297300,
+    "populationPercent": 3.29,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 3,
+      "idRequired": true,
+      "applicabilityExact": "Websites are required to use \"reasonable age verification methods\" to confirm that individuals accessing the material are at least 18 years old",
+      "idRequirementsExact": "Acceptable methods include: \n-Submission of a digitized identification card, such as a digital copy of a driver's license. \n-Submission of government-issued identification. \n-Any commercially reasonable age verification method meeting or exceeding an Identity Assurance Level 2",
+      "penaltiesExact": "$10,000 for each violation\n\n1 year statute of limitations",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": true,
+        "transactionalData": false,
+        "ial2Required": true,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "$10,000",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "Ga. Code Ann., § 39-5-5",
+      "effectiveDate": null,
+      "notes": "Requires IAL2; 1 year statute of limitations"
+    }
+  },
+  {
+    "state": "Hawaii",
+    "abbreviation": "HI",
+    "population": 1450900,
+    "populationPercent": 0.42,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Idaho",
+    "abbreviation": "ID",
+    "population": 2032120,
+    "populationPercent": 0.59,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities cannot knowingly and intentionally publish material that is harmful to minors on the internet without performing reasonable age verification",
+      "idRequirementsExact": "Must verify identity via reasonable age verification methods, which include:\n-providing a digitized identification card; or\n-requiring government-issued identification or public or private transactional data",
+      "penaltiesExact": "$10,000 in statutory damages plus court costs and attorney fees",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": true,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "$10,000",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "Idaho § 6-3803",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Illinois",
+    "abbreviation": "IL",
+    "population": 12778100,
+    "populationPercent": 3.72,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Indiana",
+    "abbreviation": "IN",
+    "population": 6968420,
+    "populationPercent": 2.03,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Adult oriented websites must employ reasonable age verification methods",
+      "idRequirementsExact": "Reasonable age verification method includes:\n-credential, independent third-party age verification service, or\n -other method that relies on public or private transactional data to verify the age of the individual attempting to access the material",
+      "penaltiesExact": "Actual damages or $5,000 per violation and costs, and attorney fees",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": true,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "$5,000",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "Section 1.IC24-4-23",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Iowa",
+    "abbreviation": "IA",
+    "population": 3264560,
+    "populationPercent": 0.95,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Kansas",
+    "abbreviation": "KS",
+    "population": 2989710,
+    "populationPercent": 0.87,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities sharing and distributing material harmful to minors must verify any person attempting to access such website",
+      "idRequirementsExact": "Must verify by using: \n\n-commercially available database used for age and ID verification; or\n- any other commercially reasonable method of age and identity verification",
+      "penaltiesExact": "Attorney General Enforcement: $500 to $10,000 per violation\n\nPrivate Right of Action: $50,000 or more in statutory damages, actual damages and reasonable attorney fees.",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": true
+      },
+      "penalties": {
+        "perViolation": "$500 to $10,000",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "K.S.A. 50-6,146",
+      "effectiveDate": null,
+      "notes": "Very high private right of action damages ($50,000+)"
+    }
+  },
+  {
+    "state": "Kentucky",
+    "abbreviation": "KY",
+    "population": 4626150,
+    "populationPercent": 1.35,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Websites that make material harmful to minors must perform age verification",
+      "idRequirementsExact": "Methods include:\n-using state or federal issued ID\n-any commercially reasonable method of identification that relies on public or private transactional data",
+      "penaltiesExact": "Subject to civil action (jury decides both liability and damages)",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": true,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "KRS § 436",
+      "effectiveDate": null,
+      "notes": "Jury decides liability and damages"
+    }
+  },
+  {
+    "state": "Louisiana",
+    "abbreviation": "LA",
+    "population": 4607410,
+    "populationPercent": 1.34,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Sites with a \"substantial\" amount of adult content (one-third or over) to employ age verification systems",
+      "idRequirementsExact": "Reasonable age verification methods include:\n-Digitized ID\n-Government issued ID or \n-commercially reasonable method that relies on public or private transactional data",
+      "penaltiesExact": "Civil liability, including court costs and reasonable attorney fees",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": true,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "LSA-R.S. 9:2800.29",
+      "effectiveDate": null,
+      "notes": "One-third threshold for substantial amount"
+    }
+  },
+  {
+    "state": "Maine",
+    "abbreviation": "ME",
+    "population": 1410380,
+    "populationPercent": 0.41,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Maryland",
+    "abbreviation": "MD",
+    "population": 6309380,
+    "populationPercent": 1.84,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Massachusetts",
+    "abbreviation": "MA",
+    "population": 7205770,
+    "populationPercent": 2.1,
+    "lgbtqDensity": "high",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Michigan",
+    "abbreviation": "MI",
+    "population": 10197600,
+    "populationPercent": 2.97,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Minnesota",
+    "abbreviation": "MN",
+    "population": 5833250,
+    "populationPercent": 1.7,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Mississippi",
+    "abbreviation": "MS",
+    "population": 2942920,
+    "populationPercent": 0.86,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Entities that publish or distribute material harmful to minors must conduct reasonable age verification.",
+      "idRequirementsExact": "Verification methods include:\n-using digitized ID;\n-requiring Government-issued ID; or\n-commercially reasonable method that relied on public or private transactional data",
+      "penaltiesExact": "Damages and reasonable attorney fees.",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": true,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "SB 2346",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Missouri",
+    "abbreviation": "MO",
+    "population": 6282890,
+    "populationPercent": 1.83,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Websites with material pornography must conduct age verification.",
+      "idRequirementsExact": "Verification methods include using:\n-government-issued ID;\n-Commercially reasonable method that relies on public or private transactional data; or\n-Another method that complies with the Missouri Merchandising Practices Act (MMPA)",
+      "penaltiesExact": "Civil penalties up to $10,000 per day",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": true,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "$10,000",
+        "perDay": "$10,000",
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "CSR 60-18",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Montana",
+    "abbreviation": "MT",
+    "population": 1143160,
+    "populationPercent": 0.33,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities must not distribute material harmful to minors.",
+      "idRequirementsExact": "Reasonable age verification includes using:\n-digitized ID\n-government issued ID;\n-any commercially reasonable method that relies on transactional data to verify the age of an individual",
+      "penaltiesExact": "Damages and reasonable attorney fees.",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": true,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "SB 544",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Nebraska",
+    "abbreviation": "NE",
+    "population": 2023070,
+    "populationPercent": 0.59,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities that publish material harmful to minors.",
+      "idRequirementsExact": "Reasonable age verification includes using:\n-digitized ID\n-government issued ID;\n-financial document or other document that is a reliable proxy for age; or\n-any commercially reasonable method that relies on public or private transactional data",
+      "penaltiesExact": "Damages and reasonable attorney fees.\n\nParent of the affected may recover actual damages.",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": true,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": "Yes",
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "LB 1092",
+      "effectiveDate": null,
+      "notes": "Parent may recover actual damages"
+    }
+  },
+  {
+    "state": "Nevada",
+    "abbreviation": "NV",
+    "population": 3320570,
+    "populationPercent": 0.97,
+    "lgbtqDensity": "high",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "New Hampshire",
+    "abbreviation": "NH",
+    "population": 1415860,
+    "populationPercent": 0.41,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "New Jersey",
+    "abbreviation": "NJ",
+    "population": 9622060,
+    "populationPercent": 2.8,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "New Mexico",
+    "abbreviation": "NM",
+    "population": 2139350,
+    "populationPercent": 0.62,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "New York",
+    "abbreviation": "NY",
+    "population": 19997100,
+    "populationPercent": 5.82,
+    "lgbtqDensity": "high",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "North Carolina",
+    "abbreviation": "NC",
+    "population": 11210900,
+    "populationPercent": 3.27,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Entities that publish or distribute material harmful on the internet must conduct age verification",
+      "idRequirementsExact": "Age verification includes: -using commercially available database; or \n-another commercially reasonable method of age and identity verification",
+      "penaltiesExact": "Injunctive relief, compensatory and punitive damages, and all costs, expenses and fees related to the violation",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": true
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "§ 66501",
+      "effectiveDate": null,
+      "notes": "Allows punitive damages"
+    }
+  },
+  {
+    "state": "North Dakota",
+    "abbreviation": "ND",
+    "population": 791251,
+    "populationPercent": 0.23,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities that contain a substantial portion of material that is harmful to minors must conduct age verification.",
+      "idRequirementsExact": "Age verification includes:\n-digitized ID\n-government issued ID;\n-any commercially reasonable method that relies on transactional data to verify the age of an individual",
+      "penaltiesExact": "Individuals affected may seek injunctive relief, compensatory damages, and cost/fees, including attorney fees.",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": true,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "HB 1561",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Ohio",
+    "abbreviation": "OH",
+    "population": 11942600,
+    "populationPercent": 3.48,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Oklahoma",
+    "abbreviation": "OK",
+    "population": 4126900,
+    "populationPercent": 1.2,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities that knowingly and intentionally publish or distribute material harmful to minors must conduct age verification.\n\nThe opportunity to block the services must be given to Internet service providers before any individual may access the material.",
+      "idRequirementsExact": "Age verification includes:\n-using digitized ID;\n-verification through an independent third-party service; or\n-any commercially reasonable method that relies on public or private transactional data to verify the age of the person",
+      "penaltiesExact": "Attorney General may seek injunctive and other equitable relief",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": false,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": true,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "SB 1959",
+      "effectiveDate": null,
+      "notes": "ISP blocking requirement"
+    }
+  },
+  {
+    "state": "Oregon",
+    "abbreviation": "OR",
+    "population": 4291090,
+    "populationPercent": 1.25,
+    "lgbtqDensity": "high",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Pennsylvania",
+    "abbreviation": "PA",
+    "population": 13139800,
+    "populationPercent": 3.83,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Rhode Island",
+    "abbreviation": "RI",
+    "population": 1121190,
+    "populationPercent": 0.33,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "South Carolina",
+    "abbreviation": "SC",
+    "population": 5569830,
+    "populationPercent": 1.62,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities that publish or distribute harmful material must conduct age verification",
+      "idRequirementsExact": "Age verification includes:\n-using digitized ID;\n-verification through an independent third-party service; or\n-verification through an independent third-party that compares personal information from commercially available databases\n-any commercially reasonable method that relies on transactional data to verify the age of an individual",
+      "penaltiesExact": "Liability for punitive damages when a minor is affected. \n\nAttorney General may seek injunctive relief and other equitable relief",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": false,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": true,
+        "commercialDatabase": true
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": "Punitive damages",
+        "privateRightOfAction": true,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "HB 3424",
+      "effectiveDate": null,
+      "notes": "Punitive damages when minor affected"
+    }
+  },
+  {
+    "state": "South Dakota",
+    "abbreviation": "SD",
+    "population": 942683,
+    "populationPercent": 0.27,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 1,
+      "idRequired": true,
+      "applicabilityExact": "Covered platforms must implement reasonable age verification.",
+      "idRequirementsExact": "Verification includes using:\n- a state-issued driver's license or non-driver card\n-individual's bank account information\n-debit or credit card from the individual that requires the individual in ownership of the card to be at least eighteen years of age; or\n-Any other method or document that reliably and accurately indicates if a user of a covered platform is a minor",
+      "penaltiesExact": "$5,000 for each separate instance where reasonable verification is not performed.",
+      "verificationMethods": {
+        "creditCard": true,
+        "digitizedId": false,
+        "governmentId": true,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "$5,000",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "HB 1053",
+      "effectiveDate": null,
+      "notes": "Explicitly allows credit/debit cards - Tier 1"
+    }
+  },
+  {
+    "state": "Tennessee",
+    "abbreviation": "TN",
+    "population": 7307200,
+    "populationPercent": 2.13,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 4,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities that publish or distribute content that is harmful to minors are liable if the individual or commercial entity does not conduct verification methods.",
+      "idRequirementsExact": "Verification methods must not be easily bypassed or circumvented and must include:\n-matching photographs of the active user; or \n-a commercially reasonable method relying on public or private transactional data to verify a person's identity\n\nAnonymized age-verification data must be retained for 7 years.",
+      "penaltiesExact": "Liability includes court costs and reasonable attorney fees.",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": true,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "SB 1792",
+      "effectiveDate": null,
+      "notes": "Photo matching requirement; 7-year data retention"
+    }
+  },
+  {
+    "state": "Texas",
+    "abbreviation": "TX",
+    "population": 31853800,
+    "populationPercent": 9.28,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities that publish or distribute material with sexual material harmful to minors must conduct age verification",
+      "idRequirementsExact": "Verification includes using:\n-digital ID; or\nCommercial age verification system that uses government-issued identification; or a commercially reasonable method that relies on public or private transactional data",
+      "penaltiesExact": "$10,000 per day operating in violation\n\n$10,000 per instance when the entity retains identifying information\n\n$250,000 if one or more minors access sexual materials harmful to minors and the entity was in violation of age verification requirements",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": true,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "$10,000",
+        "perDay": "$10,000",
+        "ifMinorAccesses": "$250,000",
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "129B.001",
+      "effectiveDate": null,
+      "notes": "High penalties; $250k if minors access"
+    }
+  },
+  {
+    "state": "Utah",
+    "abbreviation": "UT",
+    "population": 3564000,
+    "populationPercent": 1.04,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities hosting material harmful to minors must conduct age verification.",
+      "idRequirementsExact": "Verification methods include: \n-Use of a digitized info card (state approved data included in a mobile device); \n-verification through independent third party, or -using a commercially reasonable method that relied on public or private transactional data",
+      "penaltiesExact": "Liability to affected individuals for damages, including court costs and attorney fees.",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": true,
+        "governmentId": false,
+        "transactionalData": true,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": true,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "SB 287",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Vermont",
+    "abbreviation": "VT",
+    "population": 652788,
+    "populationPercent": 0.19,
+    "lgbtqDensity": "high",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Virginia",
+    "abbreviation": "VA",
+    "population": 8887700,
+    "populationPercent": 2.59,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 2,
+      "idRequired": true,
+      "applicabilityExact": "Commercial entities must conduct age verification",
+      "idRequirementsExact": "Commercial verification includes using:\n-a commercial database; or\n-another commercially reasonable method of age and identity verification",
+      "penaltiesExact": "Civil liability for damages and reasonable attorney fees and costs",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": true
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "§ 8.01-40.5",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Washington",
+    "abbreviation": "WA",
+    "population": 8059040,
+    "populationPercent": 2.35,
+    "lgbtqDensity": "high",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "West Virginia",
+    "abbreviation": "WV",
+    "population": 1769460,
+    "populationPercent": 0.52,
+    "lgbtqDensity": "medium",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Wisconsin",
+    "abbreviation": "WI",
+    "population": 5991540,
+    "populationPercent": 1.74,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 0,
+      "idRequired": false,
+      "applicabilityExact": "-",
+      "idRequirementsExact": "-",
+      "penaltiesExact": "-",
+      "verificationMethods": {
+        "creditCard": false,
+        "digitizedId": false,
+        "governmentId": false,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": null,
+        "perDay": null,
+        "ifMinorAccesses": null,
+        "privateRightOfAction": false,
+        "attorneyFees": false,
+        "civilOnly": true
+      },
+      "citation": "-",
+      "effectiveDate": null,
+      "notes": ""
+    }
+  },
+  {
+    "state": "Wyoming",
+    "abbreviation": "WY",
+    "population": 587344,
+    "populationPercent": 0.17,
+    "lgbtqDensity": "low",
+    "legal": {
+      "tier": 1,
+      "idRequired": true,
+      "applicabilityExact": "Covered platforms that operate a website that includes content that is harmful to minors, must conduct age verification.",
+      "idRequirementsExact": "Age verification methods include:\n-driver's license\n-state ID card\n-U.S. passport\n-U.S. military card\n-tribal ID card\n-credit cards, except for cards that do not require 18+ ownership\n-any other means or methods that reliably and accurately can determine user is not a minor",
+      "penaltiesExact": "Parents of aggrieved minors may bring civil action.\n\nDamages, including court costs and attorney fees.",
+      "verificationMethods": {
+        "creditCard": true,
+        "digitizedId": false,
+        "governmentId": true,
+        "transactionalData": false,
+        "ial2Required": false,
+        "photoMatching": false,
+        "anonymousOption": false,
+        "thirdPartyService": false,
+        "commercialDatabase": false
+      },
+      "penalties": {
+        "perViolation": "Damages",
+        "perDay": null,
+        "ifMinorAccesses": "Yes",
+        "privateRightOfAction": true,
+        "attorneyFees": true,
+        "civilOnly": true
+      },
+      "citation": "HB 43",
+      "effectiveDate": null,
+      "notes": "Explicitly allows credit cards (18+ required) - Tier 1"
+    }
+  }
+]
