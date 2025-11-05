@@ -25,7 +25,12 @@
   </script>
   
   <style>
-    #map { height: 600px; width: 100%; }
+    #map { 
+      height: 600px; 
+      width: 100%; 
+      position: relative;
+      z-index: 1;
+    }
     .state-detail-panel {
       transform: translateX(100%);
       transition: transform 0.3s ease;
