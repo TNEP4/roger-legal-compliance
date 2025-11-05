@@ -241,10 +241,27 @@ function updateMarketStats() {
 function initTabs() {
   const tabBtns = document.querySelectorAll('.tab-btn');
   const overlayContents = document.querySelectorAll('.tab-content-overlay');
+  const slider = document.querySelector('.tab-switch-slider');
   const floatingCards = [
     document.getElementById('tier-selector-card'),
     document.getElementById('stats-card')
   ];
+  
+  // Function to update slider position
+  function updateSlider(activeBtn) {
+    const btnRect = activeBtn.getBoundingClientRect();
+    const containerRect = activeBtn.parentElement.getBoundingClientRect();
+    const offsetLeft = btnRect.left - containerRect.left;
+    
+    slider.style.width = `${btnRect.width}px`;
+    slider.style.transform = `translateX(${offsetLeft}px)`;
+  }
+  
+  // Initialize slider position
+  const activeBtn = document.querySelector('.tab-btn.active');
+  if (activeBtn && slider) {
+    updateSlider(activeBtn);
+  }
   
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -252,11 +269,12 @@ function initTabs() {
       
       // Update button states
       tabBtns.forEach(b => {
-        b.classList.remove('active', 'border-blue-600', 'text-blue-600');
-        b.classList.add('border-transparent', 'text-gray-600');
+        b.classList.remove('active');
       });
-      btn.classList.add('active', 'border-blue-600', 'text-blue-600');
-      btn.classList.remove('border-transparent', 'text-gray-600');
+      btn.classList.add('active');
+      
+      // Update slider
+      updateSlider(btn);
       
       // Handle map view
       if (tabName === 'map') {
@@ -276,6 +294,14 @@ function initTabs() {
         }
       }
     });
+  });
+  
+  // Update slider on window resize
+  window.addEventListener('resize', () => {
+    const activeBtn = document.querySelector('.tab-btn.active');
+    if (activeBtn && slider) {
+      updateSlider(activeBtn);
+    }
   });
 }
 
