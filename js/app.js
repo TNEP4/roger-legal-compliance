@@ -103,10 +103,10 @@ function styleState(feature) {
   };
 }
 
-// Get currently selected tiers from checkboxes
+// Get currently selected tiers from buttons
 function getSelectedTiers() {
-  const checkboxes = document.querySelectorAll('.tier-filter-checkbox:checked');
-  return Array.from(checkboxes).map(cb => parseInt(cb.value));
+  const activeButtons = document.querySelectorAll('.tier-filter-btn.active');
+  return Array.from(activeButtons).map(btn => parseInt(btn.dataset.tier));
 }
 
 // Add interactivity to each state
@@ -243,7 +243,6 @@ function initTabs() {
   const overlayContents = document.querySelectorAll('.tab-content-overlay');
   const slider = document.querySelector('.tab-switch-slider');
   const floatingCards = [
-    document.getElementById('tier-selector-card'),
     document.getElementById('stats-card')
   ];
   
@@ -307,10 +306,13 @@ function initTabs() {
 
 // Initialize tier filters
 function initTierFilters() {
-  const checkboxes = document.querySelectorAll('.tier-filter-checkbox');
+  const filterButtons = document.querySelectorAll('.tier-filter-btn');
   
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Toggle active state
+      button.classList.toggle('active');
+      
       // Update map styling
       if (geojsonLayer) {
         geojsonLayer.setStyle(styleState);
