@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // Initialize UI
   initTabs();
-  initStrategyBuilder();
+  initTierFilters();
   initTable();
   initSearch();
   
-  // Update stats
-  updateStats();
+  // Update market coverage stats
+  updateMarketStats();
   
   // Close panel handler
   document.getElementById('close-panel').addEventListener('click', () => {
@@ -67,7 +67,7 @@ async function initMap() {
   }
 }
 
-// Style each state based on tier
+// Style each state based on tier and filter
 function styleState(feature) {
   const stateName = feature.properties.name;
   const stateData = statesData.find(s => s.state === stateName);
@@ -82,6 +82,10 @@ function styleState(feature) {
     };
   }
   
+  // Check if this tier is selected in filters
+  const selectedTiers = getSelectedTiers();
+  const isSelected = selectedTiers.includes(stateData.legal.tier);
+  
   const colors = {
     0: '#10b981',  // green
     1: '#3b82f6',  // blue
@@ -91,12 +95,18 @@ function styleState(feature) {
   };
   
   return {
-    fillColor: colors[stateData.legal.tier] || '#999',
+    fillColor: isSelected ? colors[stateData.legal.tier] || '#999' : '#d1d5db',
     weight: 2,
     opacity: 1,
     color: '#ffffff',
-    fillOpacity: 0.7
+    fillOpacity: isSelected ? 0.7 : 0.3
   };
+}
+
+// Get currently selected tiers from checkboxes
+function getSelectedTiers() {
+  const checkboxes = document.querySelectorAll('.tier-filter-checkbox:checked');
+  return Array.from(checkboxes).map(cb => parseInt(cb.value));
 }
 
 // Add interactivity to each state
@@ -192,40 +202,49 @@ function showStateDetail(state) {
   panel.classList.add('open');
 }
 
-// Update statistics
-function updateStats() {
-  const tierCounts = {
-    0: 0, 1: 0, 2: 0, 3: 0, 4: 0
-  };
-  const tierPopPercents = {
-    0: 0, 1: 0, 2: 0, 3: 0, 4: 0
-  };
+// Update market coverage statistics
+function updateMarketStats() {
+  const selectedTiers = getSelectedTiers();
+  const selectedStates = statesData.filter(state => selectedTiers.includes(state.legal.tier));
   
-  statesData.forEach(state => {
-    const tier = state.legal.tier;
-    tierCounts[tier]++;
-    tierPopPercents[tier] += state.populationPercent;
-  });
+  const totalStates = selectedStates.length;
+  const totalPopPercent = selectedStates.reduce((sum, state) => sum + state.populationPercent, 0);
+  const totalPopulation = selectedStates.reduce((sum, state) => sum + state.population, 0);
   
-  document.getElementById('tier0-count').textContent = tierCounts[0];
-  document.getElementById('tier0-percent').textContent = `${tierPopPercents[0].toFixed(1)}%`;
+  // Update UI
+  document.getElementById('selected-states-count').textContent = totalStates;
+  document.getElementById('selected-population-percent').textContent = `${totalPopPercent.toFixed(1)}%`;
+  document.getElementById('selected-population-count').textContent = `${(totalPopulation / 1000000).toFixed(0)}M`;
   
-  document.getElementById('tier1-count').textContent = tierCounts[1];
-  document.getElementById('tier1-percent').textContent = `${tierPopPercents[1].toFixed(1)}%`;
+  // Determine verification methods needed
+  const methodsEl = document.getElementById('verification-methods');
+  const methods = new Set();
   
-  document.getElementById('tier2-count').textContent = tierCounts[2];
-  document.getElementById('tier2-percent').textContent = `${tierPopPercents[2].toFixed(1)}%`;
+  if (selectedTiers.includes(0)) {
+    methods.add('• No verification required');
+  }
+  if (selectedTiers.includes(1)) {
+    methods.add('• Credit card verification');
+  }
+  if (selectedTiers.includes(2)) {
+    methods.add('• Transactional data services');
+  }
+  if (selectedTiers.includes(3) || selectedTiers.includes(4)) {
+    methods.add('• IAL2 identity verification');
+    methods.add('• Photo ID matching');
+  }
   
-  const tier34Count = tierCounts[3] + tierCounts[4];
-  const tier34Percent = tierPopPercents[3] + tierPopPercents[4];
-  document.getElementById('tier34-count').textContent = tier34Count;
-  document.getElementById('tier34-percent').textContent = `${tier34Percent.toFixed(1)}%`;
+  methodsEl.innerHTML = Array.from(methods).map(m => `<div>${m}</div>`).join('');
 }
 
 // Initialize tabs
 function initTabs() {
   const tabBtns = document.querySelectorAll('.tab-btn');
-  const tabContents = document.querySelectorAll('.tab-content');
+  const overlayContents = document.querySelectorAll('.tab-content-overlay');
+  const floatingCards = [
+    document.getElementById('tier-selector-card'),
+    document.getElementById('stats-card')
+  ];
   
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -233,51 +252,47 @@ function initTabs() {
       
       // Update button states
       tabBtns.forEach(b => {
-        b.classList.remove('active', 'border-blue-500', 'text-blue-600');
-        b.classList.add('border-transparent', 'text-gray-500');
+        b.classList.remove('active', 'border-blue-600', 'text-blue-600');
+        b.classList.add('border-transparent', 'text-gray-600');
       });
-      btn.classList.add('active', 'border-blue-500', 'text-blue-600');
-      btn.classList.remove('border-transparent', 'text-gray-500');
+      btn.classList.add('active', 'border-blue-600', 'text-blue-600');
+      btn.classList.remove('border-transparent', 'text-gray-600');
       
-      // Show/hide content
-      tabContents.forEach(content => {
-        content.classList.add('hidden');
-      });
-      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+      // Handle map view
+      if (tabName === 'map') {
+        // Hide all overlay content
+        overlayContents.forEach(content => content.classList.add('hidden'));
+        // Show floating cards
+        floatingCards.forEach(card => card.style.display = 'block');
+      } else {
+        // Hide floating cards
+        floatingCards.forEach(card => card.style.display = 'none');
+        // Hide all overlays first
+        overlayContents.forEach(content => content.classList.add('hidden'));
+        // Show selected overlay
+        const overlay = document.getElementById(`tab-${tabName}`);
+        if (overlay) {
+          overlay.classList.remove('hidden');
+        }
+      }
     });
   });
 }
 
-// Initialize strategy builder
-function initStrategyBuilder() {
-  const checkboxes = document.querySelectorAll('.tier-checkbox');
+// Initialize tier filters
+function initTierFilters() {
+  const checkboxes = document.querySelectorAll('.tier-filter-checkbox');
   
   checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', updateStrategyStats);
+    checkbox.addEventListener('change', () => {
+      // Update map styling
+      if (geojsonLayer) {
+        geojsonLayer.setStyle(styleState);
+      }
+      // Update stats
+      updateMarketStats();
+    });
   });
-  
-  updateStrategyStats();
-}
-
-function updateStrategyStats() {
-  const selectedTiers = Array.from(document.querySelectorAll('.tier-checkbox:checked')).map(cb => parseInt(cb.value));
-  
-  const selectedStates = statesData.filter(state => selectedTiers.includes(state.legal.tier));
-  const totalStates = selectedStates.length;
-  const totalPopPercent = selectedStates.reduce((sum, state) => sum + state.populationPercent, 0);
-  const totalPopulation = selectedStates.reduce((sum, state) => sum + state.population, 0);
-  
-  // Determine implementation cost
-  let cost = 'None';
-  if (selectedTiers.includes(4)) cost = 'Very High';
-  else if (selectedTiers.includes(3)) cost = 'High';
-  else if (selectedTiers.includes(2)) cost = 'Medium';
-  else if (selectedTiers.includes(1)) cost = 'Low';
-  
-  document.getElementById('selected-states').textContent = totalStates;
-  document.getElementById('selected-percent').textContent = `${totalPopPercent.toFixed(1)}%`;
-  document.getElementById('selected-population').textContent = `${(totalPopulation / 1000000).toFixed(0)}M`;
-  document.getElementById('implementation-cost').textContent = cost;
 }
 
 // Initialize table
