@@ -64,8 +64,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -106,8 +105,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "$10,000",
@@ -148,8 +146,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -190,8 +187,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -232,8 +228,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -274,8 +269,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -316,8 +310,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -358,8 +351,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -400,8 +392,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "$50,000",
@@ -442,8 +433,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "$10,000",
@@ -484,8 +474,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -526,8 +515,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "$10,000",
@@ -568,8 +556,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -610,8 +597,7 @@
         "thirdPartyService": true,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "$5,000",
@@ -652,8 +638,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -694,8 +679,7 @@
         "thirdPartyService": false,
         "commercialDatabase": true,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "$500 to $10,000",
@@ -736,8 +720,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -778,8 +761,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -820,8 +802,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -862,8 +843,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -904,8 +884,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -946,8 +925,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -988,8 +966,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1030,8 +1007,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -1072,8 +1048,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "$10,000",
@@ -1114,8 +1089,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -1156,8 +1130,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": true,
-        "commerciallySoftware": true
+        "financialDocument": true
       },
       "penalties": {
         "perViolation": "Damages",
@@ -1198,8 +1171,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1240,8 +1212,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1282,8 +1253,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1324,8 +1294,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1366,8 +1335,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1408,8 +1376,7 @@
         "thirdPartyService": false,
         "commercialDatabase": true,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -1450,8 +1417,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -1492,8 +1458,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1534,8 +1499,7 @@
         "thirdPartyService": true,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1576,8 +1540,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1618,8 +1581,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1660,8 +1622,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1702,8 +1663,7 @@
         "thirdPartyService": true,
         "commercialDatabase": true,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -1744,8 +1704,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": true,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "$5,000",
@@ -1786,8 +1745,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -1828,8 +1786,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "$10,000",
@@ -1870,8 +1827,7 @@
         "thirdPartyService": true,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -1912,8 +1868,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -1954,8 +1909,7 @@
         "thirdPartyService": false,
         "commercialDatabase": true,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": true
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",
@@ -1996,8 +1950,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -2038,8 +1991,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -2080,8 +2032,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": null,
@@ -2122,8 +2073,7 @@
         "thirdPartyService": false,
         "commercialDatabase": false,
         "bankAccount": false,
-        "financialDocument": false,
-        "commerciallySoftware": false
+        "financialDocument": false
       },
       "penalties": {
         "perViolation": "Damages",

@@ -1,0 +1,405 @@
+State-Specific Age Verification Requirements
+
+ID Req?
+States
+Applicability
+ID Requirements?
+Penalties
+Citation
+No
+Alaska
+-
+-
+-
+-
+Yes
+Alabama
+Businesses that knowingly publish or distribute sexual material harmful to minors must use reasonable age verification methods
+Any commercially available software, application, program, or methodology that, when enabled, provides reasonable assurances that any individual accessing certain published material is 18 years of age or older.
+Up to $10,000 per violation
+HB 164
+Yes
+Arizona
+A commercial entity that knowingly and intentionally publishes or distributes material on an internet website, including a social media platform, of which more than one-third is sexual material that is harmful to minors shall use reasonable age verification methods to verify that an individual who attempts to access the material is eighteen years of age or older. 
+Must perform age verification by:
+-providing a form of digital ID that does not cause the information to be transmitted to a governmental entity
+-Use an age verification system that utilizes government-issued IDs or -a commercially reasonable method that relies on public and private transactional data
+$10,000 per day that website is operated in violation of the law; or
+$10,000 per instance where personal information is retained for non-verification purposes.
+
+AND
+
+Up to $250,000 if one or more minors accesses sexual materials harmful to minors
+18-701
+Yes
+Arkansas
+Websites with obscene sexual material must employ age-verification before it can be accessed
+Must perform reasonable age verification, which include:
+
+-using digitized IDs
+-government-issued IDs
+-any commercially reasonable age verification that holds an Identity Assurance Level 2 (IAL2)
+
+Identity Assurance Level 2 is a framework for confirming an individual’s ownership of a genuine identity by using personal information, identity documentation, and biometric characteristics
+Liability to an individual for damages resulting from a minor accessing harmful materials
+A.C.A. § 4-88-1305
+No
+California
+N/A
+N/A
+N/A
+AB 1043 is a new law signed October 2025, which will go into effect January 2027. It applies to device operating systems and app stores – NOT website providers. 
+No
+Colorado
+-
+-
+-
+-
+No
+Connecticut
+-
+-
+-
+-
+No
+Delaware
+Exhibits for sale, sells, displays, transfers, gives gratis, loans, rents or advertises to a known minor any book, pamphlet, magazine or printed matter, however reproduced, or sound recording or picture, photograph, drawing, sculpture, motion picture film or similar visual representation that such person knows to be in whole or in part harmful to minors.
+N/A
+N/A
+11 Del.C. § 1365
+
+This law seemingly applies only to providers of adult-oriented materials in physical locations, but it could be used to hold a business like ChatRoger accountable if it is found to knowingly distribute harmful materials to underage consumers.
+Yes
+Florida
+Websites with harmful to minor content must verify the age of individuals before it can be accessed
+Must offer two methods:
+
+-Anonymous age verification which does not require user to disclose PI
+-Standard commercially reasonable method
+Violations are deemed unfair and deceptive practice.
+
+The government may collect a civil penalty of up to $50,000 per violation and reasonable attorney fees and court costs.
+
+Consistent pattern of conduct may lead to punitive damages.
+501.1737
+Yes
+Georgia
+Websites are required to use "reasonable age verification methods" to confirm that individuals accessing the material are at least 18 years old
+Acceptable methods include: 
+-Submission of a digitized identification card, such as a digital copy of a driver's license. 
+-Submission of government-issued identification. 
+-Any commercially reasonable age verification method meeting or exceeding an Identity Assurance Level 2 
+$10,000 for each violation
+
+1 year statute of limitations 
+Ga. Code Ann., § 39-5-5
+No
+Hawaii
+-
+-
+-
+-
+Yes
+Idaho
+Commercial entities cannot knowingly and intentionally publish material that is harmful to minors on the internet without performing reasonable age verification 
+Must verify identity via reasonable age verification methods, which include:
+-providing a digitized identification card; or
+-requiring government-issued identification or public or private transactional data
+$10,000 in statutory damages plus court costs and attorney fees
+Idaho § 6-3803 
+No
+Illinois
+-
+-
+-
+-
+Yes
+Indiana
+Adult oriented websites must employ reasonable age verification methods
+Reasonable age verification method includes:
+-credential, independent third-party age verification service, or
+ -other method that relies on public or private transactional data to verify the age of the individual attempting to access the material
+Actual damages or $5,000 per violation and costs, and attorney fees
+Section 1.IC24-4-23
+No
+Iowa
+-
+-
+-
+-
+Yes
+Kansas
+Commercial entities sharing and distributing material harmful to minors must verify any person attempting to access such website
+Must verify by using: 
+
+-commercially available database used for age and ID verification; or
+- any other commercially reasonable method of age and identity verification
+Attorney General Enforcement: $500 to $10,000 per violation
+
+Private Right of Action: $50,000 or more in statutory damages, actual damages and reasonable attorney fees.
+K.S.A. 50-6,146
+
+Yes
+Kentucky
+Websites that make material harmful to minors must perform age verification
+Methods include:
+-using state or federal issued ID
+-any commercially reasonable method of identification that relies on public or private transactional data
+Subject to civil action (jury decides both liability and damages)
+KRS § 436
+Yes
+Louisiana
+Sites with a “substantial” amount of adult content (one-third or over) to employ age verification systems
+Reasonable age verification methods include:
+-Digitized ID
+-Government issued ID or 
+-commercially reasonable method that relies on public or private transactional data
+Civil liability, including court costs and reasonable attorney fees
+ LSA-R.S. 9:2800.29
+No
+Maine
+-
+-
+-
+-
+No
+Maryland
+-
+-
+-
+-
+No
+Massachusetts
+-
+-
+-
+-
+No
+Michigan
+-
+-
+-
+-
+No
+Minnesota
+-
+-
+-
+-
+Yes
+Mississippi
+Entities that publish or distribute material harmful to minors must conduct reasonable age verification.
+Verification methods include:
+-using digitized ID;
+-requiring Government-issued ID; or
+-commercially reasonable method that relied on public or private transactional data
+Damages and reasonable attorney fees.
+SB 2346
+Yes
+Missouri
+Websites with material pornography must conduct age verification.
+Verification methods include using:
+-government-issued ID;
+-Commercially reasonable method that relies on public or private transactional data; or
+-Another method that complies with the Missouri Merchandising Practices Act (MMPA)
+Civil penalties up to $10,000 per day
+CSR 60-18
+Yes
+Montana
+Commercial entities must not distribute material harmful to minors.
+Reasonable age verification includes using:
+-digitized ID
+-government issued ID;
+-any commercially reasonable method that relies on transactional data to verify the age of an individual
+Damages and reasonable attorney fees.
+SB 544
+Yes
+Nebraska
+Commercial entities that publish material harmful to minors.
+Reasonable age verification includes using:
+-digitized ID
+-government issued ID;
+-financial document or other document that is a reliable proxy for age; or
+-any commercially reasonable method that relies on public or private transactional data
+Damages and reasonable attorney fees.
+
+Parent of the affected may recover actual damages.
+LB 1092
+No
+Nevada
+-
+-
+-
+-
+No
+New Hampshire
+-
+-
+-
+-
+No
+New Jersey
+-
+-
+-
+-
+No
+New Mexico
+-
+-
+-
+-
+No
+New York
+-
+-
+-
+-
+Yes
+North Carolina
+Entities that publish or distribute material harmful on the internet must conduct age verification
+Age verification includes: -using commercially available database; or 
+-another commercially reasonable method of age and identity verification
+Injunctive relief, compensatory and punitive damages, and all costs, expenses and fees related to the violation
+§ 66501
+Yes
+North Dakota
+Commercial entities that contain a substantial portion of material that is harmful to minors must conduct age verification.
+Age verification includes:
+-digitized ID
+-government issued ID;
+-any commercially reasonable method that relies on transactional data to verify the age of an individual
+Individuals affected may seek injunctive relief, compensatory damages, and cost/fees, including attorney fees.
+HB 1561
+
+No
+Ohio
+-
+-
+-
+-
+Yes
+Oklahoma
+Commercial entities that knowingly and intentionally publish or distribute material harmful to minors must conduct age verification.
+
+The opportunity to block the services must be given to Internet service providers before any individual may access the material. 
+Age verification includes:
+-using digitized ID;
+-verification through an independent third-party service; or
+-any commercially reasonable method that relies on public or private transactional data to verify the age of the person
+Attorney General may seek injunctive and other equitable relief
+SB 1959
+No
+Oregon
+-
+-
+-
+-
+No
+Pennsylvania
+-
+-
+-
+-
+No
+Rhode Island
+-
+-
+-
+-
+Yes
+South Carolina
+Commercial entities that publish or distribute harmful material must conduct age verification
+Age verification includes:
+-using digitized ID;
+-verification through an independent third-party service; or
+-verification through an independent third-party that compares personal information from commercially available databases
+-any commercially reasonable method that relies on transactional data to verify the age of an individual
+Liability for punitive damages when a minor is affected. 
+
+Attorney General may seek injunctive relief and other equitable relief
+HB 3424
+Yes
+South Dakota
+Covered platforms must implement reasonable age verification.
+Verification includes using:
+- a state-issued driver’s license or non-driver card
+-individual’s bank account information
+-debit or credit card from the individual that requires the individual in ownership of the card to be at least eighteen years of age; or
+-Any other method or document that reliably and accurately indicates if a user of a covered platform is a minor
+$5,000 for each separate instance where reasonable verification is not performed.
+HB 1053
+Yes
+Tennessee
+Commercial entities that publish or distribute content that is harmful to minors are liable if the individual or commercial entity does not conduct verification methods.
+Verification methods must not be easily bypassed or circumvented and must include:
+-matching photographs of the active user; or 
+-a commercially reasonable method relying on public or private transactional data to verify a person’s identity
+
+Anonymized age-verification data must be retained for 7 years.
+Liability includes court costs and reasonable attorney fees.
+SB 1792
+Yes
+Texas
+Commercial entities that publish or distribute material with sexual material harmful to minors must conduct age verification
+Verification includes using:
+-digital ID; or
+Commercial age verification system that uses government-issued identification; or a commercially reasonable method that relies on public or private transactional data
+$10,000 per day operating in violation
+
+$10,000 per instance when the entity retains identifying information
+
+$250,000 if one or more minors access sexual materials harmful to minors and the entity was in violation of age verification requirements
+129B.001
+Yes
+Utah
+Commercial entities hosting material harmful to minors must conduct age verification. 
+Verification methods include: 
+-Use of a digitized info card (state approved data included in a mobile device); 
+-verification through independent third party, or -using a commercially reasonable method that relied on public or private transactional data
+Liability to affected individuals for damages, including court costs and attorney fees.
+SB 287
+No
+Vermont
+-
+-
+-
+-
+Yes
+Virginia
+Commercial entities must conduct age verification
+Commercial verification includes using:
+-a commercial database; or
+-another commercially reasonable method of age and identity verification
+Civil liability for damages and reasonable attorney fees and costs
+§ 8.01-40.5
+No
+Washington
+-
+-
+-
+-
+No
+Wisconsin
+-
+-
+-
+-
+Yes
+Wyoming
+Covered platforms that operate a website that includes content that is harmful to minors, must conduct age verification.
+Age verification methods include:
+-driver’s license
+-state ID card
+-U.S. passport
+-U.S. military card
+-tribal ID card
+-credit cards, except for cards that do not require 18+ ownership
+-any other means or methods that reliably and accurately can determine user is not a minor
+Parents of aggrieved minors may bring civil action.
+
+Damages, including court costs and attorney fees.
+HB 43
+
+
+“Transactional Data” definition may vary between states, but it generally means a sequence of information that documents an exchange, agreement, or transfer between an individual, commercial entity, or a third party used for the purpose of satisfying a request or event. Transactional data may include, but not be limited to, records from mortgage, education, and employment entities.

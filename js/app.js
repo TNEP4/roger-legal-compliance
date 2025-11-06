@@ -76,6 +76,145 @@ const legalGlossary = {
 2. It depicts sexual conduct in a patently offensive way for minors<br>
 3. It lacks serious literary, artistic, political, or scientific value <em>for minors</em><br><br>
 <strong>Key difference from adult obscenity:</strong> Each prong adds "for minors" - so material can be legal for adults but "harmful to minors."`
+  },
+  'Bank Account': {
+    term: 'Bank Account Verification',
+    simple: 'Using bank account ownership to verify age, as you typically must be 18+ to open a bank account.',
+    intermediate: 'Age verification by confirming ownership of a bank account. Only South Dakota explicitly allows this method.',
+    detailed: `<strong>How it works:</strong> Verifies ownership of an active bank account, which typically requires being 18 or older.<br><br>
+<strong>Legal Status:</strong> Only South Dakota explicitly mentions bank account information as an acceptable verification method.<br><br>
+<strong>Process:</strong> User may need to provide bank account details or complete a micro-deposit verification.<br><br>
+<strong>Privacy Concerns:</strong> Requires sharing financial information, which some users may be reluctant to provide.`
+  },
+  'Financial Document': {
+    term: 'Financial Document Verification',
+    simple: 'Documents that prove you\'re an adult, like mortgage papers or tax forms.',
+    intermediate: 'Using financial records as proof of age. Documents that typically only adults possess can serve as age proxies.',
+    detailed: `<strong>Nebraska's Specific Language:</strong> "Financial document or other document that is a reliable proxy for age"<br><br>
+<strong>Examples:</strong><br>
+• Mortgage or property deed (must be 18+ to sign)<br>
+• Tax returns (W-2, 1099)<br>
+• Insurance policies<br>
+• Loan agreements<br><br>
+<strong>How it works:</strong> User uploads or shares proof of possessing adult-only financial documents.<br><br>
+<strong>Legal Status:</strong> Only Nebraska explicitly allows "financial documents" as a verification method.<br><br>
+<strong>Reliability:</strong> Very high - these documents require legal capacity (18+) to obtain.`
+  },
+  'Punitive Damages': {
+    term: 'Punitive Damages',
+    simple: 'Extra money awarded to punish bad behavior, not just compensate for harm.',
+    intermediate: 'Damages awarded to punish wrongdoing and deter future violations, beyond just making the victim whole. Higher than actual damages.',
+    detailed: `<strong>Purpose:</strong> To punish egregious conduct and deter similar behavior by others.<br><br>
+<strong>When Awarded:</strong> For willful, malicious, or reckless violations. Not just accidents or negligence.<br><br>
+<strong>States Allowing:</strong> Florida, North Carolina, South Carolina<br><br>
+<strong>Florida:</strong> "Consistent pattern of conduct may lead to punitive damages"<br>
+<strong>North Carolina:</strong> Explicitly includes punitive damages in remedies<br>
+<strong>South Carolina:</strong> "Liability for punitive damages when a minor is affected"<br><br>
+<strong>Financial Impact:</strong> Can be substantial - often multiple times actual damages. No caps specified in these states' age verification laws.`
+  },
+  'Injunctive Relief': {
+    term: 'Injunctive Relief',
+    simple: 'A court order forcing you to do something (or stop doing something).',
+    intermediate: 'A court-ordered remedy requiring a party to perform or refrain from specific actions. Can shut down non-compliant services.',
+    detailed: `<strong>Types:</strong><br>
+• <em>Preliminary Injunction:</em> Temporary order while case is pending<br>
+• <em>Permanent Injunction:</em> Final order after judgment<br><br>
+<strong>States Allowing:</strong> North Carolina, North Dakota, Oklahoma, South Carolina<br><br>
+<strong>What it Means:</strong> Attorney General or affected parties can ask a court to:<br>
+• Stop operations until compliance is achieved<br>
+• Require implementation of specific verification measures<br>
+• Block access to the service in the state<br><br>
+<strong>Risk:</strong> Can force immediate service shutdown or geo-blocking, even before trial. Often faster than waiting for monetary damages.<br><br>
+<strong>Standard:</strong> Usually requires showing "irreparable harm" (ongoing minors' access) and likelihood of success on merits.`
+  },
+  'Statutory Damages': {
+    term: 'Statutory Damages',
+    simple: 'A fixed dollar amount set by law, without needing to prove actual harm.',
+    intermediate: 'Pre-determined damage amounts specified in the statute. Don\'t need to prove actual financial loss to recover.',
+    detailed: `<strong>Advantage for Plaintiffs:</strong> Don't need to prove actual damages - just the violation. Makes lawsuits easier to win.<br><br>
+<strong>Idaho:</strong> "$10,000 in statutory damages plus court costs and attorney fees"<br>
+• Per violation or per instance<br>
+• Plus actual damages if proven<br>
+• Plus attorney fees<br><br>
+<strong>Kansas:</strong> "$50,000 or more in statutory damages"<br>
+• Applies to private right of action<br>
+• "Or more" suggests no cap<br>
+• Plus actual damages<br>
+• Plus attorney fees<br><br>
+<strong>Why It Matters:</strong> Even if a business can show no one was actually harmed, they still owe the statutory amount. Makes compliance failures very expensive.<br><br>
+<strong>Comparison:</strong> Most states only allow "actual damages" (proving real financial harm), which is harder.`
+  },
+  'Commercially Reasonable Software': {
+    term: 'Commercially Reasonable Software',
+    simple: 'Any reasonable age verification software, app, or method that confirms someone is 18+.',
+    intermediate: 'Catch-all term in many state laws for age verification technology that is "commercially reasonable" - meaning widely available, reliable, and standard in the industry.',
+    detailed: `<strong>Legal Language:</strong> "Any commercially available software, application, program, or methodology that, when enabled, provides reasonable assurances that any individual accessing certain published material is 18 years of age or older."<br><br>
+<strong>What qualifies as "commercially reasonable":</strong><br>
+• Widely available verification services (Yoti, Veriff, ID.me, AgeChecker.net)<br>
+• Uses standard verification methods (transactional data, ID verification)<br>
+• Provides "reasonable assurances" of age (doesn't need to be 100% perfect)<br>
+• Cost-effective and practical for businesses to implement<br><br>
+<strong>States using this language:</strong> 20+ states including Alabama, Arizona, Arkansas, Florida, Georgia, Kansas, Kentucky, Louisiana, Mississippi, Missouri, Montana, Nebraska, North Carolina, North Dakota, Oklahoma, South Carolina, Tennessee, Texas, Utah, Virginia<br><br>
+<strong>Why it's broad:</strong> Gives flexibility for evolving technology and doesn't mandate one specific vendor or method.<br><br>
+<strong>Typical implementation:</strong> Third-party age verification services that check multiple data sources ($0.05-2.00 per verification).`
+  },
+  'Third-Party Service': {
+    term: 'Third-Party Age Verification Service',
+    simple: 'An outside company that specializes in age verification (like Yoti, Veriff, or ID.me).',
+    intermediate: 'Independent verification companies that check age using multiple methods: government databases, transactional records, ID verification, biometrics.',
+    detailed: `<strong>How they work:</strong> User provides information to a third-party service (not directly to your website), which verifies age and returns only a yes/no result.<br><br>
+<strong>Common providers:</strong><br>
+• <em>Yoti</em> - Digital ID and age estimation<br>
+• <em>Veriff</em> - Document verification and biometrics<br>
+• <em>ID.me</em> - Government-grade identity verification<br>
+• <em>AgeChecker.net</em> - Database-driven verification<br>
+• <em>Clear</em> - Biometric verification platform<br><br>
+<strong>Privacy advantage:</strong> The website never sees your ID or personal data - only gets confirmation you're 18+. Called "anonymous age verification" in some states.<br><br>
+<strong>Methods used:</strong> These services combine multiple approaches:<br>
+• Government ID scanning and validation<br>
+• Commercial database lookups<br>
+• Facial recognition and biometrics<br>
+• Transactional data checks<br><br>
+<strong>Cost:</strong> Typically $0.05 to $5.00 per verification depending on method and provider.<br><br>
+<strong>Legal standing:</strong> Many state laws explicitly allow third-party services, and some states (like Florida) strongly prefer them for privacy reasons.`
+  },
+  'Commercial Database': {
+    term: 'Commercial Database Verification',
+    simple: 'Using existing databases of adult records (like credit bureaus) to verify someone is 18+.',
+    intermediate: 'Third-party age verification services that check your information against commercial databases containing adult-only records.',
+    detailed: `<strong>What databases are used:</strong><br>
+• <em>Credit bureaus</em> (Equifax, Experian, TransUnion) - must be 18+ to have credit history<br>
+• <em>Public records</em> - property ownership, voter registration, court records<br>
+• <em>Commercial aggregators</em> - LexisNexis, Acxiom, etc. compile adult data<br>
+• <em>Employment/education records</em> - HR databases, college enrollment<br><br>
+<strong>How it works:</strong><br>
+1. User provides basic info (name, DOB, address)<br>
+2. Service queries multiple databases<br>
+3. Checks if your identity appears in adult-only databases<br>
+4. Returns "verified 18+" or "not verified"<br><br>
+<strong>Accuracy:</strong> High for adults with established records (credit, employment, property). Lower for young adults (18-21) who may not have extensive records yet.<br><br>
+<strong>States explicitly allowing:</strong> Multiple states mention "commercially available database" in their laws, including Kansas, Nebraska, North Carolina, Oklahoma, Texas, Virginia.<br><br>
+<strong>Privacy:</strong> Less invasive than uploading ID photos - just checks existing records. No biometric data collected.<br><br>
+<strong>Cost:</strong> Very affordable - typically $0.05-0.25 per verification since it's just a database lookup.`
+  },
+  'Anonymous Option': {
+    term: 'Anonymous Age Verification',
+    simple: 'Age verification without sharing your name or personal information with the website.',
+    intermediate: 'Privacy-preserving verification where you prove you\'re 18+ without revealing your identity. Only Florida currently requires this option.',
+    detailed: `<strong>Florida's Requirement:</strong> "Anonymous age verification which does not require user to disclose personal information (PI)"<br><br>
+<strong>How it works:</strong><br>
+• User verifies age through a third-party service<br>
+• Service confirms "18 or older" to the website<br>
+• Website never receives your name, address, DOB, or ID<br>
+• Uses cryptographic tokens or zero-knowledge proofs<br><br>
+<strong>Technologies enabling this:</strong><br>
+• <em>Zero-knowledge proofs:</em> Mathematical way to prove "I'm over 18" without revealing your exact age<br>
+• <em>Anonymous credentials:</em> Digital tokens that prove age without identity<br>
+• <em>Privacy-preserving third parties:</em> Services like Yoti that verify but don't share data<br><br>
+<strong>Why Florida requires it:</strong> Balances age verification with First Amendment concerns about anonymous access to legal content.<br><br>
+<strong>Advantage:</strong> Protects user privacy - the website can't track who accessed what content.<br><br>
+<strong>Challenge:</strong> More complex to implement than simple ID upload. Requires sophisticated third-party services.<br><br>
+<strong>Current status:</strong> Only Florida explicitly requires this option (as of 2024). Other states allow but don't mandate it.`
   }
 };
 
@@ -327,7 +466,10 @@ function showStateDetail(state) {
     photoMatching: '📸 Photo Matching Required',
     anonymousOption: '🕶️ Anonymous Option Available',
     thirdPartyService: '🏢 Third-Party Service',
-    commercialDatabase: '🗄️ Commercial Database'
+    commercialDatabase: '🗄️ Commercial Database',
+    commerciallySoftware: '💻 Commercially Reasonable Software',
+    bankAccount: '🏦 Bank Account Information',
+    financialDocument: '📄 Financial Documents'
   };
   
   let hasAnyMethod = false;
@@ -368,26 +510,86 @@ function updateMarketStats() {
   document.getElementById('selected-population-percent').textContent = `${totalPopPercent.toFixed(1)}%`;
   document.getElementById('selected-population-count').textContent = `${(totalPopulation / 1000000).toFixed(0)}M`;
   
-  // Determine verification methods needed
+  // Determine verification methods needed based on actual data
   const methodsEl = document.getElementById('verification-methods');
+
+  // If no states selected, show all methods
+  if (selectedStates.length === 0) {
+    methodsEl.innerHTML = '<div class="text-gray-500 italic">Select tiers to see verification methods</div>';
+    return;
+  }
+
+  // Aggregate verification methods from selected states
+  const methodUsage = {
+    creditCard: false,
+    digitizedId: false,
+    governmentId: false,
+    transactionalData: false,
+    ial2Required: false,
+    photoMatching: false,
+    anonymousOption: false,
+    thirdPartyService: false,
+    commercialDatabase: false,
+    commerciallySoftware: false,
+    bankAccount: false,
+    financialDocument: false
+  };
+
+  // Check which methods are used in selected states
+  selectedStates.forEach(state => {
+    Object.keys(methodUsage).forEach(method => {
+      if (state.legal.verificationMethods[method]) {
+        methodUsage[method] = true;
+      }
+    });
+  });
+
+  // Map methods to display labels with tooltips
+  const methodLabels = {
+    creditCard: { label: 'Credit card', term: 'Credit Card' },
+    digitizedId: { label: 'Digitized ID', term: 'Digital ID' },
+    governmentId: { label: 'Government-issued ID', term: 'Photo ID' },
+    transactionalData: { label: 'Transactional data', term: 'Transactional Data' },
+    ial2Required: { label: 'IAL2 certification', term: 'IAL2' },
+    photoMatching: { label: 'Photo matching', term: 'Photo ID' },
+    anonymousOption: { label: 'Anonymous option available', term: 'Anonymous Option' },
+    thirdPartyService: { label: 'Third-party service', term: 'Third-Party Service' },
+    commercialDatabase: { label: 'Commercial database', term: 'Commercial Database' },
+    commerciallySoftware: { label: 'Commercially reasonable software', term: 'Commercially Reasonable Software' },
+    bankAccount: { label: 'Bank account information', term: 'Bank Account' },
+    financialDocument: { label: 'Financial documents', term: 'Financial Document' }
+  };
+
+  // Build the list
   const methods = [];
-  
-  if (selectedTiers.includes(0)) {
+
+  // Special case: if only Tier 0 states are selected
+  const allTier0 = selectedStates.every(state => state.legal.tier === 0);
+  if (allTier0) {
     methods.push('• No verification required');
+  } else {
+    // Show all methods that are used in selected states
+    Object.entries(methodUsage).forEach(([method, isUsed]) => {
+      if (isUsed) {
+        const config = methodLabels[method];
+        if (config.term) {
+          // With tooltip
+          methods.push(`• <span class="legal-term" data-term="${config.term}">${config.label}</span>`);
+        } else {
+          // Without tooltip
+          methods.push(`• ${config.label}`);
+        }
+      }
+    });
+
+    // If no methods found (shouldn't happen), show message
+    if (methods.length === 0) {
+      methods.push('• No specific methods defined');
+    }
   }
-  if (selectedTiers.includes(1)) {
-    methods.push('• <span class="legal-term" data-term="Credit Card">Credit card</span> verification');
-  }
-  if (selectedTiers.includes(2)) {
-    methods.push('• <span class="legal-term" data-term="Transactional Data">Transactional data</span> services');
-  }
-  if (selectedTiers.includes(3) || selectedTiers.includes(4)) {
-    methods.push('• <span class="legal-term" data-term="IAL2">IAL2</span> identity verification');
-    methods.push('• <span class="legal-term" data-term="Photo ID">Photo ID</span> matching');
-  }
-  
+
   methodsEl.innerHTML = methods.map(m => `<div>${m}</div>`).join('');
-  
+
   // Reinitialize tooltips for new elements
   initLegalTermTooltips();
 }

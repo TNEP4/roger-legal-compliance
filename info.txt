@@ -1,0 +1,51 @@
+The following states do not appear to have any currently enacted age-verification laws (these are greyed out in the chart). Do note that some of these states have had bills presented pushing to adopt age-verification requirements:
+
+Alaska
+California
+Colorado
+Connecticut
+Hawaii
+Illinois
+Iowa
+Maine
+Maryland
+Massachusetts
+Michigan
+Minnesota
+Nevada
+New Hampshire
+New Jersey
+New Mexico
+New York
+Ohio
+Oregon
+Pennsylvania
+Rhode Island
+Vermont
+Washington
+Wisconsin
+Two states, South Dakota and Wyoming, have age-verification laws, but expressly allow businesses to use credit cards as a verification method. To be allowed as a valid verification method credit cards must require the owner to be 18 years or older. Nebraska also allows the use of ‘financial documents’ to establish age verification.
+
+ 
+
+ 
+
+Several other states note that businesses may use “any commercially reasonable method that relies on public or private transactional data” to conduct age verification. The definition of “transaction data” varies between states, but it generally means ‘a sequence of information that documents an exchange, agreement, or transfer, between an individual commercial entity, or a third party used for the purpose of satisfying a request or event.’ – We have not been able to determine whether this catch-all language is meant to include the use of credit cards for age verification purposes, especially because the language is included in Wyoming’s statute, which already covers the use of credit cards. States with this language include:
+
+Arizona
+Kansas
+Kentucky
+Louisiana
+Mississippi
+Missouri
+Montana
+North Carolina
+North Dakota
+Oklahoma
+South Carolina
+South Dakota
+Tennessee
+Texas
+Utah
+Virginia
+Wyoming
