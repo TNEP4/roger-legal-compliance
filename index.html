@@ -153,6 +153,80 @@
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
     
+    /* Legal Term Tooltip */
+    .legal-term {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: #3b82f6;
+      cursor: help;
+      transition: all 0.2s;
+    }
+    
+    .legal-term:hover {
+      color: #3b82f6;
+      text-decoration-style: solid;
+    }
+    
+    .legal-tooltip {
+      position: fixed;
+      z-index: 9999;
+      max-width: 450px;
+      pointer-events: none;
+    }
+    
+    .legal-tooltip.show {
+      pointer-events: auto;
+    }
+    
+    .legal-tooltip-content {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+    }
+    
+    .legal-tooltip-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .tooltip-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #6b7280;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    
+    .tooltip-close:hover {
+      color: #111827;
+    }
+    
+    .legal-tooltip-body {
+      padding: 16px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #374151;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .legal-tooltip-body strong {
+      font-weight: 600;
+    }
+    
     /* Tier Filter Buttons */
     .tier-filter-btn {
       border: 1px solid transparent;
@@ -229,9 +303,6 @@
         </button>
         <button class="tab-btn" data-tab="table">
           Data
-        </button>
-        <button class="tab-btn" data-tab="resources">
-          Glossary
         </button>
         <div class="tab-switch-slider"></div>
       </nav>
@@ -422,196 +493,22 @@
               <!-- Populated by JavaScript -->
             </tbody>
           </table>
-      </div>
         </div>
       </div>
-
-  <!-- Glossary Tab Content (Hidden by default) -->
-  <div id="tab-resources" class="tab-content-overlay hidden">
-    <div class="max-w-4xl mx-auto px-4 py-6">
-      <h2 class="text-lg font-semibold mb-4">Legal Terms Glossary</h2>
-      <p class="text-xs text-gray-500 mb-4">Click each term to expand from simple to detailed explanation</p>
-      
-      <div class="space-y-3">
-          
-          <details class="border rounded p-3">
-            <summary class="font-medium cursor-pointer">Material Harmful to Minors</summary>
-            <div class="text-sm text-gray-700 mt-2 space-y-3">
-              <div>
-                <strong class="text-blue-600">🔵 Simple:</strong><br>
-                Sexual content that's inappropriate for people under 18.
-              </div>
-              <div>
-                <strong class="text-green-600">🟢 Intermediate:</strong><br>
-                Content depicting sexual acts that's offensive by community standards and has no serious value for minors. Based on the "Miller test" but modified for minors.
-              </div>
-              <div>
-                <strong class="text-orange-600">🟠 Detailed:</strong><br>
-                A three-part legal test (modified Miller test) where ALL three must be true:<br>
-                1. The average person, using contemporary community standards, would find it appeals to minors' prurient (shameful/morbid) interest in sex<br>
-                2. It depicts sexual conduct in a patently offensive way for minors<br>
-                3. It lacks serious literary, artistic, political, or scientific value <em>for minors</em><br><br>
-                <strong>Key difference from adult obscenity:</strong> Each prong adds "for minors" - so material can be legal for adults but "harmful to minors."
-              </div>
-            </div>
-          </details>
-
-          <details class="border rounded p-3">
-            <summary class="font-medium cursor-pointer">IAL2 (Identity Assurance Level 2)</summary>
-            <div class="text-sm text-gray-700 mt-2 space-y-3">
-              <div>
-                <strong class="text-blue-600">🔵 Simple:</strong><br>
-                Strong ID verification using government documents plus a selfie. Required by Arkansas and Georgia.
-              </div>
-              <div>
-                <strong class="text-green-600">🟢 Intermediate:</strong><br>
-                A federal government standard (NIST) for proving someone's identity online with "high confidence." Requires multiple types of proof including photo ID and biometric verification (like face matching).
-              </div>
-              <div>
-                <strong class="text-orange-600">🟠 Detailed:</strong><br>
-                <strong>Official Standard:</strong> NIST Special Publication 800-63A<br>
-                <strong>Evidence Required:</strong> One STRONG + one FAIR piece of evidence, OR one SUPERIOR piece<br>
-                <strong>Typical Process:</strong><br>
-                • Personal information (name, DOB, address)<br>
-                • Government-issued photo ID (driver's license, passport)<br>
-                • Biometric verification (live selfie matched to ID photo)<br>
-                • Background database checks<br><br>
-                <strong>Why it's strict:</strong> Designed to prevent impersonation attacks and identity fraud at government-level security. More rigorous than typical e-commerce verification.<br><br>
-                <strong>Cost implication:</strong> Requires specialized third-party services ($1-5 per verification). Cannot be done with simple credit card checks.
-              </div>
-            </div>
-          </details>
-
-          <details class="border rounded p-3">
-            <summary class="font-medium cursor-pointer">Transactional Data</summary>
-            <div class="text-sm text-gray-700 mt-2 space-y-3">
-              <div>
-                <strong class="text-blue-600">🔵 Simple:</strong><br>
-                Records from business transactions and databases that can prove someone's age. Examples: mortgage records, employment history, education records.
-              </div>
-              <div>
-                <strong class="text-green-600">🟢 Intermediate:</strong><br>
-                "A sequence of information that documents an exchange, agreement, or transfer between an individual, commercial entity, or third party." Used by third-party age verification companies that access commercial databases containing adult records.
-              </div>
-              <div>
-                <strong class="text-orange-600">🟠 Detailed:</strong><br>
-                <strong>Legal Definition (from statutes):</strong> "Public or private transactional data" means records documenting exchanges, agreements, or transfers that can verify age.<br><br>
-                <strong>Specific Examples from State Laws:</strong><br>
-                • Mortgage/property records (must be 18+ to sign)<br>
-                • Employment records (W-2s, payroll data)<br>
-                • Educational records (college enrollment)<br>
-                • Utility bills, insurance policies<br>
-                • Commercial database entries<br><br>
-                <strong>How it works:</strong> Third-party services (like Yoti, Veriff, ID.me) check if your name/DOB appears in these adult-only databases.<br><br>
-                <strong>The Credit Card Question:</strong> Most statutes say "public or private transactional data" but DON'T explicitly say if credit cards count. Only South Dakota, Wyoming, and Nebraska explicitly allow credit cards. Other states remain unclear.<br><br>
-                <strong>Implementation:</strong> Typically costs $0.05-0.25 per verification through specialized vendors.
-              </div>
-            </div>
-          </details>
-
-          <details class="border rounded p-3">
-            <summary class="font-medium cursor-pointer">Commercially Reasonable Method</summary>
-            <div class="text-sm text-gray-700 mt-2 space-y-3">
-              <div>
-                <strong class="text-blue-600">🔵 Simple:</strong><br>
-                Age verification methods that work in the real world and are used by legitimate businesses.
-              </div>
-              <div>
-                <strong class="text-green-600">🟢 Intermediate:</strong><br>
-                Methods "regularly used by government or businesses for age and identity verification" (Florida's definition). Must be practical to implement while effectively confirming users are 18+.
-              </div>
-              <div>
-                <strong class="text-orange-600">🟠 Detailed:</strong><br>
-                <strong>The Problem:</strong> No state defines this precisely. It's intentionally vague legal language.<br><br>
-                <strong>Generally Accepted Methods:</strong><br>
-                • Government-issued ID verification (most common)<br>
-                • Digital ID apps (state-approved)<br>
-                • Third-party verification services<br>
-                • Database lookups (transactional data)<br>
-                • Biometric verification<br><br>
-                <strong>What's NOT Clear:</strong><br>
-                • Are credit cards "commercially reasonable"? (Disputed - only 3 states explicitly allow)<br>
-                • How much verification is "reasonable"? (Court precedent lacking)<br>
-                • What accuracy rate is required? (Not specified)<br><br>
-                <strong>Legal Standard Applied:</strong> Would a "reasonable business person" consider this method adequate for age verification? Courts will decide case-by-case.<br><br>
-                <strong>Risk:</strong> This vagueness means you could implement something you think is "reasonable" and still face litigation. Conservative interpretation recommended.
-              </div>
-            </div>
-          </details>
-
-          <details class="border rounded p-3">
-            <summary class="font-medium cursor-pointer">Digital ID / Digitized ID</summary>
-            <div class="text-sm text-gray-700 mt-2 space-y-3">
-              <div>
-                <strong class="text-blue-600">🔵 Simple:</strong><br>
-                A digital version of your driver's license or ID card, often in a mobile app.
-              </div>
-              <div>
-                <strong class="text-green-600">🟢 Intermediate:</strong><br>
-                A verified digital credential (like Apple Wallet ID or state-specific apps) that proves your identity and age without sharing your actual ID document.
-              </div>
-              <div>
-                <strong class="text-orange-600">🟠 Detailed:</strong><br>
-                <strong>Types:</strong><br>
-                • <em>State-issued mobile IDs</em>: Official digital versions of driver's licenses (e.g., Arizona, Colorado, Maryland apps)<br>
-                • <em>Third-party digital IDs</em>: Verified credentials from services like Clear, ID.me<br>
-                • <em>Scanned/photo IDs</em>: Pictures of physical IDs (least secure, often not accepted)<br><br>
-                <strong>Arizona's specific requirement:</strong> Digital ID that "does not cause information to be transmitted to a governmental entity" - meaning privacy-preserving verification.<br><br>
-                <strong>How they work:</strong> Use cryptographic signatures to prove authenticity without exposing your full ID. Some use zero-knowledge proofs (only share "over 18" boolean, not your exact age).<br><br>
-                <strong>Adoption:</strong> Still emerging technology. Not all states have digital ID programs yet.
-              </div>
-            </div>
-          </details>
-
-          <details class="border rounded p-3">
-            <summary class="font-medium cursor-pointer">Private Right of Action</summary>
-            <div class="text-sm text-gray-700 mt-2 space-y-3">
-              <div>
-                <strong class="text-blue-600">🔵 Simple:</strong><br>
-                Individuals (like parents) can sue you directly, not just the government.
-              </div>
-              <div>
-                <strong class="text-green-600">🟢 Intermediate:</strong><br>
-                When a law includes a "private right of action," any affected person can file a lawsuit against you for damages. You're not just at risk from government enforcement - anyone can sue.
-              </div>
-              <div>
-                <strong class="text-orange-600">🟠 Detailed:</strong><br>
-                <strong>Why it matters:</strong> Much higher legal risk. Government has limited resources and prosecutes selectively. Private citizens can sue anytime.<br><br>
-                <strong>Examples from State Laws:</strong><br>
-                • <strong>Kansas:</strong> $50,000+ in statutory damages PLUS actual damages + attorney fees<br>
-                • <strong>Wyoming:</strong> Parents of minors can bring civil action<br>
-                • <strong>Arkansas, Kentucky, Louisiana:</strong> Individuals can sue for damages<br><br>
-                <strong>Financial Risk:</strong> <br>
-                • Class action lawsuit potential (thousands of plaintiffs)<br>
-                • Must pay plaintiff's attorney fees if you lose<br>
-                • Statutory damages (fixed amounts, don't need to prove actual harm)<br>
-                • Discovery costs (defending lawsuits is expensive even if you win)<br><br>
-                <strong>Comparison:</strong> States with ONLY government enforcement (Attorney General) = lower risk. States with private right of action = significantly higher litigation risk.
-              </div>
-            </div>
-          </details>
         </div>
 
-        <!-- Legal Disclaimer -->
-      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 my-6">
-          <h3 class="font-semibold text-yellow-800 mb-2">⚠️ Legal Disclaimer</h3>
-          <p class="text-sm text-gray-700">
-          This tool is for informational purposes only and does NOT constitute legal advice. Laws are subject to change, interpretation varies, and enforcement is unpredictable. You MUST consult with a qualified attorney before making any business decisions based on this information.
-          </p>
-        </div>
-
-        <!-- Data Sources -->
-        <div class="bg-gray-50 rounded-lg p-4">
-          <h3 class="font-medium mb-2">Data Sources</h3>
-          <ul class="text-sm text-gray-700 space-y-1">
-          <li>• Legal requirements: Original legal research (2024-2025)</li>
-          <li>• Population data: US Census Bureau 2025</li>
-            <li>• LGBTQ+ demographics: Williams Institute, Gallup, MAP</li>
-            <li>• Last updated: November 2025</li>
-          </ul>
-        </div>
+  <!-- Legal Term Tooltip -->
+  <div id="legal-tooltip" class="legal-tooltip hidden">
+    <div class="legal-tooltip-content">
+      <div class="legal-tooltip-header">
+        <strong id="tooltip-term"></strong>
+        <button id="tooltip-close" class="tooltip-close">&times;</button>
+      </div>
+      <div id="tooltip-body" class="legal-tooltip-body"></div>
       </div>
     </div>
+
+  <!-- Removed Glossary Tab - Legal terms now show as tooltips throughout the app -->
 
   <!-- State Detail Panel (Slide-out) -->
   <div id="state-panel" class="state-detail-panel fixed top-0 right-0 h-full bg-white shadow-2xl overflow-y-auto z-50" style="min-width: 400px; max-width: 40vw;">

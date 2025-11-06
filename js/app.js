@@ -5,6 +5,80 @@ let statesData = [];
 let map = null;
 let geojsonLayer = null;
 
+// Legal glossary data
+const legalGlossary = {
+  'IAL2': {
+    term: 'IAL2 (Identity Assurance Level 2)',
+    simple: 'Strong ID verification using government documents plus a selfie. Required by Arkansas and Georgia.',
+    intermediate: 'A federal government standard (NIST) for proving someone\'s identity online with "high confidence." Requires multiple types of proof including photo ID and biometric verification (like face matching).',
+    detailed: `<strong>Official Standard:</strong> NIST Special Publication 800-63A<br>
+<strong>Evidence Required:</strong> One STRONG + one FAIR piece of evidence, OR one SUPERIOR piece<br>
+<strong>Typical Process:</strong><br>
+• Personal information (name, DOB, address)<br>
+• Government-issued photo ID (driver's license, passport)<br>
+• Biometric verification (live selfie matched to ID photo)<br>
+• Background database checks<br><br>
+<strong>Why it's strict:</strong> Designed to prevent impersonation attacks and identity fraud at government-level security. More rigorous than typical e-commerce verification.<br><br>
+<strong>Cost implication:</strong> Requires specialized third-party services ($1-5 per verification). Cannot be done with simple credit card checks.`
+  },
+  'Transactional Data': {
+    term: 'Transactional Data',
+    simple: 'Records from business transactions and databases that can prove someone\'s age. Examples: mortgage records, employment history, education records.',
+    intermediate: '"A sequence of information that documents an exchange, agreement, or transfer between an individual, commercial entity, or third party." Used by third-party age verification companies that access commercial databases containing adult records.',
+    detailed: `<strong>Legal Definition (from statutes):</strong> "Public or private transactional data" means records documenting exchanges, agreements, or transfers that can verify age.<br><br>
+<strong>Specific Examples from State Laws:</strong><br>
+• Mortgage/property records (must be 18+ to sign)<br>
+• Employment records (W-2s, payroll data)<br>
+• Educational records (college enrollment)<br>
+• Utility bills, insurance policies<br>
+• Commercial database entries<br><br>
+<strong>How it works:</strong> Third-party services (like Yoti, Veriff, ID.me) check if your name/DOB appears in these adult-only databases.<br><br>
+<strong>The Credit Card Question:</strong> Most statutes say "public or private transactional data" but DON'T explicitly say if credit cards count. Only South Dakota, Wyoming, and Nebraska explicitly allow credit cards. Other states remain unclear.<br><br>
+<strong>Implementation:</strong> Typically costs $0.05-0.25 per verification through specialized vendors.`
+  },
+  'Credit Card': {
+    term: 'Credit Card Verification',
+    simple: 'Using credit card information to verify age, based on the assumption that only adults can obtain credit cards.',
+    intermediate: 'Age verification by checking credit card ownership. Only 3 states (South Dakota, Wyoming, Nebraska) explicitly allow this method.',
+    detailed: `<strong>How it works:</strong> Verifies that a user possesses a valid credit card, which theoretically requires being 18+.<br><br>
+<strong>Legal Status:</strong> Most states with age verification laws do NOT explicitly mention credit cards as acceptable. Only South Dakota, Wyoming, and Nebraska clearly allow them.<br><br>
+<strong>The Problem:</strong> Unclear if this counts as "transactional data" or "commercially reasonable method" in other states.<br><br>
+<strong>Risk:</strong> May not be compliant in most jurisdictions with age verification requirements.`
+  },
+  'Photo ID': {
+    term: 'Photo ID Matching',
+    simple: 'Comparing a live photo or selfie to a government-issued photo ID to verify identity and age.',
+    intermediate: 'Biometric verification that matches a live selfie to a photo ID. Often required alongside other verification methods for strict compliance.',
+    detailed: `<strong>Process:</strong> User takes a photo of their government ID, then takes a live selfie. Software compares the two using facial recognition technology.<br><br>
+<strong>When Required:</strong> Essential for IAL2 compliance (Arkansas, Georgia). Often part of strict verification in Tier 3-4 states.<br><br>
+<strong>Technology:</strong> Uses AI/ML for facial matching, liveness detection (to prevent photo of a photo), and document authentication.<br><br>
+<strong>Accuracy:</strong> Modern systems can achieve 95%+ accuracy but may have bias issues across demographics.<br><br>
+<strong>Privacy Concerns:</strong> Requires collection of biometric data, which some states regulate separately.`
+  },
+  'Digital ID': {
+    term: 'Digital ID / Digitized ID',
+    simple: 'A digital version of your driver\'s license or ID card, often in a mobile app.',
+    intermediate: 'A verified digital credential (like Apple Wallet ID or state-specific apps) that proves your identity and age without sharing your actual ID document.',
+    detailed: `<strong>Types:</strong><br>
+• <em>State-issued mobile IDs</em>: Official digital versions of driver's licenses (e.g., Arizona, Colorado, Maryland apps)<br>
+• <em>Third-party digital IDs</em>: Verified credentials from services like Clear, ID.me<br>
+• <em>Scanned/photo IDs</em>: Pictures of physical IDs (least secure, often not accepted)<br><br>
+<strong>Arizona's specific requirement:</strong> Digital ID that "does not cause information to be transmitted to a governmental entity" - meaning privacy-preserving verification.<br><br>
+<strong>How they work:</strong> Use cryptographic signatures to prove authenticity without exposing your full ID. Some use zero-knowledge proofs (only share "over 18" boolean, not your exact age).<br><br>
+<strong>Adoption:</strong> Still emerging technology. Not all states have digital ID programs yet.`
+  },
+  'Material Harmful to Minors': {
+    term: 'Material Harmful to Minors',
+    simple: 'Sexual content that\'s inappropriate for people under 18.',
+    intermediate: 'Content depicting sexual acts that\'s offensive by community standards and has no serious value for minors. Based on the "Miller test" but modified for minors.',
+    detailed: `A three-part legal test (modified Miller test) where ALL three must be true:<br>
+1. The average person, using contemporary community standards, would find it appeals to minors' prurient (shameful/morbid) interest in sex<br>
+2. It depicts sexual conduct in a patently offensive way for minors<br>
+3. It lacks serious literary, artistic, political, or scientific value <em>for minors</em><br><br>
+<strong>Key difference from adult obscenity:</strong> Each prong adds "for minors" - so material can be legal for adults but "harmful to minors."`
+  }
+};
+
 // Initialize app
 document.addEventListener('DOMContentLoaded', async () => {
   // Load states data
@@ -21,6 +95,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // Update market coverage stats
   updateMarketStats();
+  
+  // Initialize legal term tooltips
+  initLegalTermTooltips();
   
   // Close panel handler
   document.getElementById('close-panel').addEventListener('click', () => {
@@ -218,23 +295,26 @@ function updateMarketStats() {
   
   // Determine verification methods needed
   const methodsEl = document.getElementById('verification-methods');
-  const methods = new Set();
+  const methods = [];
   
   if (selectedTiers.includes(0)) {
-    methods.add('• No verification required');
+    methods.push('• No verification required');
   }
   if (selectedTiers.includes(1)) {
-    methods.add('• Credit card verification');
+    methods.push('• <span class="legal-term" data-term="Credit Card">Credit card</span> verification');
   }
   if (selectedTiers.includes(2)) {
-    methods.add('• Transactional data services');
+    methods.push('• <span class="legal-term" data-term="Transactional Data">Transactional data</span> services');
   }
   if (selectedTiers.includes(3) || selectedTiers.includes(4)) {
-    methods.add('• IAL2 identity verification');
-    methods.add('• Photo ID matching');
+    methods.push('• <span class="legal-term" data-term="IAL2">IAL2</span> identity verification');
+    methods.push('• <span class="legal-term" data-term="Photo ID">Photo ID</span> matching');
   }
   
-  methodsEl.innerHTML = Array.from(methods).map(m => `<div>${m}</div>`).join('');
+  methodsEl.innerHTML = methods.map(m => `<div>${m}</div>`).join('');
+  
+  // Reinitialize tooltips for new elements
+  initLegalTermTooltips();
 }
 
 // Initialize tabs
@@ -457,4 +537,70 @@ function initTableFilters() {
 // Keep for backward compatibility
 function initSearch() {
   // Now handled by initTableFilters
+}
+
+// Initialize legal term tooltips
+function initLegalTermTooltips() {
+  const legalTerms = document.querySelectorAll('.legal-term');
+  const tooltip = document.getElementById('legal-tooltip');
+  const tooltipTerm = document.getElementById('tooltip-term');
+  const tooltipBody = document.getElementById('tooltip-body');
+  const tooltipClose = document.getElementById('tooltip-close');
+  
+  legalTerms.forEach(term => {
+    term.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const termKey = term.dataset.term;
+      const glossaryEntry = legalGlossary[termKey];
+      
+      if (glossaryEntry) {
+        tooltipTerm.textContent = glossaryEntry.term;
+        
+        // Build rich content with all three levels
+        let content = '<div style="margin-bottom: 12px;">';
+        content += '<div style="margin-bottom: 8px;"><strong style="color: #2563eb;">🔵 Simple:</strong><br>' + glossaryEntry.simple + '</div>';
+        if (glossaryEntry.intermediate) {
+          content += '<div style="margin-bottom: 8px;"><strong style="color: #16a34a;">🟢 Intermediate:</strong><br>' + glossaryEntry.intermediate + '</div>';
+        }
+        if (glossaryEntry.detailed) {
+          content += '<div><strong style="color: #ea580c;">🟠 Detailed:</strong><br>' + glossaryEntry.detailed + '</div>';
+        }
+        content += '</div>';
+        
+        tooltipBody.innerHTML = content;
+        
+        // Position tooltip near the clicked element
+        const rect = term.getBoundingClientRect();
+        const tooltipWidth = 450;
+        let left = rect.left;
+        let top = rect.bottom + 8;
+        
+        // Adjust if tooltip would go off screen
+        if (left + tooltipWidth > window.innerWidth) {
+          left = window.innerWidth - tooltipWidth - 20;
+        }
+        if (top + 400 > window.innerHeight) {
+          top = rect.top - 408;
+        }
+        
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${top}px`;
+        tooltip.classList.remove('hidden');
+        tooltip.classList.add('show');
+      }
+    });
+  });
+  
+  // Close tooltip handlers
+  tooltipClose.addEventListener('click', () => {
+    tooltip.classList.add('hidden');
+    tooltip.classList.remove('show');
+  });
+  
+  document.addEventListener('click', (e) => {
+    if (!tooltip.contains(e.target) && !e.target.classList.contains('legal-term')) {
+      tooltip.classList.add('hidden');
+      tooltip.classList.remove('show');
+    }
+  });
 }
