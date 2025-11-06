@@ -1140,7 +1140,7 @@
     "populationPercent": 0.59,
     "lgbtqDensity": "low",
     "legal": {
-      "tier": 1,
+      "tier": 2,
       "idRequired": true,
       "applicabilityExact": "Commercial entities that publish material harmful to minors.",
       "idRequirementsExact": "Reasonable age verification includes using:\n-digitized ID\n-government issued ID;\n-financial document or other document that is a reliable proxy for age; or\n-any commercially reasonable method that relies on public or private transactional data",

@@ -435,9 +435,9 @@ function styleStateByIdMethod(feature) {
   // Method to group mapping
   const methodToGroup = {
     'creditCard': 1,
-    'commerciallySoftware': 1,
     'commercialDatabase': 2,
     'transactionalData': 2,
+    'commerciallySoftware': 2,
     'thirdPartyService': 3,
     'bankAccount': 3,
     'digitizedId': 4,
@@ -453,11 +453,11 @@ function styleStateByIdMethod(feature) {
   const methodColors = {
     // Group 1: Cyan family (Zero Friction, Zero Cost)
     'creditCard': '#06b6d4',           // Bright cyan
-    'commerciallySoftware': '#0891b2', // Darker cyan
 
     // Group 2: Emerald family (Zero Friction, Low Cost)
     'commercialDatabase': '#10b981',    // Bright emerald
     'transactionalData': '#059669',     // Darker emerald
+    'commerciallySoftware': '#047857',  // Dark emerald
 
     // Group 3: Amber family (Low-Medium Friction)
     'thirdPartyService': '#f59e0b',     // Bright amber
@@ -476,7 +476,7 @@ function styleStateByIdMethod(feature) {
 
   // Group base colors (used when multiple methods from a group are selected)
   const groupColors = {
-    1: '#06b6d4',  // Cyan - Group 1 (Zero Friction, Zero Cost)
+    1: '#06b6d4',  // Cyan - Group 1 (Zero Friction, Zero Cost - Credit Card only)
     2: '#10b981',  // Emerald - Group 2 (Zero Friction, Low Cost)
     3: '#f59e0b',  // Amber - Group 3 (Low-Medium Friction)
     4: '#f43f5e',  // Rose - Group 4 (High Friction)
@@ -738,11 +738,11 @@ function updateVerificationMethods(selectedStates) {
   const methodHierarchy = {
     // Tier 1: Zero Friction, Zero Cost ✅
     'creditCard': { group: 1, groupName: 'Zero Friction, Zero Cost', label: 'Credit card', term: 'Credit Card', cost: '$0' },
-    'commerciallySoftware': { group: 1, groupName: 'Zero Friction, Zero Cost', label: 'Commercially reasonable software', term: 'Commercially Reasonable Software', cost: '$0-500/mo' },
 
     // Tier 2: Zero Friction, Low Cost 💰
     'commercialDatabase': { group: 2, groupName: 'Zero Friction, Low Cost', label: 'Commercial database', term: 'Commercial Database', cost: '~$0.10/check' },
     'transactionalData': { group: 2, groupName: 'Zero Friction, Low Cost', label: 'Transactional data', term: 'Transactional Data', cost: '~$0.05-0.25/check' },
+    'commerciallySoftware': { group: 2, groupName: 'Zero Friction, Low Cost', label: 'Commercially reasonable software', term: 'Commercially Reasonable Software', cost: '$0-500/mo' },
 
     // Tier 3: Low-Medium Friction, Medium Cost ⚠️
     'thirdPartyService': { group: 3, groupName: 'Low-Medium Friction, Medium Cost', label: 'Third-party service', term: 'Third-Party Service', cost: '$1k-5k/mo' },
@@ -1105,6 +1105,36 @@ function initTierFilters() {
   }
 }
 
+// Color mapping for groups and methods
+const groupMethodColors = {
+  1: { group: '#06b6d4', methods: { creditCard: '#06b6d4' } },
+  2: { group: '#10b981', methods: { commercialDatabase: '#10b981', transactionalData: '#059669', commerciallySoftware: '#047857' } },
+  3: { group: '#f59e0b', methods: { thirdPartyService: '#f59e0b', bankAccount: '#d97706' } },
+  4: { group: '#f43f5e', methods: { digitizedId: '#f43f5e', financialDocument: '#e11d48', governmentId: '#be123c' } },
+  5: { group: '#a855f7', methods: { photoMatching: '#a855f7', ial2Required: '#9333ea', anonymousOption: '#7e22ce' } }
+};
+
+// Update checkbox colors based on parent state
+function updateCheckboxColors(container) {
+  const groupCheckbox = container.querySelector('.group-checkbox');
+  const childCheckboxes = container.querySelectorAll('.method-checkbox');
+  const groupNumber = parseInt(groupCheckbox.dataset.group);
+  const colors = groupMethodColors[groupNumber];
+
+  if (groupCheckbox.checked && !groupCheckbox.indeterminate) {
+    // All children checked - use group color for all
+    childCheckboxes.forEach(checkbox => {
+      checkbox.style.accentColor = colors.group;
+    });
+  } else {
+    // Some or none checked - use individual colors
+    childCheckboxes.forEach(checkbox => {
+      const methodName = checkbox.dataset.method;
+      checkbox.style.accentColor = colors.methods[methodName];
+    });
+  }
+}
+
 // Initialize ID check method filters
 function initIdCheckFilters() {
   const groupCheckboxes = document.querySelectorAll('.group-checkbox');
@@ -1121,6 +1151,9 @@ function initIdCheckFilters() {
         checkbox.checked = groupCheckbox.checked;
       });
 
+      // Update colors
+      updateCheckboxColors(container);
+
       // Update map
       updateMapByIdMethods();
       updateMarketStats();
@@ -1134,15 +1167,19 @@ function initIdCheckFilters() {
       const container = checkbox.closest('.id-group-container');
       updateGroupCheckboxState(container);
 
+      // Update colors
+      updateCheckboxColors(container);
+
       // Update map
       updateMapByIdMethods();
       updateMarketStats();
     });
   });
 
-  // Initialize all group checkbox states
+  // Initialize all group checkbox states and colors
   document.querySelectorAll('.id-group-container').forEach(container => {
     updateGroupCheckboxState(container);
+    updateCheckboxColors(container);
   });
 }
 

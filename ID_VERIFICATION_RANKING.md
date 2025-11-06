@@ -26,19 +26,11 @@ The ranking system prioritizes methods that provide:
 - **Legal status**: Explicitly accepted in 3 states (South Dakota, Wyoming, Nebraska)
 - **Business value**: Best option when available
 
-### **2. Commercially Reasonable Software**
-- **How it works**: Catch-all term for "any reasonable method"
-- **User friction**: **ZERO to LOW** - One API call after payment, no user action
-- **Implementation cost**: $0-500/mo (depends on interpretation)
-- **User action**: None
-- **Legal status**: Accepted in 20 states using this language
-- **Business value**: Flexible interpretation may allow credit card verification
-
 ---
 
 ## Tier 2: Zero Friction, Low Cost 💰
 
-### **3. Commercial Database**
+### **2. Commercial Database**
 - **How it works**: Credit bureau verification (Experian, Equifax age check)
 - **User friction**: **ZERO to LOW** - Background check using billing info (~1-2 second delay)
 - **Implementation cost**: ~$0.10 per verification ($500-2k/mo at scale)
@@ -46,13 +38,21 @@ The ranking system prioritizes methods that provide:
 - **Legal status**: Accepted in 4 states
 - **Business value**: Invisible to user, highly scalable
 
-### **4. Transactional Data**
+### **3. Transactional Data**
 - **How it works**: Third-party checks commercial databases (mortgage, employment, education records)
 - **User friction**: **ZERO to LOW** - Background check using billing info (1-2 second delay)
 - **Implementation cost**: $0.05-0.25 per verification ($500-2k/mo at scale)
 - **User action**: None (silent background check)
 - **Legal status**: Accepted in 15 states
 - **Business value**: Wider state coverage than commercial database alone
+
+### **4. Commercially Reasonable Software**
+- **How it works**: Catch-all term for "any reasonable method"
+- **User friction**: **ZERO to LOW** - One API call after payment, no user action
+- **Implementation cost**: $0-500/mo (depends on interpretation)
+- **User action**: None
+- **Legal status**: Accepted in 20 states using this language
+- **Business value**: Flexible interpretation may allow credit card verification
 
 ---
 
@@ -135,7 +135,7 @@ The ranking system prioritizes methods that provide:
 ## Implementation Priority
 
 ### Phase 1: Launch (Tier 1-2)
-Implement credit card + commercial database/transactional data:
+Implement credit card + commercial database/transactional data/commercially reasonable software:
 - Covers 30 states (Tier 0 + Tier 1 + Tier 2)
 - Total cost: $500-2k/mo
 - User friction: Near zero
@@ -174,7 +174,8 @@ Evaluate geo-blocking vs. implementing:
 | Method | Cost | Friction | Rank |
 |--------|------|----------|------|
 | Credit card | $0 | Zero | #1 |
-| Commercial database | $0.10 | Zero | #3 |
+| Commercial database | $0.10 | Zero | #2 |
+| Commercially reasonable software | $0-500 | Zero-Low | #4 |
 | Financial document | $0 | High | #8 |
 
 **Lesson**: Cost alone doesn't determine rank; UX friction matters more.

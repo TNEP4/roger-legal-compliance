@@ -2,7 +2,7 @@
 
 | State | Tier | ID? | Methods | Notes |
 |-------|------|-----|---------|-------|
-| Alabama | 3 | ✓ | CS |  |
+| Alabama | 1 | ✓ | CS | Commercially reasonable software (CC qualifies) - ... |
 | Alaska | 0 | ✗ | - | No age verification laws currently enacted |
 | Arizona | 2 | ✓ | DID, GID, TD | One-third threshold; very high penalties if minors... |
 | Arkansas | 3 | ✓ | DID, GID, IAL2 | Requires IAL2 certification - very strict |
@@ -29,7 +29,7 @@
 | Mississippi | 2 | ✓ | DID, GID, TD |  |
 | Missouri | 2 | ✓ | GID, TD |  |
 | Montana | 2 | ✓ | DID, GID, TD |  |
-| Nebraska | 2 | ✓ | DID, GID, TD | Parent may recover actual damages |
+| Nebraska | 2 | ✓ | DID, GID, TD, FD, CS | Parent may recover actual damages |
 | Nevada | 0 | ✗ | - |  |
 | New Hampshire | 0 | ✗ | - |  |
 | New Jersey | 0 | ✗ | - |  |
@@ -43,7 +43,7 @@
 | Pennsylvania | 0 | ✗ | - |  |
 | Rhode Island | 0 | ✗ | - |  |
 | South Carolina | 2 | ✓ | DID, TD, 3P, CDB | Punitive damages when minor affected |
-| South Dakota | 1 | ✓ | CC, GID | Explicitly allows credit/debit cards - Tier 1 |
+| South Dakota | 1 | ✓ | CC, BA, GID | Explicitly allows credit/debit cards - Tier 1 |
 | Tennessee | 4 | ✓ | TD, PM | Photo matching requirement; 7-year data retention |
 | Texas | 2 | ✓ | DID, GID, TD | High penalties; $250k if minors access |
 | Utah | 2 | ✓ | DID, TD, 3P |  |
@@ -59,9 +59,11 @@
 - DID = Digitized ID
 - GID = Government ID
 - TD = Transactional Data
+- FD = Financial Document
 - IAL2 = Identity Assurance Level 2
 - PM = Photo Matching
 - Anon = Anonymous Option
 - 3P = Third Party Service
 - CDB = Commercial Database
 - CS = Commercially Reasonable Software
+- BA = Bank Account
