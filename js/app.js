@@ -434,6 +434,7 @@ function styleStateByIdMethod(feature) {
 
   // Method to group mapping
   const methodToGroup = {
+    'noLaw': 0,
     'creditCard': 1,
     'commercialDatabase': 2,
     'transactionalData': 2,
@@ -449,33 +450,37 @@ function styleStateByIdMethod(feature) {
   };
 
   // Individual method colors (variations within each group family)
-  // Using distinct color families from State Category mode
+  // Using VERY DISTINCT variations with dramatic hue and lightness differences
   const methodColors = {
+    // Group 0: No Law / No ID Required
+    'noLaw': '#9ca3af',                 // Gray - No requirement
+
     // Group 1: Cyan family (Zero Friction, Zero Cost)
     'creditCard': '#06b6d4',           // Bright cyan
 
-    // Group 2: Emerald family (Zero Friction, Low Cost)
-    'commercialDatabase': '#10b981',    // Bright emerald
-    'transactionalData': '#059669',     // Darker emerald
-    'commerciallySoftware': '#047857',  // Dark emerald
+    // Group 2: Green-Blue spectrum (Zero Friction, Low Cost) - DRAMATIC differences
+    'commercialDatabase': '#0891b2',    // Dark cyan (very different from others)
+    'transactionalData': '#10b981',     // Emerald green (middle)
+    'commerciallySoftware': '#84cc16',  // Yellow-green/lime (very bright, very different)
 
-    // Group 3: Amber family (Low-Medium Friction)
-    'thirdPartyService': '#f59e0b',     // Bright amber
-    'bankAccount': '#d97706',           // Darker amber
+    // Group 3: Orange spectrum (Low-Medium Friction) - STRONG contrast
+    'thirdPartyService': '#ea580c',     // Deep orange (dark)
+    'bankAccount': '#fbbf24',           // Golden yellow (light, very different)
 
-    // Group 4: Rose family (High Friction)
-    'digitizedId': '#f43f5e',           // Bright rose
-    'financialDocument': '#e11d48',     // Medium rose
-    'governmentId': '#be123c',          // Dark rose
+    // Group 4: Pink-Red spectrum (High Friction) - MAXIMUM differentiation
+    'digitizedId': '#db2777',           // Hot pink (saturated)
+    'financialDocument': '#f43f5e',     // Rose (middle)
+    'governmentId': '#b91c1c',          // Dark red (very different)
 
-    // Group 5: Violet family (Very High Friction)
-    'photoMatching': '#a855f7',         // Bright violet
-    'ial2Required': '#9333ea',          // Medium violet
-    'anonymousOption': '#7e22ce'        // Dark violet
+    // Group 5: Purple spectrum (Very High Friction) - WIDE range
+    'photoMatching': '#d946ef',         // Bright magenta (light and vibrant)
+    'ial2Required': '#9333ea',          // Purple (middle)
+    'anonymousOption': '#6b21a8'        // Deep purple (very dark)
   };
 
   // Group base colors (used when multiple methods from a group are selected)
   const groupColors = {
+    0: '#9ca3af',  // Gray - Group 0 (No Law / No ID Required)
     1: '#06b6d4',  // Cyan - Group 1 (Zero Friction, Zero Cost - Credit Card only)
     2: '#10b981',  // Emerald - Group 2 (Zero Friction, Low Cost)
     3: '#f59e0b',  // Amber - Group 3 (Low-Medium Friction)
@@ -485,25 +490,30 @@ function styleStateByIdMethod(feature) {
 
   // Find ALL methods this state accepts (regardless of selection)
   const allStateMethods = Object.keys(methodToGroup).filter(method =>
-    stateData.legal.verificationMethods[method]
+    method !== 'noLaw' && stateData.legal.verificationMethods[method]
   );
 
-  // If state has no verification methods at all (Tier 0 - No Law states)
-  // Show them in green since they have no restrictions (any method works)
-  if (allStateMethods.length === 0) {
-    // Check if this is a Tier 0 state
-    if (stateData.legal.tier === 0) {
-      return {
-        fillColor: '#10b981',  // Green - Tier 0 (No Law)
-        weight: 2,
-        opacity: 1,
-        color: '#ffffff',
-        fillOpacity: 0.7
-      };
-    }
-    // Otherwise show as gray (shouldn't happen in practice)
+  // Special handling for "noLaw" filter
+  // If user selected "noLaw", show Tier 0 states (states with no age verification laws)
+  const isNoLawSelected = selectedMethods.includes('noLaw');
+  const isTier0State = allStateMethods.length === 0;
+
+  if (isTier0State && isNoLawSelected) {
+    // Tier 0 state AND user selected "noLaw" filter - show as active gray
     return {
-      fillColor: '#d1d5db',
+      fillColor: '#9ca3af',  // Gray - No law states when actively selected
+      weight: 2,
+      opacity: 1,
+      color: '#ffffff',
+      fillOpacity: 0.7
+    };
+  }
+
+  // If state has no verification methods at all (Tier 0 - No Law states)
+  // and user did NOT select "noLaw", show them as inactive gray
+  if (isTier0State) {
+    return {
+      fillColor: '#d1d5db',  // Light gray - Tier 0 states when not selected
       weight: 2,
       opacity: 1,
       color: '#ffffff',
@@ -511,9 +521,9 @@ function styleStateByIdMethod(feature) {
     };
   }
 
-  // Check if state accepts ANY of the selected methods
+  // Check if state accepts ANY of the selected methods (excluding 'noLaw')
   const acceptedSelectedMethods = selectedMethods.filter(method =>
-    stateData.legal.verificationMethods[method]
+    method !== 'noLaw' && stateData.legal.verificationMethods[method]
   );
 
   if (acceptedSelectedMethods.length === 0) {
@@ -667,15 +677,22 @@ function updateMarketStats() {
       // No methods selected - show all states as unselected
       selectedStates = [];
     } else {
-      // Filter states that accept any of the selected methods OR are Tier 0 (no law)
+      // Filter states that accept any of the selected methods
+      const isNoLawSelected = selectedMethods.includes('noLaw');
+
       selectedStates = statesData.filter(state => {
-        // Include Tier 0 states (no law = any method works)
-        if (state.legal.tier === 0) {
+        // Check if this is a Tier 0 state (no verification methods)
+        const hasNoVerificationMethods = Object.keys(state.legal.verificationMethods || {}).length === 0 ||
+          !Object.values(state.legal.verificationMethods || {}).some(v => v === true);
+
+        // If "noLaw" is selected and this is a Tier 0 state, include it
+        if (isNoLawSelected && hasNoVerificationMethods) {
           return true;
         }
-        // Include states that accept any selected method
+
+        // Otherwise, include states that accept any selected method (excluding 'noLaw')
         return selectedMethods.some(method =>
-          state.legal.verificationMethods[method]
+          method !== 'noLaw' && state.legal.verificationMethods[method]
         );
       });
     }
@@ -1038,9 +1055,9 @@ function initModeSwitcher() {
       idMethodSections.forEach(section => section.style.display = 'block');
       stateCategorySections.forEach(section => section.style.display = 'none');
 
-      // Deactivate tier filters and activate ID check filters
+      // Deactivate tier filters
+      // NOTE: Do NOT auto-activate ID check filters - let user select methods manually
       deactivateStateCategoryFilters();
-      activateAllIdCheckFilters();
     }
 
     // Update map styling
@@ -1107,11 +1124,12 @@ function initTierFilters() {
 
 // Color mapping for groups and methods
 const groupMethodColors = {
+  0: { group: '#9ca3af', methods: { noLaw: '#9ca3af' } },
   1: { group: '#06b6d4', methods: { creditCard: '#06b6d4' } },
-  2: { group: '#10b981', methods: { commercialDatabase: '#10b981', transactionalData: '#059669', commerciallySoftware: '#047857' } },
-  3: { group: '#f59e0b', methods: { thirdPartyService: '#f59e0b', bankAccount: '#d97706' } },
-  4: { group: '#f43f5e', methods: { digitizedId: '#f43f5e', financialDocument: '#e11d48', governmentId: '#be123c' } },
-  5: { group: '#a855f7', methods: { photoMatching: '#a855f7', ial2Required: '#9333ea', anonymousOption: '#7e22ce' } }
+  2: { group: '#10b981', methods: { commercialDatabase: '#0891b2', transactionalData: '#10b981', commerciallySoftware: '#84cc16' } },
+  3: { group: '#f59e0b', methods: { thirdPartyService: '#ea580c', bankAccount: '#fbbf24' } },
+  4: { group: '#f43f5e', methods: { digitizedId: '#db2777', financialDocument: '#f43f5e', governmentId: '#b91c1c' } },
+  5: { group: '#a855f7', methods: { photoMatching: '#d946ef', ial2Required: '#9333ea', anonymousOption: '#6b21a8' } }
 };
 
 // Update checkbox colors based on parent state
@@ -1121,18 +1139,14 @@ function updateCheckboxColors(container) {
   const groupNumber = parseInt(groupCheckbox.dataset.group);
   const colors = groupMethodColors[groupNumber];
 
-  if (groupCheckbox.checked && !groupCheckbox.indeterminate) {
-    // All children checked - use group color for all
-    childCheckboxes.forEach(checkbox => {
-      checkbox.style.accentColor = colors.group;
-    });
-  } else {
-    // Some or none checked - use individual colors
-    childCheckboxes.forEach(checkbox => {
-      const methodName = checkbox.dataset.method;
-      checkbox.style.accentColor = colors.methods[methodName];
-    });
-  }
+  // ALWAYS use individual colors for method checkboxes to show dramatic color differences
+  childCheckboxes.forEach(checkbox => {
+    const methodName = checkbox.dataset.method;
+    checkbox.style.accentColor = colors.methods[methodName];
+  });
+
+  // Parent checkbox uses group color
+  groupCheckbox.style.accentColor = colors.group;
 }
 
 // Initialize ID check method filters

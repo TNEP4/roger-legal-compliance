@@ -584,15 +584,29 @@
           </svg>
         </h3>
         <div class="collapsible-content space-y-2.5" id="content-id-filters">
+          <!-- Group 0: No Law / No ID Required -->
+          <div class="id-group-container">
+            <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="0" style="accent-color: #9ca3af;">
+              <span class="font-semibold text-xs text-gray-900">0 - None required</span>
+            </label>
+            <div class="id-methods-list ml-6 mt-1 space-y-0.5">
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="noLaw" data-group="0" style="accent-color: #9ca3af;">
+                <span>No age verification law</span>
+              </label>
+            </div>
+          </div>
+
           <!-- Group 1: Zero Friction, Zero Cost -->
           <div class="id-group-container">
             <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
-              <input type="checkbox" class="mr-2 group-checkbox" data-group="1" checked style="accent-color: #06b6d4;">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="1" style="accent-color: #06b6d4;">
               <span class="font-semibold text-xs text-gray-900">1 - Credit card only</span>
             </label>
             <div class="id-methods-list ml-6 mt-1 space-y-0.5">
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="creditCard" data-group="1" checked style="accent-color: #06b6d4;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="creditCard" data-group="1" style="accent-color: #06b6d4;">
                 <span>Credit card</span>
               </label>
             </div>
@@ -601,20 +615,20 @@
           <!-- Group 2: Zero Friction, Low Cost -->
           <div class="id-group-container">
             <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
-              <input type="checkbox" class="mr-2 group-checkbox" data-group="2" checked style="accent-color: #10b981;">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="2" style="accent-color: #10b981;">
               <span class="font-semibold text-xs text-gray-900">2 - Background database checks</span>
             </label>
             <div class="id-methods-list ml-6 mt-1 space-y-0.5">
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="commercialDatabase" data-group="2" checked style="accent-color: #10b981;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="commercialDatabase" data-group="2" style="accent-color: #0891b2;">
                 <span>Commercial database</span>
               </label>
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="transactionalData" data-group="2" checked style="accent-color: #059669;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="transactionalData" data-group="2" style="accent-color: #10b981;">
                 <span>Transactional data</span>
               </label>
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="commerciallySoftware" data-group="2" checked style="accent-color: #047857;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="commerciallySoftware" data-group="2" style="accent-color: #84cc16;">
                 <span>Commercially reasonable software</span>
               </label>
             </div>
@@ -623,16 +637,16 @@
           <!-- Group 3: Low-Medium Friction -->
           <div class="id-group-container">
             <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
-              <input type="checkbox" class="mr-2 group-checkbox" data-group="3" checked style="accent-color: #f59e0b;">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="3" style="accent-color: #f59e0b;">
               <span class="font-semibold text-xs text-gray-900">3 - External verification services</span>
             </label>
             <div class="id-methods-list ml-6 mt-1 space-y-0.5">
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="thirdPartyService" data-group="3" checked style="accent-color: #f59e0b;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="thirdPartyService" data-group="3" style="accent-color: #ea580c;">
                 <span>Third-party service</span>
               </label>
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="bankAccount" data-group="3" checked style="accent-color: #d97706;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="bankAccount" data-group="3" style="accent-color: #fbbf24;">
                 <span>Bank account</span>
               </label>
             </div>
@@ -641,20 +655,20 @@
           <!-- Group 4: High Friction -->
           <div class="id-group-container">
             <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
-              <input type="checkbox" class="mr-2 group-checkbox" data-group="4" checked style="accent-color: #f43f5e;">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="4" style="accent-color: #f43f5e;">
               <span class="font-semibold text-xs text-gray-900">4 - ID upload required</span>
             </label>
             <div class="id-methods-list ml-6 mt-1 space-y-0.5">
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="digitizedId" data-group="4" checked style="accent-color: #f43f5e;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="digitizedId" data-group="4" style="accent-color: #db2777;">
                 <span>Digitized ID</span>
               </label>
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="financialDocument" data-group="4" checked style="accent-color: #e11d48;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="financialDocument" data-group="4" style="accent-color: #f43f5e;">
                 <span>Financial documents</span>
               </label>
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="governmentId" data-group="4" checked style="accent-color: #be123c;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="governmentId" data-group="4" style="accent-color: #b91c1c;">
                 <span>Government-issued ID</span>
               </label>
             </div>
@@ -663,20 +677,20 @@
           <!-- Group 5: Very High Friction -->
           <div class="id-group-container">
             <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
-              <input type="checkbox" class="mr-2 group-checkbox" data-group="5" checked style="accent-color: #a855f7;">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="5" style="accent-color: #a855f7;">
               <span class="font-semibold text-xs text-gray-900">5 - Biometric verification</span>
             </label>
             <div class="id-methods-list ml-6 mt-1 space-y-0.5">
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="photoMatching" data-group="5" checked style="accent-color: #a855f7;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="photoMatching" data-group="5" style="accent-color: #d946ef;">
                 <span>Photo matching</span>
               </label>
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="ial2Required" data-group="5" checked style="accent-color: #9333ea;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="ial2Required" data-group="5" style="accent-color: #9333ea;">
                 <span>IAL2 certification</span>
               </label>
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="anonymousOption" data-group="5" checked style="accent-color: #7e22ce;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="anonymousOption" data-group="5" style="accent-color: #6b21a8;">
                 <span>Anonymous option</span>
               </label>
             </div>
