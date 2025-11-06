@@ -144,6 +144,56 @@ async function initMap() {
   }
 }
 
+// Create dynamic SVG patterns
+function createDynamicPatterns() {
+  const defs = document.querySelector('#pattern-defs defs');
+  defs.innerHTML = ''; // Clear existing patterns
+  
+  const colors = {
+    0: '#10b981',  // green
+    1: '#3b82f6',  // blue
+    2: '#eab308',  // yellow
+    3: '#f97316',  // orange
+    4: '#ef4444',  // red
+    'gray': '#e5e7eb',  // light gray
+    'unselected': '#d1d5db'  // gray for unselected
+  };
+  
+  const densitySettings = {
+    high: { spacing: 6, radius: 2.2, opacity: 0.6 },
+    medium: { spacing: 11, radius: 1.8, opacity: 0.45 },
+    low: { spacing: 18, radius: 1.4, opacity: 0.3 }
+  };
+  
+  // Create patterns for each color-density combination
+  Object.entries(colors).forEach(([tier, color]) => {
+    Object.entries(densitySettings).forEach(([density, settings]) => {
+      const pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
+      pattern.setAttribute('id', `dots-${tier}-${density}`);
+      pattern.setAttribute('width', settings.spacing);
+      pattern.setAttribute('height', settings.spacing);
+      pattern.setAttribute('patternUnits', 'userSpaceOnUse');
+      
+      // Background rect with the tier color
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('width', settings.spacing);
+      rect.setAttribute('height', settings.spacing);
+      rect.setAttribute('fill', color);
+      pattern.appendChild(rect);
+      
+      // Dot overlay
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', settings.spacing / 2);
+      circle.setAttribute('cy', settings.spacing / 2);
+      circle.setAttribute('r', settings.radius);
+      circle.setAttribute('fill', `rgba(0,0,0,${settings.opacity})`);
+      pattern.appendChild(circle);
+      
+      defs.appendChild(pattern);
+    });
+  });
+}
+
 // Style each state based on tier and filter
 function styleState(feature) {
   const stateName = feature.properties.name;
@@ -159,6 +209,10 @@ function styleState(feature) {
     };
   }
   
+  // Check visualization toggles
+  const showTiers = document.getElementById('show-tiers')?.checked ?? true;
+  const showLgbtq = document.getElementById('show-lgbtq')?.checked ?? true;
+  
   // Check if this tier is selected in filters
   const selectedTiers = getSelectedTiers();
   const isSelected = selectedTiers.includes(stateData.legal.tier);
@@ -171,8 +225,29 @@ function styleState(feature) {
     4: '#ef4444'   // red
   };
   
+  // Determine fill color or pattern
+  let fillValue;
+  
+  if (isSelected && showLgbtq && stateData.lgbtqDensity && ['high', 'medium', 'low'].includes(stateData.lgbtqDensity)) {
+    // Use pattern that includes both color and dots
+    if (showTiers) {
+      fillValue = `url(#dots-${stateData.legal.tier}-${stateData.lgbtqDensity})`;
+    } else {
+      fillValue = `url(#dots-gray-${stateData.lgbtqDensity})`;
+    }
+  } else {
+    // Use solid color
+    if (showTiers && isSelected) {
+      fillValue = colors[stateData.legal.tier] || '#999';
+    } else if (isSelected) {
+      fillValue = '#e5e7eb';  // Light gray when tiers hidden but selected
+    } else {
+      fillValue = '#d1d5db';  // Gray for unselected
+    }
+  }
+  
   return {
-    fillColor: isSelected ? colors[stateData.legal.tier] || '#999' : '#d1d5db',
+    fillColor: fillValue,
     weight: 2,
     opacity: 1,
     color: '#ffffff',
@@ -401,6 +476,29 @@ function initTierFilters() {
       updateMarketStats();
     });
   });
+  
+  // Initialize visualization toggles
+  const showTiersToggle = document.getElementById('show-tiers');
+  const showLgbtqToggle = document.getElementById('show-lgbtq');
+  
+  // Create patterns on initialization
+  createDynamicPatterns();
+  
+  if (showTiersToggle) {
+    showTiersToggle.addEventListener('change', () => {
+      if (geojsonLayer) {
+        geojsonLayer.setStyle(styleState);
+      }
+    });
+  }
+  
+  if (showLgbtqToggle) {
+    showLgbtqToggle.addEventListener('change', () => {
+      if (geojsonLayer) {
+        geojsonLayer.setStyle(styleState);
+      }
+    });
+  }
 }
 
 // Table state

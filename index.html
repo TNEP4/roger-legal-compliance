@@ -316,10 +316,17 @@
     </div>
   </header>
 
+  <!-- SVG Pattern Definitions -->
+  <svg style="height:0; width:0; position:absolute;" id="pattern-defs">
+    <defs>
+      <!-- Patterns will be dynamically added here -->
+    </defs>
+  </svg>
+
   <!-- Full Screen Map Container -->
   <div id="map-container">
-        <div id="map"></div>
-      </div>
+    <div id="map"></div>
+  </div>
 
   <!-- Combined Floating Card (Map View Only) -->
   <div id="stats-card" class="floating-card" style="bottom: 20px; left: 20px; width: 260px; max-height: calc(100vh - 80px); overflow-y: auto;">
@@ -419,10 +426,25 @@
             <div>• Transactional data services</div>
             <div>• IAL2 identity verification</div>
           </div>
-            </div>
-          </div>
         </div>
       </div>
+      
+      <!-- Visualization Toggles -->
+      <div class="pt-3 border-t border-gray-200">
+        <h3 class="font-semibold text-xs text-gray-500 uppercase mb-2">Display</h3>
+        <div class="space-y-1.5 text-xs">
+          <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
+            <input type="checkbox" id="show-tiers" class="mr-2" checked>
+            <span>Show Tier Colors</span>
+          </label>
+          <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
+            <input type="checkbox" id="show-lgbtq" class="mr-2" checked>
+            <span>Show LGBTQ+ Density</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Data Table Tab Content (Hidden by default) -->
   <div id="tab-table" class="tab-content-overlay hidden bg-gray-50">
