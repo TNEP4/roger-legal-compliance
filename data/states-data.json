@@ -6,7 +6,7 @@
     "populationPercent": 1.51,
     "lgbtqDensity": "low",
     "legal": {
-      "tier": 2,
+      "tier": 1,
       "idRequired": true,
       "applicabilityExact": "Businesses that knowingly publish or distribute sexual material harmful to minors must use reasonable age verification methods",
       "idRequirementsExact": "Any commercially available software, application, program, or methodology that, when enabled, provides reasonable assurances that any individual accessing certain published material is 18 years of age or older.",
