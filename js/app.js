@@ -323,17 +323,80 @@ function initTierFilters() {
   });
 }
 
+// Table state
+let tableSortColumn = 'population';
+let tableSortDirection = 'desc';
+
 // Initialize table
 function initTable() {
+  renderTable();
+  initTableSorting();
+  initTableFilters();
+}
+
+// Render table with current sort and filters
+function renderTable() {
   const tbody = document.getElementById('table-body');
   tbody.innerHTML = '';
   
-  // Sort by population descending
-  const sortedStates = [...statesData].sort((a, b) => b.populationPercent - a.populationPercent);
+  // Get filter values
+  const searchQuery = document.getElementById('search').value.toLowerCase();
+  const tierFilter = document.getElementById('tier-filter').value;
+  const idReqFilter = document.getElementById('id-req-filter').value;
   
+  // Filter states
+  let filteredStates = statesData.filter(state => {
+    const matchesSearch = state.state.toLowerCase().includes(searchQuery);
+    const matchesTier = !tierFilter || state.legal.tier.toString() === tierFilter;
+    const matchesIdReq = !idReqFilter || 
+      (idReqFilter === 'yes' && state.legal.idRequired) ||
+      (idReqFilter === 'no' && !state.legal.idRequired);
+    return matchesSearch && matchesTier && matchesIdReq;
+  });
+  
+  // Sort states
+  const sortedStates = [...filteredStates].sort((a, b) => {
+    let aVal, bVal;
+    
+    switch(tableSortColumn) {
+      case 'state':
+        aVal = a.state;
+        bVal = b.state;
+        break;
+      case 'tier':
+        aVal = a.legal.tier;
+        bVal = b.legal.tier;
+        break;
+      case 'population':
+        aVal = a.populationPercent;
+        bVal = b.populationPercent;
+        break;
+      case 'lgbtq':
+        const lgbtqOrder = { 'high': 3, 'medium': 2, 'low': 1 };
+        aVal = lgbtqOrder[a.lgbtqDensity] || 0;
+        bVal = lgbtqOrder[b.lgbtqDensity] || 0;
+        break;
+      case 'idRequired':
+        aVal = a.legal.idRequired ? 1 : 0;
+        bVal = b.legal.idRequired ? 1 : 0;
+        break;
+      default:
+        aVal = a.populationPercent;
+        bVal = b.populationPercent;
+    }
+    
+    if (typeof aVal === 'string') {
+      return tableSortDirection === 'asc' ? 
+        aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    } else {
+      return tableSortDirection === 'asc' ? aVal - bVal : bVal - aVal;
+    }
+  });
+  
+  // Render rows
   sortedStates.forEach(state => {
     const row = document.createElement('tr');
-    row.className = 'hover:bg-gray-50';
+    row.dataset.state = state.state;
     row.innerHTML = `
       <td class="px-4 py-3 text-sm font-medium text-gray-900">${state.state}</td>
       <td class="px-4 py-3 text-sm">
@@ -345,39 +408,53 @@ function initTable() {
         ${state.legal.idRequired ? 'Yes' : 'No'}
       </td>
       <td class="px-4 py-3 text-sm text-gray-700">${state.legal.penalties.perViolation || '-'}</td>
-      <td class="px-4 py-3 text-sm">
-        <button class="text-blue-600 hover:text-blue-800 view-detail-btn" data-state="${state.state}">
-          View Details
-        </button>
-      </td>
     `;
+    
+    // Add click handler to row
+    row.addEventListener('click', () => {
+      showStateDetail(state);
+    });
+    
     tbody.appendChild(row);
   });
   
-  // Add click handlers
-  document.querySelectorAll('.view-detail-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const stateName = e.target.dataset.state;
-      const state = statesData.find(s => s.state === stateName);
-      if (state) showStateDetail(state);
+  // Update sort indicators
+  document.querySelectorAll('.table-header').forEach(header => {
+    header.classList.remove('sorted-asc', 'sorted-desc');
+    if (header.dataset.sort === tableSortColumn) {
+      header.classList.add(`sorted-${tableSortDirection}`);
+    }
+  });
+}
+
+// Initialize table sorting
+function initTableSorting() {
+  document.querySelectorAll('.table-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const column = header.dataset.sort;
+      if (tableSortColumn === column) {
+        tableSortDirection = tableSortDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        tableSortColumn = column;
+        tableSortDirection = 'desc';
+      }
+      renderTable();
     });
   });
 }
 
-// Initialize search
-function initSearch() {
+// Initialize table filters
+function initTableFilters() {
   const searchInput = document.getElementById('search');
-  searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase();
-    const rows = document.querySelectorAll('#table-body tr');
-    
-    rows.forEach(row => {
-      const stateName = row.querySelector('td').textContent.toLowerCase();
-      if (stateName.includes(query)) {
-        row.style.display = '';
-      } else {
-        row.style.display = 'none';
-      }
-    });
-  });
+  const tierFilter = document.getElementById('tier-filter');
+  const idReqFilter = document.getElementById('id-req-filter');
+  
+  searchInput.addEventListener('input', renderTable);
+  tierFilter.addEventListener('change', renderTable);
+  idReqFilter.addEventListener('change', renderTable);
+}
+
+// Keep for backward compatibility
+function initSearch() {
+  // Now handled by initTableFilters
 }

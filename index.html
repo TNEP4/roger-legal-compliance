@@ -46,6 +46,11 @@
       width: 100%;
     }
     
+    /* Dim the base map tiles (non-US areas) */
+    .leaflet-tile-pane {
+      opacity: 0.6;
+    }
+    
     .state-detail-panel {
       transform: translateX(100%);
       transition: transform 0.3s ease;
@@ -88,6 +93,65 @@
     
     details summary { cursor: pointer; }
     details summary:hover { background-color: #f3f4f6; }
+    
+    /* Table styles */
+    .table-header {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+    
+    .table-header:hover {
+      background-color: #e5e7eb;
+    }
+    
+    .table-header.sorted-asc svg,
+    .table-header.sorted-desc svg {
+      color: #3b82f6;
+    }
+    
+    #table-body tr {
+      cursor: pointer;
+      transition: background-color 0.15s;
+    }
+    
+    #table-body tr:hover {
+      background-color: #f9fafb;
+    }
+    
+    /* Filter select styling */
+    .table-filter-select {
+      appearance: none;
+      background-color: white;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+      background-position: right 0.5rem center;
+      background-repeat: no-repeat;
+      background-size: 1.5em 1.5em;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    
+    .table-filter-select:hover {
+      border-color: #9ca3af;
+    }
+    
+    .table-filter-select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
     
     /* Tier Filter Buttons */
     .tier-filter-btn {
@@ -283,37 +347,74 @@
       </div>
 
   <!-- Data Table Tab Content (Hidden by default) -->
-  <div id="tab-table" class="tab-content-overlay hidden">
+  <div id="tab-table" class="tab-content-overlay hidden bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 py-6">
-        <div class="mb-4 flex justify-between items-center">
+      <div class="mb-4 flex justify-between items-center gap-4">
           <h2 class="text-lg font-semibold">All States Data</h2>
-          <input type="text" id="search" placeholder="Search states..." class="border rounded px-3 py-2 text-sm">
+        <div class="flex gap-2 items-center">
+          <input type="text" id="search" placeholder="Search states..." class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+          <select id="tier-filter" class="table-filter-select">
+            <option value="">All Tiers</option>
+            <option value="0">Tier 0</option>
+            <option value="1">Tier 1</option>
+            <option value="2">Tier 2</option>
+            <option value="3">Tier 3</option>
+            <option value="4">Tier 4</option>
+          </select>
+          <select id="id-req-filter" class="table-filter-select">
+            <option value="">ID Required?</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
         </div>
         
       <div class="overflow-x-auto bg-white rounded-lg shadow">
           <table class="min-w-full divide-y divide-gray-200" id="states-table">
             <thead class="bg-gray-50">
               <tr>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="state">
-                  State ↕
+              <th class="table-header" data-sort="state">
+                <div class="flex items-center gap-1">
+                  State
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
                 </th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="tier">
-                  Tier ↕
+              <th class="table-header" data-sort="tier">
+                <div class="flex items-center gap-1">
+                  Tier
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
                 </th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="population">
-                  Pop % ↕
+              <th class="table-header" data-sort="population">
+                <div class="flex items-center gap-1">
+                  Pop %
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
                 </th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th class="table-header" data-sort="lgbtq">
+                <div class="flex items-center gap-1">
                   LGBTQ+
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
                 </th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th class="table-header" data-sort="idRequired">
+                <div class="flex items-center gap-1">
                   ID Req?
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
                 </th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Max Penalty
-                </th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
                 </th>
               </tr>
             </thead>
