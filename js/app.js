@@ -432,15 +432,6 @@ function styleStateByIdMethod(feature) {
     };
   }
 
-  // ID check group colors (matching HTML - changed from tierColors to groupColors)
-  const groupColors = {
-    1: '#2563eb',  // Blue - Group 1
-    2: '#9333ea',  // Purple - Group 2
-    3: '#0d9488',  // Teal - Group 3
-    4: '#db2777',  // Pink - Group 4
-    5: '#dc2626'   // Red - Group 5
-  };
-
   // Method to group mapping
   const methodToGroup = {
     'creditCard': 1,
@@ -457,13 +448,60 @@ function styleStateByIdMethod(feature) {
     'anonymousOption': 5
   };
 
+  // Individual method colors (variations within each group family)
+  // Using distinct color families from State Category mode
+  const methodColors = {
+    // Group 1: Cyan family (Zero Friction, Zero Cost)
+    'creditCard': '#06b6d4',           // Bright cyan
+    'commerciallySoftware': '#0891b2', // Darker cyan
+
+    // Group 2: Emerald family (Zero Friction, Low Cost)
+    'commercialDatabase': '#10b981',    // Bright emerald
+    'transactionalData': '#059669',     // Darker emerald
+
+    // Group 3: Amber family (Low-Medium Friction)
+    'thirdPartyService': '#f59e0b',     // Bright amber
+    'bankAccount': '#d97706',           // Darker amber
+
+    // Group 4: Rose family (High Friction)
+    'digitizedId': '#f43f5e',           // Bright rose
+    'financialDocument': '#e11d48',     // Medium rose
+    'governmentId': '#be123c',          // Dark rose
+
+    // Group 5: Violet family (Very High Friction)
+    'photoMatching': '#a855f7',         // Bright violet
+    'ial2Required': '#9333ea',          // Medium violet
+    'anonymousOption': '#7e22ce'        // Dark violet
+  };
+
+  // Group base colors (used when multiple methods from a group are selected)
+  const groupColors = {
+    1: '#06b6d4',  // Cyan - Group 1 (Zero Friction, Zero Cost)
+    2: '#10b981',  // Emerald - Group 2 (Zero Friction, Low Cost)
+    3: '#f59e0b',  // Amber - Group 3 (Low-Medium Friction)
+    4: '#f43f5e',  // Rose - Group 4 (High Friction)
+    5: '#a855f7'   // Violet - Group 5 (Very High Friction)
+  };
+
   // Find ALL methods this state accepts (regardless of selection)
   const allStateMethods = Object.keys(methodToGroup).filter(method =>
     stateData.legal.verificationMethods[method]
   );
 
-  // If state has no verification methods at all, show as gray
+  // If state has no verification methods at all (Tier 0 - No Law states)
+  // Show them in green since they have no restrictions (any method works)
   if (allStateMethods.length === 0) {
+    // Check if this is a Tier 0 state
+    if (stateData.legal.tier === 0) {
+      return {
+        fillColor: '#10b981',  // Green - Tier 0 (No Law)
+        weight: 2,
+        opacity: 1,
+        color: '#ffffff',
+        fillOpacity: 0.7
+      };
+    }
+    // Otherwise show as gray (shouldn't happen in practice)
     return {
       fillColor: '#d1d5db',
       weight: 2,
@@ -489,9 +527,22 @@ function styleStateByIdMethod(feature) {
     };
   }
 
-  // Find the lowest group method (best UX) that this state accepts from selected methods
-  const lowestGroup = Math.min(...acceptedSelectedMethods.map(method => methodToGroup[method]));
-  const fillColor = groupColors[lowestGroup];
+  // GREEDY ALGORITHM: Find the best (lowest group number) method this state accepts
+  // This prioritizes methods with lowest user friction + implementation cost
+  let fillColor;
+
+  if (acceptedSelectedMethods.length === 1) {
+    // Only ONE method accepted - use specific method color
+    fillColor = methodColors[acceptedSelectedMethods[0]];
+  } else {
+    // Multiple methods accepted - find the BEST one (lowest group = best UX)
+    const bestMethod = acceptedSelectedMethods.reduce((best, current) => {
+      return methodToGroup[current] < methodToGroup[best] ? current : best;
+    });
+
+    // Use the specific color of the best method
+    fillColor = methodColors[bestMethod];
+  }
 
   return {
     fillColor: fillColor,
@@ -616,8 +667,13 @@ function updateMarketStats() {
       // No methods selected - show all states as unselected
       selectedStates = [];
     } else {
-      // Filter states that accept any of the selected methods
+      // Filter states that accept any of the selected methods OR are Tier 0 (no law)
       selectedStates = statesData.filter(state => {
+        // Include Tier 0 states (no law = any method works)
+        if (state.legal.tier === 0) {
+          return true;
+        }
+        // Include states that accept any selected method
         return selectedMethods.some(method =>
           state.legal.verificationMethods[method]
         );
