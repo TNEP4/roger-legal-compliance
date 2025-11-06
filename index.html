@@ -347,23 +347,34 @@
     .tier-filter-btn {
       border: 1px solid transparent;
     }
-    
+
     .tier-filter-btn.active {
       background-color: #f9fafb;
       border-color: #e5e7eb;
     }
-    
+
     .tier-filter-btn.active .tier-check {
       opacity: 1;
       color: #3b82f6;
     }
-    
+
     .tier-filter-btn:not(.active) .tier-check {
       opacity: 0;
     }
-    
+
     .tier-filter-btn:not(.active) {
       opacity: 0.5;
+    }
+
+    /* ID Check Method Filter Checkboxes */
+    .group-checkbox,
+    .method-checkbox {
+      accent-color: #3b82f6;
+      cursor: pointer;
+    }
+
+    .id-methods-list {
+      transition: all 0.2s ease;
     }
     
     /* Segmented Switch Control */
@@ -404,7 +415,8 @@
       box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
     }
     
-    .tab-switch-slider {
+    .tab-switch-slider,
+    .mode-switch-slider {
       position: absolute;
       top: 2px;
       left: 2px;
@@ -414,6 +426,44 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
       transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1;
+    }
+
+    /* Mode Switch Container (specific styles for floating card) */
+    .mode-switch-container {
+      position: relative;
+      display: inline-flex;
+      background: #f5f5f5;
+      border-radius: 9px;
+      padding: 2px;
+      gap: 0;
+    }
+
+    .mode-switch-container .mode-btn {
+      position: relative;
+      padding: 6px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #6b7280;
+      background: transparent;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      z-index: 2;
+    }
+
+    .mode-switch-container .mode-btn:hover:not(.active) {
+      color: #374151;
+    }
+
+    .mode-switch-container .mode-btn.active {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .mode-switch-container .mode-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
     }
   </style>
 </head>
@@ -450,10 +500,31 @@
   <!-- Combined Floating Card (Map View Only) -->
   <div id="stats-card" class="floating-card" style="bottom: 20px; left: 20px; width: 260px; max-height: calc(100vh - 80px); overflow-y: auto;">
     <div class="p-3">
-      <!-- Tier Filters -->
-      <div class="collapsible-section">
+      <!-- Mode Switcher (Always Visible) -->
+      <div class="mb-3">
+        <nav class="mode-switch-container" style="width: 100%;">
+          <button class="mode-btn active" id="mode-state-category" style="width: 50%;">
+            State Category
+          </button>
+          <button class="mode-btn" id="mode-id-method" style="width: 50%;">
+            ID Check Method
+          </button>
+          <div class="mode-switch-slider" style="width: 50%;"></div>
+        </nav>
+      </div>
+
+      <!-- LGBTQ+ Density Toggle (Always Visible) -->
+      <div class="mb-3">
+        <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1.5 rounded text-xs">
+          <input type="checkbox" id="show-lgbtq" class="mr-2" checked>
+          <span>Show LGBTQ+ Density</span>
+        </label>
+      </div>
+
+      <!-- State Category Filters (Only visible in State Category mode) -->
+      <div class="collapsible-section mode-section state-category-section">
         <h3 class="collapsible-header font-semibold text-xs text-gray-500 uppercase" data-section="filters">
-          <span>Filter by Tier</span>
+          <span>Filter by State Category</span>
           <svg class="chevron w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
           </svg>
@@ -512,7 +583,136 @@
           </button>
         </div>
       </div>
-      
+
+      <!-- ID Check Method Filters (Only visible in ID Check Method mode) -->
+      <div class="collapsible-section mode-section id-method-section" style="display: none;">
+        <h3 class="collapsible-header font-semibold text-xs text-gray-500 uppercase" data-section="id-filters">
+          <span>Filter by ID Check Method</span>
+          <svg class="chevron w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </h3>
+        <div class="collapsible-content space-y-2.5" id="content-id-filters">
+          <!-- Group 1: Zero Friction, Zero Cost -->
+          <div class="id-group-container">
+            <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="1" checked>
+              <div class="w-2.5 h-2.5 rounded-full mr-2" style="background-color: #2563eb;"></div>
+              <div class="flex-1">
+                <div class="font-semibold text-xs text-gray-900">Group 1</div>
+                <div class="text-xs text-gray-500 italic">Auto-verify via payment</div>
+              </div>
+            </label>
+            <div class="id-methods-list ml-8 mt-1 space-y-0.5">
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="creditCard" data-group="1" checked>
+                <span>Credit card</span>
+              </label>
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="commerciallySoftware" data-group="1" checked>
+                <span>Commercially reasonable software</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Group 2: Zero Friction, Low Cost -->
+          <div class="id-group-container">
+            <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="2" checked>
+              <div class="w-2.5 h-2.5 rounded-full mr-2" style="background-color: #9333ea;"></div>
+              <div class="flex-1">
+                <div class="font-semibold text-xs text-gray-900">Group 2</div>
+                <div class="text-xs text-gray-500 italic">Background database checks</div>
+              </div>
+            </label>
+            <div class="id-methods-list ml-8 mt-1 space-y-0.5">
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="commercialDatabase" data-group="2" checked>
+                <span>Commercial database</span>
+              </label>
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="transactionalData" data-group="2" checked>
+                <span>Transactional data</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Group 3: Low-Medium Friction -->
+          <div class="id-group-container">
+            <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="3" checked>
+              <div class="w-2.5 h-2.5 rounded-full mr-2" style="background-color: #0d9488;"></div>
+              <div class="flex-1">
+                <div class="font-semibold text-xs text-gray-900">Group 3</div>
+                <div class="text-xs text-gray-500 italic">External verification services</div>
+              </div>
+            </label>
+            <div class="id-methods-list ml-8 mt-1 space-y-0.5">
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="thirdPartyService" data-group="3" checked>
+                <span>Third-party service</span>
+              </label>
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="bankAccount" data-group="3" checked>
+                <span>Bank account</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Group 4: High Friction -->
+          <div class="id-group-container">
+            <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="4" checked>
+              <div class="w-2.5 h-2.5 rounded-full mr-2" style="background-color: #db2777;"></div>
+              <div class="flex-1">
+                <div class="font-semibold text-xs text-gray-900">Group 4</div>
+                <div class="text-xs text-gray-500 italic">ID upload required</div>
+              </div>
+            </label>
+            <div class="id-methods-list ml-8 mt-1 space-y-0.5">
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="digitizedId" data-group="4" checked>
+                <span>Digitized ID</span>
+              </label>
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="financialDocument" data-group="4" checked>
+                <span>Financial documents</span>
+              </label>
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="governmentId" data-group="4" checked>
+                <span>Government-issued ID</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Group 5: Very High Friction -->
+          <div class="id-group-container">
+            <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
+              <input type="checkbox" class="mr-2 group-checkbox" data-group="5" checked>
+              <div class="w-2.5 h-2.5 rounded-full mr-2" style="background-color: #dc2626;"></div>
+              <div class="flex-1">
+                <div class="font-semibold text-xs text-gray-900">Group 5</div>
+                <div class="text-xs text-gray-500 italic">Biometric verification</div>
+              </div>
+            </label>
+            <div class="id-methods-list ml-8 mt-1 space-y-0.5">
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="photoMatching" data-group="5" checked>
+                <span>Photo matching</span>
+              </label>
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="ial2Required" data-group="5" checked>
+                <span>IAL2 certification</span>
+              </label>
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="anonymousOption" data-group="5" checked>
+                <span>Anonymous option</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Market Coverage Stats -->
       <div class="collapsible-section pt-3">
         <div class="collapsible-divider"></div>
@@ -541,9 +741,9 @@
           </div>
         </div>
       </div>
-      
-      <!-- ID Verification -->
-      <div class="collapsible-section pt-3">
+
+      <!-- ID Verification (Only visible in State Category mode) -->
+      <div class="collapsible-section pt-3 mode-section state-category-section">
         <div class="collapsible-divider"></div>
         <h3 class="collapsible-header font-semibold text-xs text-gray-500 uppercase" data-section="verification">
           <span>ID Verification</span>
@@ -564,28 +764,6 @@
         </div>
       </div>
 
-      <!-- Visualization Toggles -->
-      <div class="collapsible-section collapsed pt-3">
-        <div class="collapsible-divider"></div>
-        <h3 class="collapsible-header collapsed font-semibold text-xs text-gray-500 uppercase" data-section="display">
-          <span>Display</span>
-          <svg class="chevron w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-          </svg>
-        </h3>
-        <div class="collapsible-content collapsed space-y-1.5 text-xs" id="content-display">
-          <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
-            <input type="checkbox" id="show-tiers" class="mr-2" checked>
-            <span>Show Tier Colors</span>
-          </label>
-          <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
-            <input type="checkbox" id="show-lgbtq" class="mr-2" checked>
-            <span>Show LGBTQ+ Density</span>
-          </label>
-            </div>
-          </div>
-        </div>
-      </div>
 
   <!-- Data Table Tab Content (Hidden by default) -->
   <div id="tab-table" class="tab-content-overlay hidden bg-gray-50">

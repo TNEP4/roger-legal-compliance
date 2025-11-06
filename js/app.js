@@ -231,22 +231,24 @@ const legalGlossary = {
 document.addEventListener('DOMContentLoaded', async () => {
   // Load states data
   await loadStatesData();
-  
+
   // Initialize map
   initMap();
-  
+
   // Initialize UI
   initTabs();
+  initModeSwitcher();
   initTierFilters();
+  initIdCheckFilters();
   initTable();
   initSearch();
-  
+
   // Update market coverage stats
   updateMarketStats();
-  
+
   // Initialize legal term tooltips
   initLegalTermTooltips();
-  
+
   // Close panel handler
   document.getElementById('close-panel').addEventListener('click', () => {
     document.getElementById('state-panel').classList.remove('open');
@@ -344,9 +346,14 @@ function createDynamicPatterns() {
 
 // Style each state based on tier and filter
 function styleState(feature) {
+  // Check which mode is active
+  if (activeFilterMode === 'idCheck') {
+    return styleStateByIdMethod(feature);
+  }
+
   const stateName = feature.properties.name;
   const stateData = statesData.find(s => s.state === stateName);
-  
+
   if (!stateData) {
     return {
       fillColor: '#999',
@@ -356,15 +363,14 @@ function styleState(feature) {
       fillOpacity: 0.5
     };
   }
-  
+
   // Check visualization toggles
-  const showTiers = document.getElementById('show-tiers')?.checked ?? true;
   const showLgbtq = document.getElementById('show-lgbtq')?.checked ?? true;
-  
+
   // Check if this tier is selected in filters
   const selectedTiers = getSelectedTiers();
   const isSelected = selectedTiers.includes(stateData.legal.tier);
-  
+
   const colors = {
     0: '#10b981',  // green
     1: '#3b82f6',  // blue
@@ -372,34 +378,127 @@ function styleState(feature) {
     3: '#f97316',  // orange
     4: '#ef4444'   // red
   };
-  
+
   // Determine fill color or pattern
   let fillValue;
-  
+
   if (isSelected && showLgbtq && stateData.lgbtqDensity && ['high', 'medium', 'low'].includes(stateData.lgbtqDensity)) {
     // Use pattern that includes both color and dots
-    if (showTiers) {
-      fillValue = `url(#dots-${stateData.legal.tier}-${stateData.lgbtqDensity})`;
-    } else {
-      fillValue = `url(#dots-gray-${stateData.lgbtqDensity})`;
-    }
+    fillValue = `url(#dots-${stateData.legal.tier}-${stateData.lgbtqDensity})`;
   } else {
     // Use solid color
-    if (showTiers && isSelected) {
+    if (isSelected) {
       fillValue = colors[stateData.legal.tier] || '#999';
-    } else if (isSelected) {
-      fillValue = '#e5e7eb';  // Light gray when tiers hidden but selected
     } else {
       fillValue = '#d1d5db';  // Gray for unselected
     }
   }
-  
+
   return {
     fillColor: fillValue,
     weight: 2,
     opacity: 1,
     color: '#ffffff',
     fillOpacity: isSelected ? 0.7 : 0.3
+  };
+}
+
+// Style state based on ID check methods
+function styleStateByIdMethod(feature) {
+  const stateName = feature.properties.name;
+  const stateData = statesData.find(s => s.state === stateName);
+
+  if (!stateData) {
+    return {
+      fillColor: '#999',
+      weight: 1,
+      opacity: 1,
+      color: '#666',
+      fillOpacity: 0.5
+    };
+  }
+
+  // Get selected ID check methods
+  const selectedMethods = getSelectedIdMethods();
+
+  // If no methods selected, show all states as gray
+  if (selectedMethods.length === 0) {
+    return {
+      fillColor: '#d1d5db',
+      weight: 2,
+      opacity: 1,
+      color: '#ffffff',
+      fillOpacity: 0.3
+    };
+  }
+
+  // ID check group colors (matching HTML - changed from tierColors to groupColors)
+  const groupColors = {
+    1: '#2563eb',  // Blue - Group 1
+    2: '#9333ea',  // Purple - Group 2
+    3: '#0d9488',  // Teal - Group 3
+    4: '#db2777',  // Pink - Group 4
+    5: '#dc2626'   // Red - Group 5
+  };
+
+  // Method to group mapping
+  const methodToGroup = {
+    'creditCard': 1,
+    'commerciallySoftware': 1,
+    'commercialDatabase': 2,
+    'transactionalData': 2,
+    'thirdPartyService': 3,
+    'bankAccount': 3,
+    'digitizedId': 4,
+    'financialDocument': 4,
+    'governmentId': 4,
+    'photoMatching': 5,
+    'ial2Required': 5,
+    'anonymousOption': 5
+  };
+
+  // Find ALL methods this state accepts (regardless of selection)
+  const allStateMethods = Object.keys(methodToGroup).filter(method =>
+    stateData.legal.verificationMethods[method]
+  );
+
+  // If state has no verification methods at all, show as gray
+  if (allStateMethods.length === 0) {
+    return {
+      fillColor: '#d1d5db',
+      weight: 2,
+      opacity: 1,
+      color: '#ffffff',
+      fillOpacity: 0.3
+    };
+  }
+
+  // Check if state accepts ANY of the selected methods
+  const acceptedSelectedMethods = selectedMethods.filter(method =>
+    stateData.legal.verificationMethods[method]
+  );
+
+  if (acceptedSelectedMethods.length === 0) {
+    // State doesn't accept any selected method - show as faded gray
+    return {
+      fillColor: '#d1d5db',
+      weight: 2,
+      opacity: 1,
+      color: '#ffffff',
+      fillOpacity: 0.3
+    };
+  }
+
+  // Find the lowest group method (best UX) that this state accepts from selected methods
+  const lowestGroup = Math.min(...acceptedSelectedMethods.map(method => methodToGroup[method]));
+  const fillColor = groupColors[lowestGroup];
+
+  return {
+    fillColor: fillColor,
+    weight: 2,
+    opacity: 1,
+    color: '#ffffff',
+    fillOpacity: 0.7
   };
 }
 
@@ -507,18 +606,38 @@ function showStateDetail(state) {
 
 // Update market coverage statistics
 function updateMarketStats() {
-  const selectedTiers = getSelectedTiers();
-  const selectedStates = statesData.filter(state => selectedTiers.includes(state.legal.tier));
-  
+  let selectedStates;
+
+  if (activeFilterMode === 'idCheck') {
+    // ID check mode: filter by selected methods
+    const selectedMethods = getSelectedIdMethods();
+
+    if (selectedMethods.length === 0) {
+      // No methods selected - show all states as unselected
+      selectedStates = [];
+    } else {
+      // Filter states that accept any of the selected methods
+      selectedStates = statesData.filter(state => {
+        return selectedMethods.some(method =>
+          state.legal.verificationMethods[method]
+        );
+      });
+    }
+  } else {
+    // State category mode: filter by tier
+    const selectedTiers = getSelectedTiers();
+    selectedStates = statesData.filter(state => selectedTiers.includes(state.legal.tier));
+  }
+
   const totalStates = selectedStates.length;
   const totalPopPercent = selectedStates.reduce((sum, state) => sum + state.populationPercent, 0);
   const totalPopulation = selectedStates.reduce((sum, state) => sum + state.population, 0);
-  
+
   // Update UI
   document.getElementById('selected-states-count').textContent = totalStates;
   document.getElementById('selected-population-percent').textContent = `${totalPopPercent.toFixed(1)}%`;
   document.getElementById('selected-population-count').textContent = `${(totalPopulation / 1000000).toFixed(0)}M`;
-  
+
   // Update verification methods display
   updateVerificationMethods(selectedStates);
 }
@@ -807,15 +926,104 @@ function initTabs() {
   });
 }
 
+// Track active filter mode
+let activeFilterMode = 'stateCategory'; // 'stateCategory' or 'idCheck'
+
+// Initialize mode switcher for floating card
+function initModeSwitcher() {
+  const modeStateCategoryBtn = document.getElementById('mode-state-category');
+  const modeIdMethodBtn = document.getElementById('mode-id-method');
+  const modeSwitcher = document.querySelector('.mode-switch-container');
+  const slider = modeSwitcher?.querySelector('.mode-switch-slider');
+
+  // Get sections
+  const stateCategorySections = document.querySelectorAll('.state-category-section');
+  const idMethodSections = document.querySelectorAll('.id-method-section');
+
+  // Function to update slider position
+  function updateModeSlider(activeBtn) {
+    if (!slider) return;
+    const btnRect = activeBtn.getBoundingClientRect();
+    const containerRect = activeBtn.parentElement.getBoundingClientRect();
+    const offsetLeft = btnRect.left - containerRect.left - 2;
+
+    slider.style.width = `${btnRect.width}px`;
+    slider.style.transform = `translateX(${offsetLeft}px)`;
+  }
+
+  // Initialize slider position
+  if (modeStateCategoryBtn && slider) {
+    updateModeSlider(modeStateCategoryBtn);
+  }
+
+  // Handle mode switch
+  function switchMode(mode) {
+    activeFilterMode = mode;
+
+    // Update button states
+    if (mode === 'stateCategory') {
+      modeStateCategoryBtn.classList.add('active');
+      modeIdMethodBtn.classList.remove('active');
+      updateModeSlider(modeStateCategoryBtn);
+
+      // Show state category sections, hide ID method sections
+      stateCategorySections.forEach(section => section.style.display = 'block');
+      idMethodSections.forEach(section => section.style.display = 'none');
+
+      // Deactivate ID check filters and activate tier filters
+      deactivateIdCheckFilters();
+      activateAllTierFilters();
+    } else {
+      modeIdMethodBtn.classList.add('active');
+      modeStateCategoryBtn.classList.remove('active');
+      updateModeSlider(modeIdMethodBtn);
+
+      // Show ID method sections, hide state category sections
+      idMethodSections.forEach(section => section.style.display = 'block');
+      stateCategorySections.forEach(section => section.style.display = 'none');
+
+      // Deactivate tier filters and activate ID check filters
+      deactivateStateCategoryFilters();
+      activateAllIdCheckFilters();
+    }
+
+    // Update map styling
+    if (geojsonLayer) {
+      geojsonLayer.setStyle(styleState);
+    }
+
+    // Update stats
+    updateMarketStats();
+  }
+
+  // Button click handlers
+  if (modeStateCategoryBtn) {
+    modeStateCategoryBtn.addEventListener('click', () => switchMode('stateCategory'));
+  }
+
+  if (modeIdMethodBtn) {
+    modeIdMethodBtn.addEventListener('click', () => switchMode('idCheck'));
+  }
+
+  // Update slider on window resize
+  window.addEventListener('resize', () => {
+    if (activeFilterMode === 'stateCategory' && modeStateCategoryBtn && slider) {
+      updateModeSlider(modeStateCategoryBtn);
+    } else if (activeFilterMode === 'idCheck' && modeIdMethodBtn && slider) {
+      updateModeSlider(modeIdMethodBtn);
+    }
+  });
+}
+
 // Initialize tier filters
 function initTierFilters() {
   const filterButtons = document.querySelectorAll('.tier-filter-btn');
-  
+
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
       // Toggle active state
       button.classList.toggle('active');
-      
+
       // Update map styling
       if (geojsonLayer) {
         geojsonLayer.setStyle(styleState);
@@ -824,28 +1032,133 @@ function initTierFilters() {
       updateMarketStats();
     });
   });
-  
+
   // Initialize visualization toggles
-  const showTiersToggle = document.getElementById('show-tiers');
   const showLgbtqToggle = document.getElementById('show-lgbtq');
-  
+
   // Create patterns on initialization
   createDynamicPatterns();
-  
-  if (showTiersToggle) {
-    showTiersToggle.addEventListener('change', () => {
-      if (geojsonLayer) {
-        geojsonLayer.setStyle(styleState);
-      }
-    });
-  }
-  
+
+  // LGBTQ+ density toggle handler
   if (showLgbtqToggle) {
     showLgbtqToggle.addEventListener('change', () => {
       if (geojsonLayer) {
         geojsonLayer.setStyle(styleState);
       }
     });
+  }
+}
+
+// Initialize ID check method filters
+function initIdCheckFilters() {
+  const groupCheckboxes = document.querySelectorAll('.group-checkbox');
+  const methodCheckboxes = document.querySelectorAll('.method-checkbox');
+
+  // Parent checkbox click handlers
+  groupCheckboxes.forEach(groupCheckbox => {
+    groupCheckbox.addEventListener('change', () => {
+      const container = groupCheckbox.closest('.id-group-container');
+      const childCheckboxes = container.querySelectorAll('.method-checkbox');
+
+      // Check/uncheck all children based on parent state
+      childCheckboxes.forEach(checkbox => {
+        checkbox.checked = groupCheckbox.checked;
+      });
+
+      // Update map
+      updateMapByIdMethods();
+      updateMarketStats();
+    });
+  });
+
+  // Child checkbox change handlers
+  methodCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      // Update parent group checkbox state
+      const container = checkbox.closest('.id-group-container');
+      updateGroupCheckboxState(container);
+
+      // Update map
+      updateMapByIdMethods();
+      updateMarketStats();
+    });
+  });
+
+  // Initialize all group checkbox states
+  document.querySelectorAll('.id-group-container').forEach(container => {
+    updateGroupCheckboxState(container);
+  });
+}
+
+// Update parent checkbox state based on children (with indeterminate support)
+function updateGroupCheckboxState(container) {
+  const groupCheckbox = container.querySelector('.group-checkbox');
+  const childCheckboxes = Array.from(container.querySelectorAll('.method-checkbox'));
+
+  const checkedCount = childCheckboxes.filter(cb => cb.checked).length;
+  const totalCount = childCheckboxes.length;
+
+  if (checkedCount === 0) {
+    // None checked
+    groupCheckbox.checked = false;
+    groupCheckbox.indeterminate = false;
+  } else if (checkedCount === totalCount) {
+    // All checked
+    groupCheckbox.checked = true;
+    groupCheckbox.indeterminate = false;
+  } else {
+    // Some checked (indeterminate)
+    groupCheckbox.checked = false;
+    groupCheckbox.indeterminate = true;
+  }
+}
+
+// Deactivate state category filters
+function deactivateStateCategoryFilters() {
+  const filterButtons = document.querySelectorAll('.tier-filter-btn');
+  filterButtons.forEach(btn => btn.classList.remove('active'));
+}
+
+// Activate all tier filters
+function activateAllTierFilters() {
+  const filterButtons = document.querySelectorAll('.tier-filter-btn');
+  filterButtons.forEach(btn => btn.classList.add('active'));
+}
+
+// Deactivate ID check filters
+function deactivateIdCheckFilters() {
+  const groupCheckboxes = document.querySelectorAll('.group-checkbox');
+  const methodCheckboxes = document.querySelectorAll('.method-checkbox');
+
+  groupCheckboxes.forEach(cb => {
+    cb.checked = false;
+    cb.indeterminate = false;
+  });
+  methodCheckboxes.forEach(cb => cb.checked = false);
+}
+
+// Activate all ID check filters
+function activateAllIdCheckFilters() {
+  const groupCheckboxes = document.querySelectorAll('.group-checkbox');
+  const methodCheckboxes = document.querySelectorAll('.method-checkbox');
+
+  groupCheckboxes.forEach(cb => {
+    cb.checked = true;
+    cb.indeterminate = false;
+  });
+  methodCheckboxes.forEach(cb => cb.checked = true);
+}
+
+// Get currently selected ID check methods
+function getSelectedIdMethods() {
+  const checkedBoxes = document.querySelectorAll('.method-checkbox:checked');
+  return Array.from(checkedBoxes).map(cb => cb.dataset.method);
+}
+
+// Update map coloring based on selected ID check methods
+function updateMapByIdMethods() {
+  if (geojsonLayer) {
+    geojsonLayer.setStyle(styleStateByIdMethod);
   }
 }
 
