@@ -513,14 +513,6 @@
         </nav>
       </div>
 
-      <!-- LGBTQ+ Density Toggle (Always Visible) -->
-      <div class="mb-3">
-        <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1.5 rounded text-xs">
-          <input type="checkbox" id="show-lgbtq" class="mr-2" checked>
-          <span>Show LGBTQ+ Density</span>
-        </label>
-      </div>
-
       <!-- State Category Filters (Only visible in State Category mode) -->
       <div class="collapsible-section mode-section state-category-section">
         <h3 class="collapsible-header font-semibold text-xs text-gray-500 uppercase" data-section="filters">
@@ -764,6 +756,16 @@
         </div>
       </div>
 
+      <!-- LGBTQ+ Density Toggle (Always Visible at Bottom) -->
+      <div class="pt-3">
+        <div class="collapsible-divider"></div>
+        <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1.5 rounded text-xs mt-2">
+          <input type="checkbox" id="show-lgbtq" class="mr-2" checked>
+          <span>Show LGBTQ+ Density</span>
+        </label>
+      </div>
+    </div>
+  </div>
 
   <!-- Data Table Tab Content (Hidden by default) -->
   <div id="tab-table" class="tab-content-overlay hidden bg-gray-50">
