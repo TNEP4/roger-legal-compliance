@@ -422,7 +422,7 @@
           <button class="tier-filter-btn active w-full text-left p-1.5 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-between group" data-tier="0">
             <div class="flex-1 min-w-0">
               <div class="font-medium text-xs text-gray-900">Tier 0</div>
-              <div class="text-xs text-gray-500 truncate">No Requirements</div>
+              <div class="text-xs text-gray-500 truncate">No Law</div>
       </div>
             <div class="flex items-center gap-1.5 flex-shrink-0">
               <div class="w-2.5 h-2.5 rounded-full tier-0"></div>
@@ -431,11 +431,11 @@
               </svg>
       </div>
           </button>
-          
+
           <button class="tier-filter-btn active w-full text-left p-1.5 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-between group" data-tier="1">
             <div class="flex-1 min-w-0">
               <div class="font-medium text-xs text-gray-900">Tier 1</div>
-              <div class="text-xs text-gray-500 truncate">Credit Card OK</div>
+              <div class="text-xs text-gray-500 truncate">CC Compliant</div>
       </div>
             <div class="flex items-center gap-1.5 flex-shrink-0">
               <div class="w-2.5 h-2.5 rounded-full tier-1"></div>
@@ -444,11 +444,11 @@
               </svg>
     </div>
           </button>
-          
+
           <button class="tier-filter-btn active w-full text-left p-1.5 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-between group" data-tier="2">
             <div class="flex-1 min-w-0">
               <div class="font-medium text-xs text-gray-900">Tier 2</div>
-              <div class="text-xs text-gray-500 truncate">Transactional Data</div>
+              <div class="text-xs text-gray-500 truncate">Low Friction</div>
             </div>
             <div class="flex items-center gap-1.5 flex-shrink-0">
               <div class="w-2.5 h-2.5 rounded-full tier-2"></div>
@@ -457,27 +457,14 @@
               </svg>
             </div>
           </button>
-          
+
           <button class="tier-filter-btn active w-full text-left p-1.5 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-between group" data-tier="3">
             <div class="flex-1 min-w-0">
               <div class="font-medium text-xs text-gray-900">Tier 3</div>
-              <div class="text-xs text-gray-500 truncate">Strict Verification</div>
+              <div class="text-xs text-gray-500 truncate">High Friction</div>
             </div>
             <div class="flex items-center gap-1.5 flex-shrink-0">
               <div class="w-2.5 h-2.5 rounded-full tier-3"></div>
-              <svg class="w-3.5 h-3.5 text-gray-400 group-hover:text-gray-600 tier-check" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-          </button>
-          
-          <button class="tier-filter-btn active w-full text-left p-1.5 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-between group" data-tier="4">
-            <div class="flex-1 min-w-0">
-              <div class="font-medium text-xs text-gray-900">Tier 4</div>
-              <div class="text-xs text-gray-500 truncate">Avoid</div>
-            </div>
-            <div class="flex items-center gap-1.5 flex-shrink-0">
-              <div class="w-2.5 h-2.5 rounded-full tier-4"></div>
               <svg class="w-3.5 h-3.5 text-gray-400 group-hover:text-gray-600 tier-check" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
               </svg>
@@ -563,11 +550,10 @@
           <input type="text" id="search" placeholder="Search states..." class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
           <select id="tier-filter" class="table-filter-select">
             <option value="">All Tiers</option>
-            <option value="0">Tier 0</option>
-            <option value="1">Tier 1</option>
-            <option value="2">Tier 2</option>
-            <option value="3">Tier 3</option>
-            <option value="4">Tier 4</option>
+            <option value="0">Tier 0 - No Law</option>
+            <option value="1">Tier 1 - CC Compliant</option>
+            <option value="2">Tier 2 - Low Friction</option>
+            <option value="3">Tier 3 - High Friction</option>
           </select>
           <select id="id-req-filter" class="table-filter-select">
             <option value="">ID Required?</option>
