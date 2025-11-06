@@ -510,85 +510,133 @@ function updateMarketStats() {
   document.getElementById('selected-population-percent').textContent = `${totalPopPercent.toFixed(1)}%`;
   document.getElementById('selected-population-count').textContent = `${(totalPopulation / 1000000).toFixed(0)}M`;
   
-  // Determine verification methods needed based on actual data
-  const methodsEl = document.getElementById('verification-methods');
+  // Update verification methods display
+  updateVerificationMethods(selectedStates);
+}
 
-  // If no states selected, show all methods
+// Update verification methods with hierarchical display
+function updateVerificationMethods(selectedStates) {
+  const minimumEl = document.getElementById('verification-minimum');
+  const optionalEl = document.getElementById('verification-optional');
+
+  // If no states selected
   if (selectedStates.length === 0) {
-    methodsEl.innerHTML = '<div class="text-gray-500 italic">Select tiers to see verification methods</div>';
+    minimumEl.innerHTML = '<div class="text-gray-500 italic text-center py-2">Select tiers to see verification methods</div>';
+    optionalEl.innerHTML = '';
     return;
   }
-
-  // Aggregate verification methods from selected states
-  const methodUsage = {
-    creditCard: false,
-    digitizedId: false,
-    governmentId: false,
-    transactionalData: false,
-    ial2Required: false,
-    photoMatching: false,
-    anonymousOption: false,
-    thirdPartyService: false,
-    commercialDatabase: false,
-    commerciallySoftware: false,
-    bankAccount: false,
-    financialDocument: false
-  };
-
-  // Check which methods are used in selected states
-  selectedStates.forEach(state => {
-    Object.keys(methodUsage).forEach(method => {
-      if (state.legal.verificationMethods[method]) {
-        methodUsage[method] = true;
-      }
-    });
-  });
-
-  // Map methods to display labels with tooltips
-  const methodLabels = {
-    creditCard: { label: 'Credit card', term: 'Credit Card' },
-    digitizedId: { label: 'Digitized ID', term: 'Digital ID' },
-    governmentId: { label: 'Government-issued ID', term: 'Photo ID' },
-    transactionalData: { label: 'Transactional data', term: 'Transactional Data' },
-    ial2Required: { label: 'IAL2 certification', term: 'IAL2' },
-    photoMatching: { label: 'Photo matching', term: 'Photo ID' },
-    anonymousOption: { label: 'Anonymous option available', term: 'Anonymous Option' },
-    thirdPartyService: { label: 'Third-party service', term: 'Third-Party Service' },
-    commercialDatabase: { label: 'Commercial database', term: 'Commercial Database' },
-    commerciallySoftware: { label: 'Commercially reasonable software', term: 'Commercially Reasonable Software' },
-    bankAccount: { label: 'Bank account information', term: 'Bank Account' },
-    financialDocument: { label: 'Financial documents', term: 'Financial Document' }
-  };
-
-  // Build the list
-  const methods = [];
 
   // Special case: if only Tier 0 states are selected
   const allTier0 = selectedStates.every(state => state.legal.tier === 0);
   if (allTier0) {
-    methods.push('• No verification required');
-  } else {
-    // Show all methods that are used in selected states
-    Object.entries(methodUsage).forEach(([method, isUsed]) => {
-      if (isUsed) {
-        const config = methodLabels[method];
-        if (config.term) {
-          // With tooltip
-          methods.push(`• <span class="legal-term" data-term="${config.term}">${config.label}</span>`);
-        } else {
-          // Without tooltip
-          methods.push(`• ${config.label}`);
-        }
-      }
-    });
-
-    // If no methods found (shouldn't happen), show message
-    if (methods.length === 0) {
-      methods.push('• No specific methods defined');
-    }
+    minimumEl.innerHTML = '<div class="text-green-600 font-semibold text-center py-2">✓ No verification required</div>';
+    optionalEl.innerHTML = '';
+    return;
   }
 
-  methodsEl.innerHTML = methods.map(m => `<div>${m}</div>`).join('');
+  // Define verification method hierarchy (from easiest/cheapest to hardest/most expensive)
+  const methodHierarchy = {
+    // Group 1: Zero Cost (Financial)
+    'creditCard': { group: 1, groupName: 'Zero Cost', label: 'Credit card', term: 'Credit Card', cost: '$0' },
+    'bankAccount': { group: 1, groupName: 'Zero Cost', label: 'Bank account', term: 'Bank Account', cost: '$0' },
+    'financialDocument': { group: 1, groupName: 'Zero Cost', label: 'Financial documents', term: 'Financial Document', cost: '$0' },
+
+    // Group 2: Low Cost (Catch-all)
+    'commerciallySoftware': { group: 2, groupName: 'Low Cost', label: 'Commercially reasonable software', term: 'Commercially Reasonable Software', cost: '$0-500/mo' },
+
+    // Group 3: Medium Cost (Database/Data)
+    'transactionalData': { group: 3, groupName: 'Medium Cost', label: 'Transactional data', term: 'Transactional Data', cost: '$500-2k/mo' },
+    'commercialDatabase': { group: 3, groupName: 'Medium Cost', label: 'Commercial database', term: 'Commercial Database', cost: '$500-2k/mo' },
+    'thirdPartyService': { group: 3, groupName: 'Medium Cost', label: 'Third-party service', term: 'Third-Party Service', cost: '$1k-5k/mo' },
+
+    // Group 4: High Cost (ID Upload)
+    'digitizedId': { group: 4, groupName: 'High Cost', label: 'Digitized ID', term: 'Digital ID', cost: '$2k-10k/mo' },
+    'governmentId': { group: 4, groupName: 'High Cost', label: 'Government-issued ID', term: 'Photo ID', cost: '$2k-10k/mo' },
+
+    // Group 5: Very High Cost (Biometric/Special)
+    'photoMatching': { group: 5, groupName: 'Very High Cost', label: 'Photo matching', term: 'Photo ID', cost: '$5k-15k/mo' },
+    'ial2Required': { group: 5, groupName: 'Very High Cost', label: 'IAL2 certification', term: 'IAL2', cost: '$10k-25k/mo' },
+    'anonymousOption': { group: 5, groupName: 'Very High Cost', label: 'Anonymous option', term: 'Anonymous Option', cost: '$5k-20k/mo' }
+  };
+
+  // Count how many states accept each method
+  const methodCounts = {};
+  selectedStates.forEach(state => {
+    Object.keys(methodHierarchy).forEach(method => {
+      if (state.legal.verificationMethods[method]) {
+        methodCounts[method] = (methodCounts[method] || 0) + 1;
+      }
+    });
+  });
+
+  // Find all methods accepted by ALL states
+  const universalMethods = Object.keys(methodCounts).filter(method =>
+    methodCounts[method] === selectedStates.length
+  );
+
+  // Find the LOWEST cost tier that has at least one universal method
+  let lowestTierWithUniversal = null;
+  if (universalMethods.length > 0) {
+    const tiers = universalMethods.map(method => methodHierarchy[method].group);
+    lowestTierWithUniversal = Math.min(...tiers);
+  }
+
+  // "Must Process" = Only methods from the lowest tier that cover all states
+  const mustProcessMethods = universalMethods.filter(method =>
+    methodHierarchy[method].group === lowestTierWithUniversal
+  );
+
+  // "Other Options" = Everything else (higher-tier universal methods + partial coverage)
+  const otherMethods = Object.keys(methodCounts).filter(method =>
+    !mustProcessMethods.includes(method) && methodCounts[method] > 0
+  );
+
+  // Render Must Process
+  if (mustProcessMethods.length > 0) {
+    let html = '<div class="font-semibold text-green-700 mb-2">✓ Must Process (easiest option covering all states)</div>';
+    html += '<div class="space-y-1">';
+
+    mustProcessMethods.forEach(method => {
+      const info = methodHierarchy[method];
+      html += `<div class="ml-2 text-sm">• <span class="legal-term" data-term="${info.term}">${info.label}</span></div>`;
+    });
+
+    html += '</div>';
+    minimumEl.innerHTML = html;
+  } else {
+    minimumEl.innerHTML = '<div class="text-orange-600 font-semibold mb-2">⚠ No single method covers all states</div><div class="text-xs text-gray-600 mb-2">You must combine methods from "Other Options" below</div>';
+  }
+
+  // Render Other Options
+  if (otherMethods.length > 0) {
+    let html = '<div class="font-semibold text-gray-700 mb-2 mt-3">Other Options</div>';
+    html += '<div class="space-y-1.5">';
+
+    // Group by cost tier
+    const grouped = {};
+    otherMethods.forEach(method => {
+      const info = methodHierarchy[method];
+      if (!grouped[info.group]) grouped[info.group] = [];
+      grouped[info.group].push(method);
+    });
+
+    // Render groups
+    Object.keys(grouped).sort((a, b) => a - b).forEach(group => {
+      const groupInfo = methodHierarchy[grouped[group][0]];
+      html += `<div class="text-xs font-semibold text-gray-600 mt-2">${groupInfo.groupName}</div>`;
+      grouped[group].forEach(method => {
+        const info = methodHierarchy[method];
+        const coverage = `${methodCounts[method]}/${selectedStates.length}`;
+        const isUniversal = methodCounts[method] === selectedStates.length;
+        html += `<div class="ml-2 text-xs">• <span class="legal-term" data-term="${info.term}">${info.label}</span> <span class="text-gray-500">(${isUniversal ? 'all states' : coverage + ' states'})</span></div>`;
+      });
+    });
+
+    html += '</div>';
+    optionalEl.innerHTML = html;
+  } else {
+    optionalEl.innerHTML = '';
+  }
 
   // Reinitialize tooltips for new elements
   initLegalTermTooltips();
