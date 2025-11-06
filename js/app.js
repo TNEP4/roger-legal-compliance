@@ -405,7 +405,7 @@ function initTabs() {
   function updateSlider(activeBtn) {
     const btnRect = activeBtn.getBoundingClientRect();
     const containerRect = activeBtn.parentElement.getBoundingClientRect();
-    const offsetLeft = btnRect.left - containerRect.left;
+    const offsetLeft = btnRect.left - containerRect.left - 2; // Adjust for container padding
     
     slider.style.width = `${btnRect.width}px`;
     slider.style.transform = `translateX(${offsetLeft}px)`;
@@ -725,3 +725,36 @@ function initLegalTermTooltips() {
     }
   });
 }
+
+// Initialize collapsible sections
+function initCollapsibleSections() {
+  const headers = document.querySelectorAll('.collapsible-header');
+  
+  headers.forEach(header => {
+    header.addEventListener('click', () => {
+      const section = header.dataset.section;
+      const content = document.getElementById(`content-${section}`);
+      const sectionWrapper = header.closest('.collapsible-section');
+      
+      // Toggle collapsed state
+      const isCollapsed = header.classList.contains('collapsed');
+      
+      if (isCollapsed) {
+        // Expand
+        header.classList.remove('collapsed');
+        content.classList.remove('collapsed');
+        sectionWrapper.classList.remove('collapsed');
+      } else {
+        // Collapse
+        header.classList.add('collapsed');
+        content.classList.add('collapsed');
+        sectionWrapper.classList.add('collapsed');
+      }
+    });
+  });
+}
+
+// Initialize the app
+document.addEventListener('DOMContentLoaded', () => {
+  initCollapsibleSections();
+});
