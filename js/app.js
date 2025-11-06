@@ -529,9 +529,32 @@ function initTableFilters() {
   const tierFilter = document.getElementById('tier-filter');
   const idReqFilter = document.getElementById('id-req-filter');
   
+  // Update filter styling when value changes
+  function updateFilterStyling() {
+    if (tierFilter.value) {
+      tierFilter.classList.add('has-value');
+    } else {
+      tierFilter.classList.remove('has-value');
+    }
+    
+    if (idReqFilter.value) {
+      idReqFilter.classList.add('has-value');
+      } else {
+      idReqFilter.classList.remove('has-value');
+    }
+  }
+  
   searchInput.addEventListener('input', renderTable);
-  tierFilter.addEventListener('change', renderTable);
-  idReqFilter.addEventListener('change', renderTable);
+  
+  tierFilter.addEventListener('change', () => {
+    updateFilterStyling();
+    renderTable();
+  });
+  
+  idReqFilter.addEventListener('change', () => {
+    updateFilterStyling();
+    renderTable();
+  });
 }
 
 // Keep for backward compatibility
