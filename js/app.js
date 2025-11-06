@@ -298,39 +298,49 @@ async function initMap() {
 function createDynamicPatterns() {
   const defs = document.querySelector('#pattern-defs defs');
   defs.innerHTML = ''; // Clear existing patterns
-  
-  const colors = {
-    0: '#10b981',  // green
-    1: '#3b82f6',  // blue
-    2: '#eab308',  // yellow
-    3: '#f97316',  // orange
-    4: '#ef4444',  // red
-    'gray': '#e5e7eb',  // light gray
-    'unselected': '#d1d5db'  // gray for unselected
+
+  // State Category mode colors (Tiers 0-4)
+  const tierColors = {
+    0: '#10b981',  // green - Tier 0
+    1: '#3b82f6',  // blue - Tier 1
+    2: '#eab308',  // yellow - Tier 2
+    3: '#f97316',  // orange - Tier 3
+    4: '#ef4444'   // red - Tier 4
   };
-  
+
+  // ID Check Method mode colors (Groups 0-5)
+  // Using the group base colors that represent each group
+  const groupColors = {
+    0: '#9ca3af',  // Gray - Group 0 (No Law / No ID Required)
+    1: '#06b6d4',  // Cyan - Group 1 (Zero Friction, Zero Cost - Credit Card only)
+    2: '#10b981',  // Emerald - Group 2 (Zero Friction, Low Cost)
+    3: '#f59e0b',  // Amber - Group 3 (Low-Medium Friction)
+    4: '#f43f5e',  // Rose - Group 4 (High Friction)
+    5: '#a855f7'   // Violet - Group 5 (Very High Friction)
+  };
+
   const densitySettings = {
     high: { spacing: 6, radius: 2.2, opacity: 0.6 },
     medium: { spacing: 11, radius: 1.8, opacity: 0.45 },
     low: { spacing: 18, radius: 1.4, opacity: 0.3 }
   };
-  
-  // Create patterns for each color-density combination
-  Object.entries(colors).forEach(([tier, color]) => {
+
+  // Create patterns for State Category mode (using tier-X-density pattern IDs)
+  Object.entries(tierColors).forEach(([tier, color]) => {
     Object.entries(densitySettings).forEach(([density, settings]) => {
       const pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
-      pattern.setAttribute('id', `dots-${tier}-${density}`);
+      pattern.setAttribute('id', `tier-${tier}-${density}`);
       pattern.setAttribute('width', settings.spacing);
       pattern.setAttribute('height', settings.spacing);
       pattern.setAttribute('patternUnits', 'userSpaceOnUse');
-      
+
       // Background rect with the tier color
       const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
       rect.setAttribute('width', settings.spacing);
       rect.setAttribute('height', settings.spacing);
       rect.setAttribute('fill', color);
       pattern.appendChild(rect);
-      
+
       // Dot overlay
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttribute('cx', settings.spacing / 2);
@@ -338,7 +348,35 @@ function createDynamicPatterns() {
       circle.setAttribute('r', settings.radius);
       circle.setAttribute('fill', `rgba(0,0,0,${settings.opacity})`);
       pattern.appendChild(circle);
-      
+
+      defs.appendChild(pattern);
+    });
+  });
+
+  // Create patterns for ID Check Method mode (using group-X-density pattern IDs)
+  Object.entries(groupColors).forEach(([group, color]) => {
+    Object.entries(densitySettings).forEach(([density, settings]) => {
+      const pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
+      pattern.setAttribute('id', `group-${group}-${density}`);
+      pattern.setAttribute('width', settings.spacing);
+      pattern.setAttribute('height', settings.spacing);
+      pattern.setAttribute('patternUnits', 'userSpaceOnUse');
+
+      // Background rect with the group color
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('width', settings.spacing);
+      rect.setAttribute('height', settings.spacing);
+      rect.setAttribute('fill', color);
+      pattern.appendChild(rect);
+
+      // Dot overlay
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', settings.spacing / 2);
+      circle.setAttribute('cy', settings.spacing / 2);
+      circle.setAttribute('r', settings.radius);
+      circle.setAttribute('fill', `rgba(0,0,0,${settings.opacity})`);
+      pattern.appendChild(circle);
+
       defs.appendChild(pattern);
     });
   });
@@ -383,8 +421,8 @@ function styleState(feature) {
   let fillValue;
 
   if (isSelected && showLgbtq && stateData.lgbtqDensity && ['high', 'medium', 'low'].includes(stateData.lgbtqDensity)) {
-    // Use pattern that includes both color and dots
-    fillValue = `url(#dots-${stateData.legal.tier}-${stateData.lgbtqDensity})`;
+    // Use pattern that includes both color and dots (State Category mode uses tier-X-density)
+    fillValue = `url(#tier-${stateData.legal.tier}-${stateData.lgbtqDensity})`;
   } else {
     // Use solid color
     if (isSelected) {
@@ -500,8 +538,19 @@ function styleStateByIdMethod(feature) {
 
   if (isTier0State && isNoLawSelected) {
     // Tier 0 state AND user selected "noLaw" filter - show as active gray
+    // Check LGBTQ+ density visualization toggle
+    const showLgbtq = document.getElementById('show-lgbtq')?.checked ?? true;
+
+    let fillValue;
+    if (showLgbtq && stateData.lgbtqDensity && ['high', 'medium', 'low'].includes(stateData.lgbtqDensity)) {
+      // Use pattern for Group 0 (noLaw) - ID Check Method mode uses group-X-density
+      fillValue = `url(#group-0-${stateData.lgbtqDensity})`;
+    } else {
+      fillValue = '#9ca3af';  // Gray - No law states when actively selected
+    }
+
     return {
-      fillColor: '#9ca3af',  // Gray - No law states when actively selected
+      fillColor: fillValue,
       weight: 2,
       opacity: 1,
       color: '#ffffff',
@@ -540,13 +589,15 @@ function styleStateByIdMethod(feature) {
   // GREEDY ALGORITHM: Find the best (lowest group number) method this state accepts
   // This prioritizes methods with lowest user friction + implementation cost
   let fillColor;
+  let bestMethod;
 
   if (acceptedSelectedMethods.length === 1) {
     // Only ONE method accepted - use specific method color
-    fillColor = methodColors[acceptedSelectedMethods[0]];
+    bestMethod = acceptedSelectedMethods[0];
+    fillColor = methodColors[bestMethod];
   } else {
     // Multiple methods accepted - find the BEST one (lowest group = best UX)
-    const bestMethod = acceptedSelectedMethods.reduce((best, current) => {
+    bestMethod = acceptedSelectedMethods.reduce((best, current) => {
       return methodToGroup[current] < methodToGroup[best] ? current : best;
     });
 
@@ -554,8 +605,24 @@ function styleStateByIdMethod(feature) {
     fillColor = methodColors[bestMethod];
   }
 
+  // Check LGBTQ+ density visualization toggle
+  const showLgbtq = document.getElementById('show-lgbtq')?.checked ?? true;
+
+  // Determine fill value (solid color or pattern)
+  let fillValue;
+
+  if (showLgbtq && stateData.lgbtqDensity && ['high', 'medium', 'low'].includes(stateData.lgbtqDensity)) {
+    // Get the group number for the best method to use correct pattern
+    const groupNum = methodToGroup[bestMethod];
+    // Use pattern that includes both color and dots (ID Check Method mode uses group-X-density)
+    fillValue = `url(#group-${groupNum}-${stateData.lgbtqDensity})`;
+  } else {
+    // Use solid color
+    fillValue = fillColor;
+  }
+
   return {
-    fillColor: fillColor,
+    fillColor: fillValue,
     weight: 2,
     opacity: 1,
     color: '#ffffff',
