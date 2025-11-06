@@ -7,6 +7,15 @@ let geojsonLayer = null;
 
 // Legal glossary data
 const legalGlossary = {
+  'No Law': {
+    term: 'No Age Verification Law',
+    simple: 'These states have no age verification requirements for adult content websites.',
+    intermediate: 'States without enacted age verification legislation. Websites can freely provide adult content without implementing age checks.',
+    detailed: `<strong>What this means:</strong> No state-level legal requirement to verify user ages before providing adult content.<br><br>
+<strong>Business implication:</strong> Zero compliance cost and zero user friction for these states.<br><br>
+<strong>Note:</strong> Federal laws may still apply (like COPPA for under-13), and this status can change as new legislation is passed.<br><br>
+<strong>States in this category:</strong> 27 states (52.9% of US population) currently have no age verification laws.`
+  },
   'IAL2': {
     term: 'IAL2 (Identity Assurance Level 2)',
     simple: 'Strong ID verification using government documents plus a selfie. Required by Arkansas and Georgia.',
@@ -529,87 +538,170 @@ function updateVerificationMethods(selectedStates) {
   // Special case: if only Tier 0 states are selected
   const allTier0 = selectedStates.every(state => state.legal.tier === 0);
   if (allTier0) {
-    minimumEl.innerHTML = '<div class="text-green-600 font-semibold text-center py-2">✓ No verification required</div>';
+    const stateCount = selectedStates.length;
+    const stateList = selectedStates.map(s => s.state).sort().join(', ');
+    minimumEl.innerHTML = `
+      <div class="bg-green-50 border-l-4 border-green-500 p-3 rounded mb-3">
+        <div class="font-bold text-green-800 mb-2 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <span>Must Process</span>
+        </div>
+        <div class="text-xs text-green-700 mb-2 italic">No verification needed for selected states</div>
+        <div class="text-sm text-green-900">• <span class="legal-term font-medium" data-term="No Law">No verification required</span> <span class="state-allocation-count text-green-700 text-xs cursor-help" data-states="${stateList}">(${stateCount}/${stateCount})</span></div>
+      </div>
+    `;
     optionalEl.innerHTML = '';
+
+    // Reinitialize tooltips
+    initLegalTermTooltips();
+    initStateAllocationTooltips();
     return;
   }
 
-  // Define verification method hierarchy (from easiest/cheapest to hardest/most expensive)
+  // Define verification method hierarchy (ranked by user friction + implementation cost)
+  // Lower rank number = better UX + lower cost
   const methodHierarchy = {
-    // Group 1: Zero Cost (Financial)
-    'creditCard': { group: 1, groupName: 'Zero Cost', label: 'Credit card', term: 'Credit Card', cost: '$0' },
-    'bankAccount': { group: 1, groupName: 'Zero Cost', label: 'Bank account', term: 'Bank Account', cost: '$0' },
-    'financialDocument': { group: 1, groupName: 'Zero Cost', label: 'Financial documents', term: 'Financial Document', cost: '$0' },
+    // Tier 1: Zero Friction, Zero Cost ✅
+    'creditCard': { group: 1, groupName: 'Zero Friction, Zero Cost', label: 'Credit card', term: 'Credit Card', cost: '$0' },
+    'commerciallySoftware': { group: 1, groupName: 'Zero Friction, Zero Cost', label: 'Commercially reasonable software', term: 'Commercially Reasonable Software', cost: '$0-500/mo' },
 
-    // Group 2: Low Cost (Catch-all)
-    'commerciallySoftware': { group: 2, groupName: 'Low Cost', label: 'Commercially reasonable software', term: 'Commercially Reasonable Software', cost: '$0-500/mo' },
+    // Tier 2: Zero Friction, Low Cost 💰
+    'commercialDatabase': { group: 2, groupName: 'Zero Friction, Low Cost', label: 'Commercial database', term: 'Commercial Database', cost: '~$0.10/check' },
+    'transactionalData': { group: 2, groupName: 'Zero Friction, Low Cost', label: 'Transactional data', term: 'Transactional Data', cost: '~$0.05-0.25/check' },
 
-    // Group 3: Medium Cost (Database/Data)
-    'transactionalData': { group: 3, groupName: 'Medium Cost', label: 'Transactional data', term: 'Transactional Data', cost: '$500-2k/mo' },
-    'commercialDatabase': { group: 3, groupName: 'Medium Cost', label: 'Commercial database', term: 'Commercial Database', cost: '$500-2k/mo' },
-    'thirdPartyService': { group: 3, groupName: 'Medium Cost', label: 'Third-party service', term: 'Third-Party Service', cost: '$1k-5k/mo' },
+    // Tier 3: Low-Medium Friction, Medium Cost ⚠️
+    'thirdPartyService': { group: 3, groupName: 'Low-Medium Friction, Medium Cost', label: 'Third-party service', term: 'Third-Party Service', cost: '$1k-5k/mo' },
+    'bankAccount': { group: 3, groupName: 'Low-Medium Friction, Medium Cost', label: 'Bank account', term: 'Bank Account', cost: '$0' },
 
-    // Group 4: High Cost (ID Upload)
-    'digitizedId': { group: 4, groupName: 'High Cost', label: 'Digitized ID', term: 'Digital ID', cost: '$2k-10k/mo' },
-    'governmentId': { group: 4, groupName: 'High Cost', label: 'Government-issued ID', term: 'Photo ID', cost: '$2k-10k/mo' },
+    // Tier 4: High Friction, Medium-High Cost ❌
+    'digitizedId': { group: 4, groupName: 'High Friction, Medium-High Cost', label: 'Digitized ID', term: 'Digital ID', cost: '$2k-10k/mo' },
+    'financialDocument': { group: 4, groupName: 'High Friction, Medium-High Cost', label: 'Financial documents', term: 'Financial Document', cost: '$0-10k/mo' },
+    'governmentId': { group: 4, groupName: 'High Friction, Medium-High Cost', label: 'Government-issued ID', term: 'Photo ID', cost: '$2k-10k/mo' },
 
-    // Group 5: Very High Cost (Biometric/Special)
-    'photoMatching': { group: 5, groupName: 'Very High Cost', label: 'Photo matching', term: 'Photo ID', cost: '$5k-15k/mo' },
-    'ial2Required': { group: 5, groupName: 'Very High Cost', label: 'IAL2 certification', term: 'IAL2', cost: '$10k-25k/mo' },
-    'anonymousOption': { group: 5, groupName: 'Very High Cost', label: 'Anonymous option', term: 'Anonymous Option', cost: '$5k-20k/mo' }
+    // Tier 5: Very High Friction, Very High Cost 🚫
+    'photoMatching': { group: 5, groupName: 'Very High Friction, Very High Cost', label: 'Photo matching', term: 'Photo ID', cost: '$5k-15k/mo' },
+    'ial2Required': { group: 5, groupName: 'Very High Friction, Very High Cost', label: 'IAL2 certification', term: 'IAL2', cost: '$10k-25k/mo' },
+    'anonymousOption': { group: 5, groupName: 'Very High Friction, Very High Cost', label: 'Anonymous option', term: 'Anonymous Option', cost: '$5k-20k/mo' }
   };
 
-  // Count how many states accept each method
+  // Filter out Tier 0 states (no requirements) for method counting
+  const statesWithRequirements = selectedStates.filter(state => state.legal.tier !== 0);
+
+  // Build a map of which states accept each method
+  const methodToStates = {};
   const methodCounts = {};
-  selectedStates.forEach(state => {
+
+  statesWithRequirements.forEach(state => {
     Object.keys(methodHierarchy).forEach(method => {
       if (state.legal.verificationMethods[method]) {
-        methodCounts[method] = (methodCounts[method] || 0) + 1;
+        if (!methodToStates[method]) {
+          methodToStates[method] = [];
+          methodCounts[method] = 0;
+        }
+        methodToStates[method].push(state);
+        methodCounts[method]++;
       }
     });
   });
 
-  // Find all methods accepted by ALL states
-  const universalMethods = Object.keys(methodCounts).filter(method =>
-    methodCounts[method] === selectedStates.length
-  );
+  // SMART GREEDY ALGORITHM: Find minimum set of lowest-tier methods to cover all states
+  const mustProcessMethods = [];
+  const coveredStates = new Set();
+  const methodAssignedStates = {}; // Track which states are assigned to each method
+  const allMethodsSorted = Object.keys(methodCounts).sort((a, b) => {
+    // Sort by: 1) tier (lower is better), 2) coverage (higher is better)
+    const tierDiff = methodHierarchy[a].group - methodHierarchy[b].group;
+    if (tierDiff !== 0) return tierDiff;
+    return methodCounts[b] - methodCounts[a]; // Higher coverage first
+  });
 
-  // Find the LOWEST cost tier that has at least one universal method
-  let lowestTierWithUniversal = null;
-  if (universalMethods.length > 0) {
-    const tiers = universalMethods.map(method => methodHierarchy[method].group);
-    lowestTierWithUniversal = Math.min(...tiers);
+  // Greedy selection: pick methods until all states are covered
+  while (coveredStates.size < statesWithRequirements.length && allMethodsSorted.length > 0) {
+    let bestMethod = null;
+    let bestNewCoverage = 0;
+    let bestTier = Infinity;
+    let bestNewStates = [];
+
+    // Find the method from the LOWEST tier that covers the most NEW states
+    for (const method of allMethodsSorted) {
+      if (mustProcessMethods.includes(method)) continue;
+
+      const tier = methodHierarchy[method].group;
+      const newStates = (methodToStates[method] || []).filter(
+        state => !coveredStates.has(state)
+      );
+
+      // Pick this method if:
+      // 1. It's from a lower tier than current best, OR
+      // 2. Same tier but covers more new states
+      if (newStates.length > 0 && (tier < bestTier || (tier === bestTier && newStates.length > bestNewCoverage))) {
+        bestMethod = method;
+        bestNewCoverage = newStates.length;
+        bestTier = tier;
+        bestNewStates = newStates;
+      }
+    }
+
+    if (!bestMethod) break; // No more methods can help
+
+    // Add this method to the must-process list and track assigned states
+    mustProcessMethods.push(bestMethod);
+    methodAssignedStates[bestMethod] = bestNewStates;
+    bestNewStates.forEach(state => coveredStates.add(state));
   }
 
-  // "Must Process" = Only methods from the lowest tier that cover all states
-  const mustProcessMethods = universalMethods.filter(method =>
-    methodHierarchy[method].group === lowestTierWithUniversal
-  );
-
-  // "Other Options" = Everything else (higher-tier universal methods + partial coverage)
+  // "Other Options" = Everything else not selected by greedy algorithm
   const otherMethods = Object.keys(methodCounts).filter(method =>
-    !mustProcessMethods.includes(method) && methodCounts[method] > 0
+    !mustProcessMethods.includes(method)
   );
 
   // Render Must Process
   if (mustProcessMethods.length > 0) {
-    let html = '<div class="font-semibold text-green-700 mb-2">✓ Must Process (easiest option covering all states)</div>';
+    let html = '<div class="bg-green-50 border-l-4 border-green-500 p-3 rounded mb-3">';
+    html += '<div class="font-bold text-green-800 mb-2 flex items-center gap-2">';
+    html += '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>';
+    html += '<span>Must Process</span>';
+    html += '</div>';
+
+    if (mustProcessMethods.length === 1) {
+      html += '<div class="text-xs text-green-700 mb-2 italic">Simplest option covering all selected states</div>';
+    } else {
+      html += '<div class="text-xs text-green-700 mb-2 italic">Optimal combination of simplest methods to cover all states</div>';
+    }
+
     html += '<div class="space-y-1">';
+
+    // If there are Tier 0 states, add them first
+    const tier0Count = selectedStates.length - statesWithRequirements.length;
+    if (tier0Count > 0) {
+      const tier0States = selectedStates.filter(s => s.legal.tier === 0);
+      const stateList = tier0States.map(s => s.state).sort().join(', ');
+      html += `<div class="text-sm text-green-900">• <span class="legal-term font-medium" data-term="No Law">No ID required</span> <span class="state-allocation-count text-green-700 text-xs cursor-help" data-states="${stateList}">(${tier0Count}/${selectedStates.length})</span></div>`;
+    }
 
     mustProcessMethods.forEach(method => {
       const info = methodHierarchy[method];
-      html += `<div class="ml-2 text-sm">• <span class="legal-term" data-term="${info.term}">${info.label}</span></div>`;
+      const assignedStates = methodAssignedStates[method] || [];
+      const assignedCount = assignedStates.length;
+      const coverage = `${assignedCount}/${selectedStates.length}`;
+      const stateList = assignedStates.map(s => s.state).sort().join(', ');
+      html += `<div class="text-sm text-green-900">• <span class="legal-term font-medium" data-term="${info.term}">${info.label}</span> <span class="state-allocation-count text-green-700 text-xs cursor-help" data-states="${stateList}">(${coverage})</span></div>`;
     });
 
-    html += '</div>';
+    html += '</div></div>';
     minimumEl.innerHTML = html;
+
+    // Initialize state allocation tooltips
+    initStateAllocationTooltips();
   } else {
-    minimumEl.innerHTML = '<div class="text-orange-600 font-semibold mb-2">⚠ No single method covers all states</div><div class="text-xs text-gray-600 mb-2">You must combine methods from "Other Options" below</div>';
+    minimumEl.innerHTML = '<div class="bg-orange-50 border-l-4 border-orange-500 p-3 rounded mb-3"><div class="text-orange-800 font-bold mb-1">⚠ No methods available</div><div class="text-xs text-orange-700">Cannot find verification methods to cover selected states</div></div>';
   }
 
   // Render Other Options
   if (otherMethods.length > 0) {
-    let html = '<div class="font-semibold text-gray-700 mb-2 mt-3">Other Options</div>';
+    let html = '<div class="bg-gray-50 border border-gray-200 p-3 rounded">';
+    html += '<div class="font-bold text-gray-700 mb-2">State Law Compatible Alternatives</div>';
+    html += '<div class="text-xs text-gray-600 mb-2 italic">These methods are accepted by some states in your selection</div>';
     html += '<div class="space-y-1.5">';
 
     // Group by cost tier
@@ -620,19 +712,24 @@ function updateVerificationMethods(selectedStates) {
       grouped[info.group].push(method);
     });
 
-    // Render groups
+    // Render groups (sorted by tier)
     Object.keys(grouped).sort((a, b) => a - b).forEach(group => {
       const groupInfo = methodHierarchy[grouped[group][0]];
       html += `<div class="text-xs font-semibold text-gray-600 mt-2">${groupInfo.groupName}</div>`;
+
+      // Sort methods within group by coverage (descending)
+      grouped[group].sort((a, b) => methodCounts[b] - methodCounts[a]);
+
       grouped[group].forEach(method => {
         const info = methodHierarchy[method];
         const coverage = `${methodCounts[method]}/${selectedStates.length}`;
-        const isUniversal = methodCounts[method] === selectedStates.length;
-        html += `<div class="ml-2 text-xs">• <span class="legal-term" data-term="${info.term}">${info.label}</span> <span class="text-gray-500">(${isUniversal ? 'all states' : coverage + ' states'})</span></div>`;
+        // Get list of states that accept this method
+        const acceptingStates = (methodToStates[method] || []).map(s => s.state).sort().join(', ');
+        html += `<div class="ml-2 text-xs">• <span class="legal-term" data-term="${info.term}">${info.label}</span> <span class="state-allocation-count text-gray-500 cursor-help" data-states="${acceptingStates}">(${coverage})</span></div>`;
       });
     });
 
-    html += '</div>';
+    html += '</div></div>';
     optionalEl.innerHTML = html;
   } else {
     optionalEl.innerHTML = '';
@@ -640,6 +737,7 @@ function updateVerificationMethods(selectedStates) {
 
   // Reinitialize tooltips for new elements
   initLegalTermTooltips();
+  initStateAllocationTooltips();
 }
 
 // Initialize tabs
@@ -973,6 +1071,59 @@ function initLegalTermTooltips() {
       tooltip.classList.add('hidden');
       tooltip.classList.remove('show');
     }
+  });
+}
+
+// Initialize state allocation tooltips
+function initStateAllocationTooltips() {
+  const stateCountElements = document.querySelectorAll('.state-allocation-count');
+  const tooltip = document.getElementById('state-list-tooltip');
+  const tooltipContent = document.getElementById('state-list-content');
+
+  let currentTarget = null;
+
+  stateCountElements.forEach(element => {
+    element.addEventListener('mouseenter', (e) => {
+      const stateList = element.getAttribute('data-states');
+      if (!stateList) return;
+
+      tooltipContent.textContent = stateList;
+      currentTarget = element;
+
+      // Position tooltip
+      const rect = element.getBoundingClientRect();
+      const tooltipWidth = 300;
+      let left = rect.left;
+      let top = rect.bottom + 8;
+
+      // Adjust if tooltip would go off screen
+      if (left + tooltipWidth > window.innerWidth) {
+        left = window.innerWidth - tooltipWidth - 20;
+      }
+
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+      tooltip.classList.add('show');
+    });
+
+    element.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        if (currentTarget === element) {
+          tooltip.classList.remove('show');
+          currentTarget = null;
+        }
+      }, 100);
+    });
+  });
+
+  // Hide tooltip when mouse leaves tooltip area
+  tooltip.addEventListener('mouseenter', () => {
+    tooltip.classList.add('show');
+  });
+
+  tooltip.addEventListener('mouseleave', () => {
+    tooltip.classList.remove('show');
+    currentTarget = null;
   });
 }
 

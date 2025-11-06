@@ -6,7 +6,7 @@
     "populationPercent": 1.51,
     "lgbtqDensity": "low",
     "legal": {
-      "tier": 1,
+      "tier": 2,
       "idRequired": true,
       "applicabilityExact": "Businesses that knowingly publish or distribute sexual material harmful to minors must use reasonable age verification methods",
       "idRequirementsExact": "Any commercially available software, application, program, or methodology that, when enabled, provides reasonable assurances that any individual accessing certain published material is 18 years of age or older.",
@@ -1140,7 +1140,7 @@
     "populationPercent": 0.59,
     "lgbtqDensity": "low",
     "legal": {
-      "tier": 2,
+      "tier": 1,
       "idRequired": true,
       "applicabilityExact": "Commercial entities that publish material harmful to minors.",
       "idRequirementsExact": "Reasonable age verification includes using:\n-digitized ID\n-government issued ID;\n-financial document or other document that is a reliable proxy for age; or\n-any commercially reasonable method that relies on public or private transactional data",

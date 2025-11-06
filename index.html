@@ -233,7 +233,47 @@
     .legal-tooltip-body strong {
       font-weight: 600;
     }
-    
+
+    /* State Allocation Tooltip */
+    .state-allocation-count {
+      position: relative;
+      cursor: help;
+    }
+
+    .state-list-tooltip {
+      position: fixed;
+      z-index: 10000;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e5e7eb;
+      padding: 8px 12px;
+      max-width: 300px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .state-list-tooltip.show {
+      opacity: 1;
+    }
+
+    .state-list-tooltip-header {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 4px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+    }
+
+    .state-list-tooltip-content {
+      color: #6b7280;
+      font-size: 12px;
+    }
+
     /* Collapsible Section Headers */
     .collapsible-section {
       transition: all 0.2s ease;
@@ -636,6 +676,12 @@
       <div id="tooltip-body" class="legal-tooltip-body"></div>
       </div>
     </div>
+
+  <!-- State List Tooltip -->
+  <div id="state-list-tooltip" class="state-list-tooltip">
+    <div class="state-list-tooltip-header">States Covered</div>
+    <div id="state-list-content" class="state-list-tooltip-content"></div>
+  </div>
 
   <!-- Removed Glossary Tab - Legal terms now show as tooltips throughout the app -->
 
