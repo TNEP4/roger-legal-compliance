@@ -584,23 +584,97 @@ function styleStateByIdMethod(feature) {
     };
   }
 
-  // GREEDY ALGORITHM: Find the best (lowest group number) method this state accepts
-  // This prioritizes methods with lowest user friction + implementation cost
+  // IMPROVED GREEDY ALGORITHM: Show individual state colors
+  // Unless an entire group is selected, each state gets its own specific color
   let fillColor;
   let bestMethod;
 
   if (acceptedSelectedMethods.length === 1) {
-    // Only ONE method accepted - use specific method color
+    // Exactly ONE selected method accepted - use that method's specific color
     bestMethod = acceptedSelectedMethods[0];
     fillColor = methodColors[bestMethod];
-  } else {
-    // Multiple methods accepted - find the BEST one (lowest group = best UX)
-    bestMethod = acceptedSelectedMethods.reduce((best, current) => {
-      return methodToGroup[current] < methodToGroup[best] ? current : best;
-    });
+  } else if (acceptedSelectedMethods.length > 1) {
+    // Multiple selected methods accepted by this state
+    // Check if ALL methods from a group are selected (entire group checkbox checked)
+    const group3Methods = ['transactionalData', 'commerciallySoftware', 'thirdPartyService', 'bankAccount'];
+    const group4Methods = ['digitizedId', 'financialDocument', 'governmentId', 'photoMatching', 'ial2Required', 'anonymousOption'];
 
-    // Use the specific color of the best method
-    fillColor = methodColors[bestMethod];
+    const allGroup3Selected = group3Methods.every(m => selectedMethods.includes(m));
+    const allGroup4Selected = group4Methods.every(m => selectedMethods.includes(m));
+
+    // Get the groups of accepted methods
+    const acceptedGroups = acceptedSelectedMethods.map(m => methodToGroup[m]);
+    const uniqueGroups = [...new Set(acceptedGroups)];
+
+    // ONLY use group color if ALL methods from that group are selected
+    let useGroupColor = false;
+    
+    if (uniqueGroups.length === 1) {
+      const group = uniqueGroups[0];
+      
+      // Check if truly ALL methods in the group are selected by user
+      if ((group === 3 && allGroup3Selected) || (group === 4 && allGroup4Selected)) {
+        useGroupColor = true;
+        fillColor = groupColors[group];
+        bestMethod = acceptedSelectedMethods[0];
+      } else if (group === 0 || group === 1 || group === 2) {
+        // Groups 0, 1, 2 have only one method each - use individual color
+        fillColor = methodColors[acceptedSelectedMethods[0]];
+        bestMethod = acceptedSelectedMethods[0];
+      } else {
+        // Partial selection from group 3 or 4 - use individual colors
+        useGroupColor = false;
+      }
+    }
+    
+    // If not using group color, pick individual method color
+    if (!useGroupColor) {
+      // SMART COLOR DISTRIBUTION: Each state gets a different color
+      // Include state name in signature to create variety even when states accept same methods
+      const stateSignature = stateName + '-' + acceptedSelectedMethods.sort().join('-');
+      
+      // Hash the signature to deterministically pick a color
+      // This ensures the same state always gets the same color for the same selection
+      let hash = 0;
+      for (let i = 0; i < stateSignature.length; i++) {
+        const char = stateSignature.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32-bit integer
+      }
+      
+      // Sort accepted methods to ensure consistent ordering
+      const sortedMethods = acceptedSelectedMethods.sort((a, b) => {
+        // First by group (lower is better)
+        const groupDiff = methodToGroup[a] - methodToGroup[b];
+        if (groupDiff !== 0) return groupDiff;
+        // Then alphabetically for consistency
+        return a.localeCompare(b);
+      });
+      
+      // Pick method based on hash to ensure variety across states
+      const methodIndex = Math.abs(hash) % sortedMethods.length;
+      bestMethod = sortedMethods[methodIndex];
+      
+      // Special handling: if all accepted methods are from the same group,
+      // distribute colors evenly across states for maximum learning
+      if (uniqueGroups.length === 1 && sortedMethods.length > 1) {
+        // Create a deterministic but varied distribution
+        // Use state name hash to assign different methods to different states
+        const stateHash = stateName.split('').reduce((h, c) => {
+          return ((h << 3) - h) + c.charCodeAt(0);
+        }, 0);
+        
+        // Distribute methods across states for visual variety
+        const distributionIndex = Math.abs(stateHash) % sortedMethods.length;
+        bestMethod = sortedMethods[distributionIndex];
+      }
+      
+      fillColor = methodColors[bestMethod];
+    }
+  } else {
+    // No methods accepted - shouldn't happen but handle gracefully
+    fillColor = '#d1d5db';
+    bestMethod = null;
   }
 
   // Check LGBTQ+ density visualization toggle
@@ -1248,14 +1322,32 @@ function updateCheckboxColors(container) {
   const groupNumber = parseInt(groupCheckbox.dataset.group);
   const colors = groupMethodColors[groupNumber];
 
-  // ALWAYS use individual colors for method checkboxes to show dramatic color differences
+  // Check if all children are checked
+  const allChecked = Array.from(childCheckboxes).every(cb => cb.checked);
+  const anyChecked = Array.from(childCheckboxes).some(cb => cb.checked);
+
+  // Method checkboxes ALWAYS use individual colors for better learning
   childCheckboxes.forEach(checkbox => {
     const methodName = checkbox.dataset.method;
     checkbox.style.accentColor = colors.methods[methodName];
   });
 
-  // Parent checkbox uses group color
-  groupCheckbox.style.accentColor = colors.group;
+  // Parent checkbox color logic:
+  // - If all checked: use group base color (shows group unity)
+  // - If some checked: use the first checked method's color (shows partial selection)
+  // - If none checked: use group base color (neutral state)
+  if (allChecked || !anyChecked) {
+    groupCheckbox.style.accentColor = colors.group;
+  } else {
+    // Find first checked method and use its color for parent
+    const firstCheckedMethod = Array.from(childCheckboxes)
+      .find(cb => cb.checked)?.dataset.method;
+    if (firstCheckedMethod) {
+      groupCheckbox.style.accentColor = colors.methods[firstCheckedMethod];
+    } else {
+      groupCheckbox.style.accentColor = colors.group;
+    }
+  }
 }
 
 // Initialize ID check method filters
@@ -1280,6 +1372,9 @@ function initIdCheckFilters() {
       // Update map
       updateMapByIdMethods();
       updateMarketStats();
+      
+      // Update color learning helper
+      updateColorLearningHelper();
     });
   });
 
@@ -1296,6 +1391,9 @@ function initIdCheckFilters() {
       // Update map
       updateMapByIdMethods();
       updateMarketStats();
+      
+      // Update color learning helper
+      updateColorLearningHelper();
     });
   });
 
@@ -1304,6 +1402,9 @@ function initIdCheckFilters() {
     updateGroupCheckboxState(container);
     updateCheckboxColors(container);
   });
+  
+  // Initialize color learning helper
+  updateColorLearningHelper();
 }
 
 // Update parent checkbox state based on children (with indeterminate support)
@@ -1375,6 +1476,42 @@ function getSelectedIdMethods() {
 function updateMapByIdMethods() {
   if (geojsonLayer) {
     geojsonLayer.setStyle(styleStateByIdMethod);
+  }
+}
+
+// Update color learning helper - shows which colors are active
+function updateColorLearningHelper() {
+  // Get all selected methods
+  const selectedMethods = getSelectedIdMethods();
+  
+  if (selectedMethods.length === 0) return;
+  
+  // Update visual feedback on checkboxes to reinforce color learning
+  // The checkbox colors already update via updateCheckboxColors
+  // This function could be extended to show a color legend if needed
+  
+  // Optional: Log color mapping for debugging/learning
+  if (window.debugColorMapping) {
+    const methodColors = {
+      'noLaw': '#9ca3af',
+      'creditCard': '#06b6d4',
+      'commercialDatabase': '#10b981',
+      'transactionalData': '#f59e0b',
+      'commerciallySoftware': '#eab308',
+      'thirdPartyService': '#ea580c',
+      'bankAccount': '#fbbf24',
+      'digitizedId': '#db2777',
+      'financialDocument': '#f43f5e',
+      'governmentId': '#b91c1c',
+      'photoMatching': '#d946ef',
+      'ial2Required': '#9333ea',
+      'anonymousOption': '#6b21a8'
+    };
+    
+    console.log('Selected methods and their colors:');
+    selectedMethods.forEach(method => {
+      console.log(`${method}: ${methodColors[method]}`);
+    });
   }
 }
 
