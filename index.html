@@ -94,6 +94,103 @@
     details summary { cursor: pointer; }
     details summary:hover { background-color: #f3f4f6; }
     
+    /* Detailed table styles */
+    #detailed-states-table {
+      font-size: 0.75rem;
+    }
+    
+    #detailed-states-table thead th {
+      position: sticky;
+      top: 0;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    
+    #detailed-states-table tbody td {
+      white-space: nowrap;
+    }
+    
+    /* Data Subtab styles */
+    .data-subtab-btn {
+      transition: all 0.2s ease;
+    }
+
+    .data-subtab-btn.active {
+      border-bottom-color: #3b82f6;
+      color: #3b82f6;
+    }
+
+    .data-subtab-btn:not(.active):hover {
+      background-color: #f9fafb;
+    }
+
+    /* Detailed Data Accordion styles */
+    .state-accordion {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    .state-accordion-header {
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9fafb;
+      transition: background-color 0.2s;
+    }
+
+    .state-accordion-header:hover {
+      background: #e5e7eb;
+    }
+
+    .state-accordion-content {
+      padding: 1rem;
+      display: none;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .state-accordion.expanded .state-accordion-content {
+      display: block;
+    }
+
+    .state-accordion.expanded .accordion-arrow {
+      transform: rotate(180deg);
+    }
+
+    .accordion-arrow {
+      transition: transform 0.3s;
+    }
+
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .data-item {
+      padding: 0.5rem;
+      background: #f9fafb;
+      border-radius: 0.25rem;
+    }
+
+    .data-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .data-value {
+      font-size: 0.875rem;
+      color: #111827;
+      font-weight: 600;
+    }
+
     /* Table styles */
     .table-header {
       padding: 0.75rem 1rem;
@@ -791,7 +888,24 @@
   <!-- Data Table Tab Content (Hidden by default) -->
   <div id="tab-table" class="tab-content-overlay hidden bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 py-6">
-      <div class="mb-4 flex justify-between items-center gap-4">
+      <!-- Subtabs for Data Section -->
+      <div class="mb-4">
+        <div class="flex gap-2 border-b border-gray-300">
+          <button class="data-subtab-btn active px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600" data-subtab="states-overview">
+            States Overview
+          </button>
+          <button class="data-subtab-btn px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900" data-subtab="detailed-data">
+            Detailed States Data
+          </button>
+          <button class="data-subtab-btn px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900" data-subtab="gay-population">
+            Gay Population Statistics
+          </button>
+        </div>
+      </div>
+
+      <!-- States Overview Subtab (existing table) -->
+      <div id="subtab-states-overview" class="data-subtab-content">
+        <div class="mb-4 flex justify-between items-center gap-4">
           <h2 class="text-lg font-semibold">All States Data</h2>
         <div class="flex gap-2 items-center">
           <input type="text" id="search" placeholder="Search states..." class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
@@ -866,7 +980,175 @@
           </table>
         </div>
       </div>
+    </div>
+
+    <!-- Detailed States Data Subtab -->
+    <div id="subtab-detailed-data" class="data-subtab-content hidden">
+      <div class="mb-4 flex justify-between items-center">
+        <h2 class="text-lg font-semibold">Detailed States Data - All Fields</h2>
+        <div class="flex gap-2">
+          <input type="text" id="detailed-search" placeholder="Search states..." class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+          <select id="detailed-tier-filter" class="table-filter-select">
+            <option value="">All Tiers</option>
+            <option value="0">Tier 0 - No Law</option>
+            <option value="1">Tier 1 - CC Compliant</option>
+            <option value="2">Tier 2 - Silent Check</option>
+            <option value="3">Tier 3 - User Input</option>
+            <option value="4">Tier 4 - Biometric/IAL2</option>
+          </select>
         </div>
+      </div>
+      <div class="overflow-x-auto bg-white rounded-lg border border-gray-300" style="max-height: 75vh;">
+        <table class="text-xs divide-y divide-gray-200" id="detailed-states-table">
+          <thead class="bg-gray-50 sticky top-0 z-10">
+            <tr>
+              <!-- Basic Info -->
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-gray-100 sticky left-0 z-20" style="min-width: 100px;">State</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-gray-100" style="min-width: 50px;">Abbr</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-gray-100" style="min-width: 80px;">Population</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-gray-100" style="min-width: 50px;">Pop%</th>
+              
+              <!-- Legal Status -->
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-blue-50" style="min-width: 50px;">Tier</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-blue-50" style="min-width: 60px;">ID Req?</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-blue-50" style="min-width: 80px;">Citation</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-blue-50" style="min-width: 100px;">Effective</th>
+              
+              <!-- Verification Methods -->
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">CC</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">Bank</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">Fin Doc</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">Com DB</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">Trans</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">Com SW</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">3rd Pty</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">Dig ID</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">Gov ID</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">IAL2</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">Photo</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-green-50" style="min-width: 50px;">Anon</th>
+              
+              <!-- Penalties -->
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-red-50" style="min-width: 80px;">Per Viol</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-red-50" style="min-width: 80px;">Per Day</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-red-50" style="min-width: 80px;">If Minor</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-red-50" style="min-width: 60px;">Private</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-red-50" style="min-width: 60px;">Atty Fee</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-red-50" style="min-width: 60px;">Punitive</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-red-50" style="min-width: 60px;">Injunct</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-red-50" style="min-width: 80px;">Statutory</th>
+              
+              <!-- LGBT Population -->
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-purple-50" style="min-width: 80px;">Gay Male</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-purple-50" style="min-width: 80px;">Lesbian</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-purple-50" style="min-width: 80px;">LGBT Total</th>
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-purple-50" style="min-width: 60px;">Density</th>
+              
+              <!-- Notes -->
+              <th class="px-2 py-2 text-left font-medium text-gray-600 bg-yellow-50" style="min-width: 200px;">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200" id="detailed-table-body">
+            <!-- Will be populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Gay Population Statistics Subtab -->
+    <div id="subtab-gay-population" class="data-subtab-content hidden">
+      <div class="mb-4 flex justify-between items-center">
+        <div>
+          <h2 class="text-lg font-semibold">Gay Population Statistics</h2>
+          <p class="text-sm text-gray-600">Source: Human Progress Survey (HPS) 2022 and Gallup estimates</p>
+        </div>
+        <div class="flex gap-2 items-center">
+          <input type="text" id="gay-pop-search" placeholder="Search states..." class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+          <select id="gay-density-filter" class="table-filter-select">
+            <option value="">All Densities</option>
+            <option value="high">High Density</option>
+            <option value="medium">Medium Density</option>
+            <option value="low">Low Density</option>
+          </select>
+        </div>
+      </div>
+      <div class="overflow-x-auto bg-white rounded-lg border border-gray-300">
+        <table class="min-w-full divide-y divide-gray-200" id="gay-population-table">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="table-header" data-sort="state">
+                <div class="flex items-center gap-1">
+                  State
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
+              </th>
+              <th class="table-header" data-sort="total-pop">
+                <div class="flex items-center gap-1">
+                  Total Pop
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
+              </th>
+              <th class="table-header" data-sort="lgbt-percent">
+                <div class="flex items-center gap-1">
+                  LGBT %
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
+              </th>
+              <th class="table-header" data-sort="gay-male">
+                <div class="flex items-center gap-1">
+                  Gay Male Count
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
+              </th>
+              <th class="table-header" data-sort="gay-percent">
+                <div class="flex items-center gap-1">
+                  Gay Male %
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
+              </th>
+              <th class="table-header" data-sort="lesbian">
+                <div class="flex items-center gap-1">
+                  Lesbian Count
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
+              </th>
+              <th class="table-header" data-sort="total-lgbt">
+                <div class="flex items-center gap-1">
+                  Total LGBT
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
+              </th>
+              <th class="table-header" data-sort="density">
+                <div class="flex items-center gap-1">
+                  Density
+                  <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 8l5-5 5 5H5zm0 4l5 5 5-5H5z"/>
+                  </svg>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200" id="gay-pop-table-body">
+            <!-- Will be populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <!-- Legal Term Tooltip -->
   <div id="legal-tooltip" class="legal-tooltip hidden">

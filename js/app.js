@@ -228,6 +228,312 @@ const legalGlossary = {
   }
 };
 
+// Initialize data subtabs
+function initDataSubtabs() {
+  const subtabBtns = document.querySelectorAll('.data-subtab-btn');
+  const subtabContents = document.querySelectorAll('.data-subtab-content');
+  
+  if (subtabBtns.length === 0) return;
+  
+  subtabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetSubtab = btn.dataset.subtab;
+      
+      // Update button states
+      subtabBtns.forEach(b => b.classList.remove('active', 'border-blue-500', 'text-blue-600'));
+      btn.classList.add('active', 'border-blue-500', 'text-blue-600');
+      
+      // Show/hide content
+      subtabContents.forEach(content => {
+        if (content.id === `subtab-${targetSubtab}`) {
+          content.classList.remove('hidden');
+        } else {
+          content.classList.add('hidden');
+        }
+      });
+      
+      // Initialize content if needed
+      if (targetSubtab === 'detailed-data' && !document.querySelector('.state-accordion')) {
+        populateDetailedStatesData();
+      } else if (targetSubtab === 'gay-population' && !document.querySelector('#gay-pop-table-body').children.length) {
+        populateGayPopulationTable();
+      }
+    });
+  });
+}
+
+// Populate detailed states data table with ALL fields
+function populateDetailedStatesData() {
+  const tbody = document.getElementById('detailed-table-body');
+  if (!tbody || statesData.length === 0) return;
+  
+  const tierColors = {
+    0: 'bg-gray-100',
+    1: 'bg-green-100',
+    2: 'bg-blue-100',
+    3: 'bg-yellow-100',
+    4: 'bg-red-100'
+  };
+  
+  const densityColors = {
+    'high': 'text-green-600',
+    'medium': 'text-yellow-600',
+    'low': 'text-red-600'
+  };
+  
+  tbody.innerHTML = statesData.map(state => {
+    // Helper function to show checkmark or dash
+    const check = (value) => value ? '<span class="text-green-600 font-bold">✓</span>' : '<span class="text-gray-300">-</span>';
+    const formatMoney = (value) => value ? value : '-';
+    const formatNum = (value) => value ? value.toLocaleString() : '0';
+    
+    return `
+      <tr class="hover:bg-gray-50 detailed-row" data-state="${state.state}" data-tier="${state.legal.tier}">
+        <!-- Basic Info -->
+        <td class="px-2 py-2 font-medium text-gray-900 bg-white sticky left-0 z-10 border-r border-gray-200">${state.state}</td>
+        <td class="px-2 py-2 text-gray-700">${state.abbreviation}</td>
+        <td class="px-2 py-2 text-gray-700">${formatNum(state.population)}</td>
+        <td class="px-2 py-2 text-gray-700">${state.populationPercent}%</td>
+        
+        <!-- Legal Status -->
+        <td class="px-2 py-2">
+          <span class="px-1 py-0.5 rounded text-xs font-medium ${tierColors[state.legal.tier]}">
+            ${state.legal.tier}
+          </span>
+        </td>
+        <td class="px-2 py-2 text-center">${check(state.legal.idRequired)}</td>
+        <td class="px-2 py-2 text-gray-700" title="${state.legal.citation || ''}">${state.legal.citation || '-'}</td>
+        <td class="px-2 py-2 text-gray-700">${state.legal.effectiveDate || '-'}</td>
+        
+        <!-- Verification Methods -->
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.creditCard)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.bankAccount)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.financialDocument)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.commercialDatabase)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.transactionalData)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.commerciallySoftware)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.thirdPartyService)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.digitizedId)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.governmentId)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.ial2Required)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.photoMatching)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.verificationMethods?.anonymousOption)}</td>
+        
+        <!-- Penalties -->
+        <td class="px-2 py-2 text-gray-700">${formatMoney(state.legal.penalties?.perViolation)}</td>
+        <td class="px-2 py-2 text-gray-700">${formatMoney(state.legal.penalties?.perDay)}</td>
+        <td class="px-2 py-2 text-gray-700">${formatMoney(state.legal.penalties?.ifMinorAccesses)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.penalties?.privateRightOfAction)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.penalties?.attorneyFees)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.penalties?.punitiveDamages)}</td>
+        <td class="px-2 py-2 text-center">${check(state.legal.penalties?.injunctiveRelief)}</td>
+        <td class="px-2 py-2 text-gray-700">${formatMoney(state.legal.penalties?.statutoryDamages)}</td>
+        
+        <!-- LGBT Population -->
+        <td class="px-2 py-2 text-gray-700">${formatNum(state.gayMalePopulation)}</td>
+        <td class="px-2 py-2 text-gray-700">${formatNum(state.lesbianPopulation)}</td>
+        <td class="px-2 py-2 text-gray-700">${formatNum(state.totalLgbtPopulation)}</td>
+        <td class="px-2 py-2">
+          <span class="font-medium ${densityColors[state.gayMaleDensity]}">
+            ${state.gayMaleDensity}
+          </span>
+        </td>
+        
+        <!-- Notes -->
+        <td class="px-2 py-2 text-gray-600 text-xs" title="${state.legal.notes || ''}">
+          ${state.legal.notes ? 
+            (state.legal.notes.length > 50 ? 
+              state.legal.notes.substring(0, 50) + '...' : 
+              state.legal.notes) : 
+            '-'}
+        </td>
+      </tr>
+    `;
+  }).join('');
+  
+  // Add search and filter functionality
+  const searchInput = document.getElementById('detailed-search');
+  const tierFilter = document.getElementById('detailed-tier-filter');
+  
+  function filterDetailedTable() {
+    const searchTerm = searchInput?.value.toLowerCase() || '';
+    const selectedTier = tierFilter?.value || '';
+    
+    tbody.querySelectorAll('.detailed-row').forEach(row => {
+      const stateName = row.dataset.state.toLowerCase();
+      const tier = row.dataset.tier;
+      
+      const matchesSearch = !searchTerm || stateName.includes(searchTerm);
+      const matchesTier = !selectedTier || tier === selectedTier;
+      
+      row.style.display = matchesSearch && matchesTier ? '' : 'none';
+    });
+  }
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', filterDetailedTable);
+  }
+  if (tierFilter) {
+    tierFilter.addEventListener('change', filterDetailedTable);
+  }
+}
+
+// Populate gay population statistics table
+function populateGayPopulationTable() {
+  const tbody = document.getElementById('gay-pop-table-body');
+  if (!tbody || statesData.length === 0) return;
+  
+  const densityColors = {
+    'high': 'bg-green-100 text-green-800',
+    'medium': 'bg-yellow-100 text-yellow-800',
+    'low': 'bg-red-100 text-red-800'
+  };
+  
+  const gayPopData = statesData.map(state => {
+    // Calculate LGBT percentage (approximate from total LGBT population)
+    const lgbtPercent = ((state.totalLgbtPopulation / state.population) * 100).toFixed(2);
+    const gayMalePercent = ((state.gayMalePopulation / state.population) * 100).toFixed(2);
+    
+    return {
+      ...state,
+      lgbtPercent,
+      gayMalePercent
+    };
+  });
+  
+  tbody.innerHTML = gayPopData.map(state => `
+    <tr class="hover:bg-gray-50">
+      <td class="px-4 py-3 text-sm font-medium text-gray-900">${state.state}</td>
+      <td class="px-4 py-3 text-sm text-gray-700">${state.population.toLocaleString()}</td>
+      <td class="px-4 py-3 text-sm">
+        <span class="font-medium">${state.lgbtPercent}%</span>
+      </td>
+      <td class="px-4 py-3 text-sm">
+        <span class="font-medium text-gray-900">${state.gayMalePopulation.toLocaleString()}</span>
+      </td>
+      <td class="px-4 py-3 text-sm text-gray-700">${state.gayMalePercent}%</td>
+      <td class="px-4 py-3 text-sm text-gray-700">${state.lesbianPopulation.toLocaleString()}</td>
+      <td class="px-4 py-3 text-sm">
+        <span class="font-medium text-gray-900">${state.totalLgbtPopulation.toLocaleString()}</span>
+      </td>
+      <td class="px-4 py-3 text-sm">
+        <span class="px-2 py-1 rounded text-xs font-medium ${densityColors[state.gayMaleDensity]}">
+          ${state.gayMaleDensity}
+        </span>
+      </td>
+    </tr>
+  `).join('');
+  
+  // Add search functionality
+  const searchInput = document.getElementById('gay-pop-search');
+  const densityFilter = document.getElementById('gay-density-filter');
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', filterGayPopTable);
+  }
+  if (densityFilter) {
+    densityFilter.addEventListener('change', filterGayPopTable);
+  }
+  
+  // Add sorting functionality
+  const sortHeaders = document.querySelectorAll('#gay-population-table .table-header');
+  let currentSort = { column: null, ascending: true };
+  
+  sortHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const sortBy = header.dataset.sort;
+      
+      // Update sort direction
+      if (currentSort.column === sortBy) {
+        currentSort.ascending = !currentSort.ascending;
+      } else {
+        currentSort.column = sortBy;
+        currentSort.ascending = true;
+      }
+      
+      // Update header classes
+      sortHeaders.forEach(h => {
+        h.classList.remove('sorted-asc', 'sorted-desc');
+      });
+      header.classList.add(currentSort.ascending ? 'sorted-asc' : 'sorted-desc');
+      
+      sortGayPopTable(sortBy, currentSort.ascending);
+    });
+  });
+}
+
+// Filter gay population table
+function filterGayPopTable() {
+  const searchTerm = document.getElementById('gay-pop-search').value.toLowerCase();
+  const densityFilter = document.getElementById('gay-density-filter').value;
+  const rows = document.querySelectorAll('#gay-pop-table-body tr');
+  
+  rows.forEach(row => {
+    const stateName = row.cells[0].textContent.toLowerCase();
+    const density = row.cells[7].textContent.toLowerCase();
+    
+    const matchesSearch = !searchTerm || stateName.includes(searchTerm);
+    const matchesDensity = !densityFilter || density === densityFilter;
+    
+    row.style.display = matchesSearch && matchesDensity ? '' : 'none';
+  });
+}
+
+// Sort gay population table
+function sortGayPopTable(sortBy, ascending = true) {
+  const tbody = document.getElementById('gay-pop-table-body');
+  const rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.style.display !== 'none');
+  
+  rows.sort((a, b) => {
+    let aVal, bVal;
+    
+    switch(sortBy) {
+      case 'state':
+        aVal = a.cells[0].textContent.trim();
+        bVal = b.cells[0].textContent.trim();
+        return ascending ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+      case 'total-pop':
+        aVal = parseInt(a.cells[1].textContent.replace(/,/g, ''));
+        bVal = parseInt(b.cells[1].textContent.replace(/,/g, ''));
+        return ascending ? aVal - bVal : bVal - aVal;
+      case 'lgbt-percent':
+        aVal = parseFloat(a.cells[2].textContent);
+        bVal = parseFloat(b.cells[2].textContent);
+        return ascending ? aVal - bVal : bVal - aVal;
+      case 'gay-male':
+        aVal = parseInt(a.cells[3].textContent.replace(/,/g, ''));
+        bVal = parseInt(b.cells[3].textContent.replace(/,/g, ''));
+        return ascending ? aVal - bVal : bVal - aVal;
+      case 'gay-percent':
+        aVal = parseFloat(a.cells[4].textContent);
+        bVal = parseFloat(b.cells[4].textContent);
+        return ascending ? aVal - bVal : bVal - aVal;
+      case 'lesbian':
+        aVal = parseInt(a.cells[5].textContent.replace(/,/g, ''));
+        bVal = parseInt(b.cells[5].textContent.replace(/,/g, ''));
+        return ascending ? aVal - bVal : bVal - aVal;
+      case 'total-lgbt':
+        aVal = parseInt(a.cells[6].textContent.replace(/,/g, ''));
+        bVal = parseInt(b.cells[6].textContent.replace(/,/g, ''));
+        return ascending ? aVal - bVal : bVal - aVal;
+      case 'density':
+        const densityOrder = {'high': 3, 'medium': 2, 'low': 1};
+        aVal = densityOrder[a.cells[7].textContent.trim().toLowerCase()];
+        bVal = densityOrder[b.cells[7].textContent.trim().toLowerCase()];
+        return ascending ? aVal - bVal : bVal - aVal;
+    }
+  });
+  
+  // Re-append all rows including hidden ones
+  const allRows = Array.from(tbody.querySelectorAll('tr'));
+  const hiddenRows = allRows.filter(row => row.style.display === 'none');
+  
+  // Clear tbody and re-add sorted visible rows followed by hidden rows
+  tbody.innerHTML = '';
+  rows.forEach(row => tbody.appendChild(row));
+  hiddenRows.forEach(row => tbody.appendChild(row));
+}
+
 // Initialize app
 document.addEventListener('DOMContentLoaded', async () => {
   // Load states data
@@ -238,6 +544,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Initialize UI
   initTabs();
+  initDataSubtabs();  // Initialize data subtabs
   initModeSwitcher();
   initTierFilters();
   initIdCheckFilters();
