@@ -30,7 +30,7 @@ This tier system reflects **business cost and user friction** to comply with age
 - **User Friction:** Zero - Already Compliant
 - **Implementation:** Credit card payment processor already satisfies legal requirement
 - **User Experience:** Paid users unlock adult content immediately upon payment
-- **States:** 3 states (5.9%)
+- **States:** 4 states (7.8%)
 - **Legal Methods Accepted:**
   - Credit card verification (`creditCard`)
   - Bank account verification (`bankAccount`)
@@ -38,61 +38,63 @@ This tier system reflects **business cost and user friction** to comply with age
   - "Commercially reasonable" methods with no specific requirements (`commerciallySoftware` only)
 
 **States in Tier 1:**
-1. **Alabama** - Commercially reasonable software (CC qualifies)
-2. **South Dakota** - Credit card or bank account
-3. **Wyoming** - Credit card accepted
+1. **Alabama** - Commercially reasonable software only (CC qualifies)
+2. **Nebraska** - Financial document accepted (includes credit card statements)
+3. **South Dakota** - Credit card or bank account
+4. **Wyoming** - Credit card accepted
 
 ---
 
-### **Tier 2: Low Friction** ⚠️ LOW COST
-- **Description:** Transactional data or commercial database verification required
+### **Tier 2: Silent Background Check** ⚠️ LOW COST
+- **Description:** Commercial database verification (truly low friction)
 - **Cost:** $500-2,000/month
-- **User Friction:** Low - Background check (1-2 second delay)
-- **Implementation:** Integrate commercial database API (credit bureau, data broker, or public records)
-- **User Experience:** Users pay with CC, then background check runs automatically using their billing info
-- **States:** 17 states (33.3%)
+- **User Friction:** Zero - Silent background check (1-2 second delay)
+- **Implementation:** Integrate commercial database API (credit bureau verification)
+- **User Experience:** Users pay with CC, then background check runs invisibly using their billing info
+- **States:** 4 states (7.8%)
 - **Legal Methods:**
-  - Public/private transactional data verification (`transactionalData`)
   - Commercial database checks (`commercialDatabase`)
-  - May also mention ID upload BUT offers transactional data as alternative
-
-**Key Insight:** These states list multiple verification options including `digitizedId` or `governmentId`, BUT also accept `transactionalData` or `commercialDatabase`. You can use the lower-friction option.
+  - These states explicitly accept credit bureau/commercial database verification
 
 **Implementation Options:**
 1. **Credit bureau verification** (e.g., Experian, Equifax age check)
-2. **Public records database** (property records, voter registration)
+2. **Identity verification services** (LexisNexis, IDology)
 3. **Commercial data brokers** (aggregate adult consumer data)
 
 **States in Tier 2:**
-1. **Arizona** - Digital ID OR government ID OR transactional data OR commercially reasonable
-2. **Idaho** - Digital ID OR government ID OR transactional data
-3. **Indiana** - Third-party service OR transactional data
-4. **Kansas** - Commercial database OR government ID OR commercially reasonable
-5. **Kentucky** - Government ID OR transactional data OR commercially reasonable
-6. **Louisiana** - Digital ID OR government ID OR transactional data OR commercially reasonable
-7. **Mississippi** - Digital ID OR government ID OR transactional data OR commercially reasonable
-8. **Missouri** - Government ID OR transactional data OR commercially reasonable
-9. **Montana** - Digital ID OR government ID OR transactional data OR commercially reasonable
-10. **Nebraska** - Digital ID OR government ID OR transactional data OR financial document OR commercially reasonable
-11. **North Carolina** - Commercial database
-12. **North Dakota** - Digital ID OR government ID OR transactional data OR commercially reasonable
-13. **Oklahoma** - Digital ID OR third-party service OR transactional data OR commercially reasonable
-14. **South Carolina** - Digital ID OR third-party service OR transactional data OR commercial database OR commercially reasonable
-15. **Texas** - Digital ID OR government ID OR transactional data OR commercially reasonable
-16. **Utah** - Digital ID OR third-party service OR transactional data OR commercially reasonable
-17. **Virginia** - Commercial database
+1. **Kansas** - Commercial database OR government ID OR commercially reasonable
+2. **North Carolina** - Commercial database
+3. **South Carolina** - Commercial database OR transactional data OR other methods
+4. **Virginia** - Commercial database
 
 ---
 
-### **Tier 3: Medium Friction** ⚠️ MEDIUM COST
-- **Description:** ID upload or dedicated third-party service REQUIRED (no lower-friction alternative)
-- **Cost:** $2,000-10,000/month
-- **User Friction:** Medium to High - Users must upload ID photo
-- **Implementation:** Build ID upload flow + OCR processing OR integrate Yoti/Veriff/ID.me
-- **User Experience:** Users pay with CC, then must upload photo of driver's license or use third-party verification app
-- **States:** 0 states (0.0%)
+### **Tier 3: User Input Required** ⚠️ MEDIUM COST
+- **Description:** Transactional data, third-party service, or ID upload required (user must take action)
+- **Cost:** $500-10,000/month
+- **User Friction:** Low to High - Users must provide additional information or upload documents
+- **Implementation:** Integrate transactional data API, third-party service, OR build ID upload flow
+- **User Experience:** Users pay with CC, then must provide personal info OR redirect to third-party OR upload ID
+- **States:** 12 states (23.5%)
+- **Legal Methods:**
+  - Transactional data verification (`transactionalData`) - requires user to input name, DOB, address
+  - Commercially reasonable software (`commerciallySoftware`) - when combined with other requirements
+  - Third-party service (`thirdPartyService`) - redirect to external verification
+  - Digital ID (`digitizedId`) or Government ID (`governmentId`) - document upload
 
-**Note:** Currently NO states fall into Tier 3 because all states that mention ID upload also accept lower-friction alternatives like transactional data.
+**States in Tier 3:**
+1. **Arizona** - Digital ID OR government ID OR transactional data OR commercially reasonable
+2. **Idaho** - Digital ID OR government ID OR transactional data
+3. **Indiana** - Third-party service OR transactional data
+4. **Kentucky** - Government ID OR transactional data OR commercially reasonable
+5. **Louisiana** - Digital ID OR government ID OR transactional data OR commercially reasonable
+6. **Mississippi** - Digital ID OR government ID OR transactional data OR commercially reasonable
+7. **Missouri** - Government ID OR transactional data OR commercially reasonable
+8. **Montana** - Digital ID OR government ID OR transactional data OR commercially reasonable
+9. **North Dakota** - Digital ID OR government ID OR transactional data OR commercially reasonable
+10. **Oklahoma** - Digital ID OR third-party service OR transactional data OR commercially reasonable
+11. **Texas** - Digital ID OR government ID OR transactional data OR commercially reasonable
+12. **Utah** - Digital ID OR third-party service OR transactional data OR commercially reasonable
 
 ---
 
@@ -124,29 +126,34 @@ This tier system reflects **business cost and user friction** to comply with age
 
 | Tier | States | % of US | Compliance Cost | Status |
 |------|--------|---------|----------------|--------|
-| Tier 0 | 27 | 52.9% | $0 | ✅ Compliant |
-| Tier 1 | 3 | 5.9% | $0 | ✅ CC Payment Sufficient |
-| Tier 2 | 17 | 33.3% | $500-2k/month | ⚠️ Need API Integration |
-| Tier 3 | 0 | 0.0% | N/A | N/A |
-| Tier 4 | 4 | 7.8% | $10k-25k/month | ❌ Very Expensive |
+| Tier 0 | 27 | 53.5% | $0 | ✅ Compliant |
+| Tier 1 | 4 | 2.5% | $0 | ✅ CC Payment Sufficient |
+| Tier 2 | 4 | 8.4% | $500-2k/month | ⚠️ Silent Background Check |
+| Tier 3 | 12 | 22.3% | $500-10k/month | ⚠️ User Input Required |
+| Tier 4 | 4 | 13.3% | $10k-25k/month | ❌ Biometric/IAL2 Required |
 
 ### Launch Strategy Recommendation
 
-**Phase 1: Launch in Tier 0-1 (30 states, 58.8% of US)**
+**Phase 1: Launch in Tier 0-1 (31 states, 56.0% of US)**
 - Zero additional compliance cost
 - CC payment is legally sufficient
 - Immediate market entry
 
-**Phase 2: Add Tier 2 (17 states, 33.3% of US)**
-- Integrate credit bureau API ($500-2k/month)
-- Covers most major markets
-- Low user friction (1-2 second background check)
+**Phase 2: Add Tier 2 (4 states, 8.4% of US)**
+- Integrate commercial database API ($500-2k/month)
+- Silent background check (zero user friction)
+- Covers Kansas, North Carolina, South Carolina, Virginia
 
-**Phase 3: Evaluate Tier 4 (4 states, 7.8% of US)**
+**Phase 3: Add Tier 3 (12 states, 22.3% of US)**
+- Implement transactional data verification
+- Users must provide additional information
+- Covers remaining major markets
+
+**Phase 4: Evaluate Tier 4 (4 states, 13.3% of US)**
 - Florida (23.8M population, 6.94% of US)
 - Georgia (11.3M population, 3.29% of US)
 - Arkansas (3.1M population, 0.9% of US)
-- Tennessee (Not in current data)
+- Tennessee (7.3M population, 2.13% of US)
 - **Decision:** Geo-block OR invest $10k-25k/month when revenue justifies it
 
 ---
@@ -177,20 +184,22 @@ IF no age verification law OR idRequired = false:
     TIER 0 - No Restrictions
 
 ELSE IF ial2Required OR anonymousOption OR photoMatching:
-    TIER 4 - High Friction (most expensive requirements)
+    TIER 4 - High Friction (biometric/IAL2 requirements)
 
-ELSE IF (digitizedId OR governmentId OR thirdPartyService)
-        AND NOT (transactionalData OR commercialDatabase OR commerciallySoftware OR creditCard OR bankAccount OR financialDocument):
-    TIER 3 - Medium Friction (ID required, no alternatives)
+ELSE IF creditCard OR bankAccount OR financialDocument:
+    TIER 1 - CC Compliant (payment methods sufficient)
 
-ELSE IF transactionalData OR commercialDatabase:
-    TIER 2 - Low Friction (database check acceptable)
+ELSE IF (state = "Alabama" AND commerciallySoftware ONLY):
+    TIER 1 - CC Compliant (commercially reasonable can be satisfied by CC)
 
-ELSE IF creditCard OR bankAccount OR financialDocument OR commerciallySoftware:
-    TIER 1 - CC Compliant (credit card sufficient)
+ELSE IF commercialDatabase:
+    TIER 2 - Silent Background Check (zero user friction)
+
+ELSE IF transactionalData OR commerciallySoftware OR thirdPartyService OR digitizedId OR governmentId:
+    TIER 3 - User Input Required (user must take action)
 
 ELSE:
-    TIER 1 - CC Compliant (default if idRequired but no specific methods)
+    TIER 3 - User Input Required (default if idRequired)
 ```
 
 ---
