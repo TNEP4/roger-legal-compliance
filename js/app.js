@@ -470,12 +470,14 @@ function styleStateByIdMethod(feature) {
   }
 
   // Method to group mapping
+  // Note: commerciallySoftware is context-dependent but we place it in Group 3 as a default
+  // since it usually requires some user verification beyond just payment
   const methodToGroup = {
     'noLaw': 0,
     'creditCard': 1,
     'commercialDatabase': 2,
     'transactionalData': 3,
-    'commerciallySoftware': 3,
+    'commerciallySoftware': 3,  // Context-dependent: can be Tier 1 (Alabama) or part of Tier 4 (Florida)
     'thirdPartyService': 3,
     'bankAccount': 3,
     'digitizedId': 4,
@@ -639,13 +641,19 @@ function onEachFeature(feature, layer) {
   
   if (!stateData) return;
   
-  // Tooltip
-  layer.bindTooltip(`
+  // Tooltip - special handling for Florida
+  let tooltipContent = `
     <strong>${stateName}</strong><br>
     Tier ${stateData.legal.tier}<br>
     Pop: ${stateData.populationPercent}%<br>
-    LGBTQ+: ${stateData.lgbtqDensity}
-  `, { sticky: true });
+    LGBTQ+: ${stateData.lgbtqDensity}`;
+
+  // Add special notice for Florida
+  if (stateName === 'Florida') {
+    tooltipContent += `<br><em style="color: #d97706; font-size: 11px;">⚠️ Requires BOTH methods</em>`;
+  }
+
+  layer.bindTooltip(tooltipContent, { sticky: true });
   
   // Click to show detail panel
   layer.on('click', () => {
@@ -696,24 +704,37 @@ function showStateDetail(state) {
     transactionalData: '💼 Transactional Data',
     ial2Required: '🔐 IAL2 Certification Required',
     photoMatching: '📸 Photo Matching Required',
-    anonymousOption: '🕶️ Anonymous Option Available',
+    anonymousOption: '🕶️ Anonymous Option',
     thirdPartyService: '🏢 Third-Party Service',
     commercialDatabase: '🗄️ Commercial Database',
     commerciallySoftware: '💻 Commercially Reasonable Software',
     bankAccount: '🏦 Bank Account Information',
     financialDocument: '📄 Financial Documents'
   };
-  
-  let hasAnyMethod = false;
-  for (const [key, label] of Object.entries(methodLabels)) {
-    if (methods[key]) {
-      methodsEl.innerHTML += `<div class="flex items-center text-green-600"><span class="mr-2">✓</span>${label}</div>`;
-      hasAnyMethod = true;
+
+  // Special handling for Florida - requires BOTH methods
+  if (state.state === 'Florida' && methods.anonymousOption && methods.commerciallySoftware) {
+    methodsEl.innerHTML = `
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-3 rounded">
+        <div class="text-sm font-semibold text-yellow-800 mb-1">⚠️ MUST OFFER BOTH METHODS:</div>
+        <div class="flex items-center text-green-600 ml-2"><span class="mr-2">✓</span>🕶️ Anonymous Option <span class="text-xs text-gray-600 ml-1">(Required)</span></div>
+        <div class="flex items-center text-green-600 ml-2"><span class="mr-2">✓</span>💻 Commercially Reasonable Software <span class="text-xs text-gray-600 ml-1">(Required)</span></div>
+        <div class="text-xs text-gray-600 mt-2 italic">Florida law mandates offering BOTH verification options to users.</div>
+      </div>
+    `;
+  } else {
+    // Standard display for other states
+    let hasAnyMethod = false;
+    for (const [key, label] of Object.entries(methodLabels)) {
+      if (methods[key]) {
+        methodsEl.innerHTML += `<div class="flex items-center text-green-600"><span class="mr-2">✓</span>${label}</div>`;
+        hasAnyMethod = true;
+      }
     }
-  }
-  
-  if (!hasAnyMethod) {
-    methodsEl.innerHTML = '<div class="text-gray-500">No specific methods listed or not applicable</div>';
+
+    if (!hasAnyMethod) {
+      methodsEl.innerHTML = '<div class="text-gray-500">No specific methods listed or not applicable</div>';
+    }
   }
   
   // Notes
@@ -769,10 +790,18 @@ function updateMarketStats() {
   const totalPopPercent = selectedStates.reduce((sum, state) => sum + state.populationPercent, 0);
   const totalPopulation = selectedStates.reduce((sum, state) => sum + state.population, 0);
 
-  // Update UI
+  // Update UI - ensure we show correct precision
   document.getElementById('selected-states-count').textContent = totalStates;
   document.getElementById('selected-population-percent').textContent = `${totalPopPercent.toFixed(1)}%`;
-  document.getElementById('selected-population-count').textContent = `${(totalPopulation / 1000000).toFixed(0)}M`;
+
+  // Format population display
+  if (totalPopulation >= 1000000) {
+    document.getElementById('selected-population-count').textContent = `${(totalPopulation / 1000000).toFixed(0)}M`;
+  } else if (totalPopulation > 0) {
+    document.getElementById('selected-population-count').textContent = `${(totalPopulation / 1000).toFixed(0)}K`;
+  } else {
+    document.getElementById('selected-population-count').textContent = '0';
+  }
 
   // Update verification methods display
   updateVerificationMethods(selectedStates);
@@ -861,6 +890,23 @@ function updateVerificationMethods(selectedStates) {
   const mustProcessMethods = [];
   const coveredStates = new Set();
   const methodAssignedStates = {}; // Track which states are assigned to each method
+
+  // First, handle states that require MULTIPLE specific methods
+  // Currently only Florida requires BOTH anonymousOption AND commerciallySoftware
+  statesWithRequirements.forEach(state => {
+    const methods = state.legal.verificationMethods;
+
+    // Check if state requires anonymousOption (Florida is the only one)
+    if (methods.anonymousOption) {
+      if (!mustProcessMethods.includes('anonymousOption')) {
+        mustProcessMethods.push('anonymousOption');
+        methodAssignedStates['anonymousOption'] = [];
+      }
+      methodAssignedStates['anonymousOption'].push(state);
+      // Don't mark as covered yet - Florida also needs commerciallySoftware
+    }
+  });
+
   const allMethodsSorted = Object.keys(methodCounts).sort((a, b) => {
     // Sort by: 1) tier (lower is better), 2) coverage (higher is better)
     const tierDiff = methodHierarchy[a].group - methodHierarchy[b].group;
@@ -932,7 +978,10 @@ function updateVerificationMethods(selectedStates) {
       html += `<div class="text-sm text-green-900">• <span class="legal-term font-medium" data-term="No Law">No ID required</span> <span class="state-allocation-count text-green-700 text-xs cursor-help" data-states="${stateList}">(${tier0Count}/${selectedStates.length})</span></div>`;
     }
 
-    mustProcessMethods.forEach(method => {
+    // Sort mustProcessMethods by group (lowest to highest) for consistent display
+    mustProcessMethods.sort((a, b) => {
+      return methodHierarchy[a].group - methodHierarchy[b].group;
+    }).forEach(method => {
       const info = methodHierarchy[method];
       const assignedStates = methodAssignedStates[method] || [];
       const assignedCount = assignedStates.length;

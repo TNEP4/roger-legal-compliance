@@ -160,6 +160,18 @@ This tier system reflects **business cost and user friction** to comply with age
 
 ## Legal Interpretation Notes
 
+### Understanding Tier Classification: Most Restrictive Requirement Drives the Tier
+
+**Important:** When a state offers multiple verification methods (using "OR"), the tier is determined by the **most restrictive requirement**, not the lowest-friction option available.
+
+**Example: Florida**
+- **Requirement:** Must offer BOTH anonymous option AND commercially reasonable software
+- **Available methods:** `anonymousOption: true`, `commerciallySoftware: true`
+- **Tier:** 4 (because anonymous option is a Tier 4 requirement)
+- **Why:** Even though Florida accepts "commercially reasonable software" (normally Tier 3), the requirement to also offer an anonymous option triggers Tier 4 classification
+
+**Key Principle:** The tier represents the **minimum compliance cost** to legally operate in that state. If any single requirement demands Tier 4 infrastructure (IAL2, anonymous option, or photo matching), the entire state is classified as Tier 4, regardless of other accepted methods.
+
 ### Why "Commercially Reasonable" Qualifies Credit Cards
 
 Many states use language like "commercially reasonable software, application, or methodology." Legal analysis supports that **credit card payment qualifies**:
@@ -180,21 +192,30 @@ When state law says "digitized ID OR government ID OR transactional data OR comm
 ## Tier Assignment Algorithm
 
 ```
+# Check most restrictive requirements first (top-down approach)
+
 IF no age verification law OR idRequired = false:
     TIER 0 - No Restrictions
 
+# Tier 4 triggers: Any of these requirements forces Tier 4
 ELSE IF ial2Required OR anonymousOption OR photoMatching:
     TIER 4 - High Friction (biometric/IAL2 requirements)
+    # Note: Even if state also accepts lower-friction methods,
+    # the presence of ANY Tier 4 requirement drives classification
 
+# Tier 1: Payment methods alone are sufficient
 ELSE IF creditCard OR bankAccount OR financialDocument:
     TIER 1 - CC Compliant (payment methods sufficient)
 
+# Special case: Alabama only requires "commercially reasonable"
 ELSE IF (state = "Alabama" AND commerciallySoftware ONLY):
     TIER 1 - CC Compliant (commercially reasonable can be satisfied by CC)
 
+# Tier 2: Background check methods
 ELSE IF commercialDatabase:
     TIER 2 - Silent Background Check (zero user friction)
 
+# Tier 3: Methods requiring user action
 ELSE IF transactionalData OR commerciallySoftware OR thirdPartyService OR digitizedId OR governmentId:
     TIER 3 - User Input Required (user must take action)
 
@@ -224,6 +245,9 @@ ELSE:
 ---
 
 ## Questions & Answers
+
+**Q: Why is Florida Tier 4 when it accepts "commercially reasonable software"?**
+A: Florida requires BOTH an anonymous option AND commercially reasonable software. The anonymous option requirement (a Tier 4 trigger) determines the tier classification. The tier represents the minimum infrastructure needed for compliance - if ANY requirement demands Tier 4 capabilities, the entire state is Tier 4.
 
 **Q: Can we just use credit card for all Tier 2 states?**
 A: Legally risky. Tier 2 states explicitly require "transactional data" or "commercial database" checks, which goes beyond simple credit card acceptance. Credit bureau verification (~$0.10/check) is safer.

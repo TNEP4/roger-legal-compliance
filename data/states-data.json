@@ -92,6 +92,7 @@
     "legal": {
       "tier": 3,
       "idRequired": true,
+      "minimumRequirement": "transactionalData",
       "applicabilityExact": "A commercial entity that knowingly and intentionally publishes or distributes material on an internet website, including a social media platform, of which more than one-third is sexual material that is harmful to minors shall use reasonable age verification methods to verify that an individual who attempts to access the material is eighteen years of age or older.",
       "idRequirementsExact": "Must perform age verification by:\n-providing a form of digital ID that does not cause the information to be transmitted to a governmental entity\n-Use an age verification system that utilizes government-issued IDs or -a commercially reasonable method that relies on public and private transactional data",
       "penaltiesExact": "$10,000 per day that website is operated in violation of the law; or\n$10,000 per instance where personal information is retained for non-verification purposes.\n\nAND\n\nUp to $250,000 if one or more minors accesses sexual materials harmful to minors",
@@ -134,6 +135,7 @@
     "legal": {
       "tier": 4,
       "idRequired": true,
+      "minimumRequirement": "ial2Required",
       "applicabilityExact": "Websites with obscene sexual material must employ age-verification before it can be accessed",
       "idRequirementsExact": "Must perform reasonable age verification, which include:\n\n-using digitized IDs\n-government-issued IDs\n-any commercially reasonable age verification that holds an Identity Assurance Level 2 (IAL2)\n\nIdentity Assurance Level 2 is a framework for confirming an individual's ownership of a genuine identity by using personal information, identity documentation, and biometric characteristics",
       "penaltiesExact": "Liability to an individual for damages resulting from a minor accessing harmful materials",
@@ -386,6 +388,7 @@
     "legal": {
       "tier": 4,
       "idRequired": true,
+      "minimumRequirement": "anonymousOption",
       "applicabilityExact": "Websites with harmful to minor content must verify the age of individuals before it can be accessed",
       "idRequirementsExact": "Must offer two methods:\n\n-Anonymous age verification which does not require user to disclose PI\n-Standard commercially reasonable method",
       "penaltiesExact": "Violations are deemed unfair and deceptive practice.\n\nThe government may collect a civil penalty of up to $50,000 per violation and reasonable attorney fees and court costs.\n\nConsistent pattern of conduct may lead to punitive damages.",
@@ -428,6 +431,7 @@
     "legal": {
       "tier": 4,
       "idRequired": true,
+      "minimumRequirement": "ial2Required",
       "applicabilityExact": "Websites are required to use \"reasonable age verification methods\" to confirm that individuals accessing the material are at least 18 years old",
       "idRequirementsExact": "Acceptable methods include: \n-Submission of a digitized identification card, such as a digital copy of a driver's license. \n-Submission of government-issued identification. \n-Any commercially reasonable age verification method meeting or exceeding an Identity Assurance Level 2",
       "penaltiesExact": "$10,000 for each violation\n\n1 year statute of limitations",
@@ -1772,6 +1776,7 @@
     "legal": {
       "tier": 4,
       "idRequired": true,
+      "minimumRequirement": "photoMatching",
       "applicabilityExact": "Commercial entities that publish or distribute content that is harmful to minors are liable if the individual or commercial entity does not conduct verification methods.",
       "idRequirementsExact": "Verification methods must not be easily bypassed or circumvented and must include:\n-matching photographs of the active user; or \n-a commercially reasonable method relying on public or private transactional data to verify a person's identity\n\nAnonymized age-verification data must be retained for 7 years.",
       "penaltiesExact": "Liability includes court costs and reasonable attorney fees.",
