@@ -4,7 +4,6 @@
     "abbreviation": "AL",
     "population": 5197720,
     "populationPercent": 1.51,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 1,
       "idRequired": true,
@@ -39,14 +38,17 @@
       "citation": "HB 164",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 60090,
+    "lesbianPopulation": 40350,
+    "totalLgbtPopulation": 290293,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Alaska",
     "abbreviation": "AK",
     "population": 726749,
     "populationPercent": 0.21,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -81,14 +83,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": "No age verification laws currently enacted"
-    }
+    },
+    "gayMalePopulation": 10661,
+    "lesbianPopulation": 7158,
+    "totalLgbtPopulation": 51502,
+    "gayMaleDensity": "high"
   },
   {
     "state": "Arizona",
     "abbreviation": "AZ",
     "population": 7691740,
     "populationPercent": 2.24,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -124,14 +129,17 @@
       "citation": "18-701",
       "effectiveDate": null,
       "notes": "One-third threshold; very high penalties if minors access content"
-    }
+    },
+    "gayMalePopulation": 101983,
+    "lesbianPopulation": 68481,
+    "totalLgbtPopulation": 492675,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Arkansas",
     "abbreviation": "AR",
     "population": 3107240,
     "populationPercent": 0.9,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 4,
       "idRequired": true,
@@ -167,14 +175,17 @@
       "citation": "A.C.A. § 4-88-1305",
       "effectiveDate": null,
       "notes": "Requires IAL2 certification - very strict"
-    }
+    },
+    "gayMalePopulation": 37748,
+    "lesbianPopulation": 25347,
+    "totalLgbtPopulation": 182358,
+    "gayMaleDensity": "low"
   },
   {
     "state": "California",
     "abbreviation": "CA",
     "population": 39663800,
     "populationPercent": 11.55,
-    "lgbtqDensity": "high",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -209,14 +220,17 @@
       "citation": "AB 1043",
       "effectiveDate": "2027-01-01",
       "notes": "AB 1043 is a new law signed October 2025, which will go into effect January 2027. It applies to device operating systems and app stores – NOT website providers."
-    }
+    },
+    "gayMalePopulation": 610508,
+    "lesbianPopulation": 409954,
+    "totalLgbtPopulation": 2949314,
+    "gayMaleDensity": "high"
   },
   {
     "state": "Colorado",
     "abbreviation": "CO",
     "population": 6013650,
     "populationPercent": 1.75,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -251,14 +265,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 93308,
+    "lesbianPopulation": 62656,
+    "totalLgbtPopulation": 450765,
+    "gayMaleDensity": "high"
   },
   {
     "state": "Connecticut",
     "abbreviation": "CT",
     "population": 3707120,
     "populationPercent": 1.08,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -293,14 +310,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 50735,
+    "lesbianPopulation": 34068,
+    "totalLgbtPopulation": 245099,
+    "gayMaleDensity": "high"
   },
   {
     "state": "Delaware",
     "abbreviation": "DE",
     "population": 1041320,
     "populationPercent": 0.3,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -335,14 +355,17 @@
       "citation": "11 Del.C. § 1365",
       "effectiveDate": null,
       "notes": "This law seemingly applies only to providers of adult-oriented materials in physical locations, but it could be used to hold a business like ChatRoger accountable if it is found to knowingly distribute harmful materials to underage consumers."
-    }
+    },
+    "gayMalePopulation": 17644,
+    "lesbianPopulation": 11848,
+    "totalLgbtPopulation": 85238,
+    "gayMaleDensity": "high"
   },
   {
     "state": "District of Columbia",
     "abbreviation": "DC",
     "population": 701974,
     "populationPercent": 0.2,
-    "lgbtqDensity": "high",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -377,14 +400,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 17607,
+    "lesbianPopulation": 11823,
+    "totalLgbtPopulation": 85060,
+    "gayMaleDensity": "high"
   },
   {
     "state": "Florida",
     "abbreviation": "FL",
     "population": 23839600,
     "populationPercent": 6.94,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 4,
       "idRequired": true,
@@ -420,14 +446,17 @@
       "citation": "501.1737",
       "effectiveDate": null,
       "notes": "Requires anonymous option; government enforcement"
-    }
+    },
+    "gayMalePopulation": 311739,
+    "lesbianPopulation": 209332,
+    "totalLgbtPopulation": 1505987,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Georgia",
     "abbreviation": "GA",
     "population": 11297300,
     "populationPercent": 3.29,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 4,
       "idRequired": true,
@@ -463,14 +492,17 @@
       "citation": "Ga. Code Ann., § 39-5-5",
       "effectiveDate": null,
       "notes": "Requires IAL2; 1 year statute of limitations"
-    }
+    },
+    "gayMalePopulation": 147140,
+    "lesbianPopulation": 98804,
+    "totalLgbtPopulation": 710822,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Hawaii",
     "abbreviation": "HI",
     "population": 1450900,
     "populationPercent": 0.42,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -505,14 +537,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 18482,
+    "lesbianPopulation": 12411,
+    "totalLgbtPopulation": 89288,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Idaho",
     "abbreviation": "ID",
     "population": 2032120,
     "populationPercent": 0.59,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -547,14 +582,17 @@
       "citation": "Idaho § 6-3803",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 23799,
+    "lesbianPopulation": 15981,
+    "totalLgbtPopulation": 114975,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Illinois",
     "abbreviation": "IL",
     "population": 12778100,
     "populationPercent": 3.72,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -589,14 +627,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 168056,
+    "lesbianPopulation": 112849,
+    "totalLgbtPopulation": 811868,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Indiana",
     "abbreviation": "IN",
     "population": 6968420,
     "populationPercent": 2.03,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -631,14 +672,17 @@
       "citation": "Section 1.IC24-4-23",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 88376,
+    "lesbianPopulation": 59344,
+    "totalLgbtPopulation": 426938,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Iowa",
     "abbreviation": "IA",
     "population": 3264560,
     "populationPercent": 0.95,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -673,14 +717,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 38030,
+    "lesbianPopulation": 25537,
+    "totalLgbtPopulation": 183722,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Kansas",
     "abbreviation": "KS",
     "population": 2989710,
     "populationPercent": 0.87,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 2,
       "idRequired": true,
@@ -715,14 +762,17 @@
       "citation": "K.S.A. 50-6,146",
       "effectiveDate": null,
       "notes": "Very high private right of action damages ($50,000+)"
-    }
+    },
+    "gayMalePopulation": 36933,
+    "lesbianPopulation": 24800,
+    "totalLgbtPopulation": 178420,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Kentucky",
     "abbreviation": "KY",
     "population": 4626150,
     "populationPercent": 1.35,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -757,14 +807,17 @@
       "citation": "KRS § 436",
       "effectiveDate": null,
       "notes": "Jury decides liability and damages"
-    }
+    },
+    "gayMalePopulation": 56487,
+    "lesbianPopulation": 37931,
+    "totalLgbtPopulation": 272886,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Louisiana",
     "abbreviation": "LA",
     "population": 4607410,
     "populationPercent": 1.34,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -799,14 +852,17 @@
       "citation": "LSA-R.S. 9:2800.29",
       "effectiveDate": null,
       "notes": "One-third threshold for substantial amount"
-    }
+    },
+    "gayMalePopulation": 55113,
+    "lesbianPopulation": 37008,
+    "totalLgbtPopulation": 266247,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Maine",
     "abbreviation": "ME",
     "population": 1410380,
     "populationPercent": 0.41,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -841,14 +897,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 18976,
+    "lesbianPopulation": 12742,
+    "totalLgbtPopulation": 91672,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Maryland",
     "abbreviation": "MD",
     "population": 6309380,
     "populationPercent": 1.84,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -883,14 +942,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 85386,
+    "lesbianPopulation": 57336,
+    "totalLgbtPopulation": 412495,
+    "gayMaleDensity": "high"
   },
   {
     "state": "Massachusetts",
     "abbreviation": "MA",
     "population": 7205770,
     "populationPercent": 2.1,
-    "lgbtqDensity": "high",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -925,14 +987,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 107131,
+    "lesbianPopulation": 71938,
+    "totalLgbtPopulation": 517543,
+    "gayMaleDensity": "high"
   },
   {
     "state": "Michigan",
     "abbreviation": "MI",
     "population": 10197600,
     "populationPercent": 2.97,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -967,14 +1032,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 132466,
+    "lesbianPopulation": 88951,
+    "totalLgbtPopulation": 639935,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Minnesota",
     "abbreviation": "MN",
     "population": 5833250,
     "populationPercent": 1.7,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1009,14 +1077,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 77555,
+    "lesbianPopulation": 52078,
+    "totalLgbtPopulation": 374662,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Mississippi",
     "abbreviation": "MS",
     "population": 2942920,
     "populationPercent": 0.86,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -1051,14 +1122,17 @@
       "citation": "SB 2346",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 23099,
+    "lesbianPopulation": 15511,
+    "totalLgbtPopulation": 111593,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Missouri",
     "abbreviation": "MO",
     "population": 6282890,
     "populationPercent": 1.83,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -1093,14 +1167,17 @@
       "citation": "CSR 60-18",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 78909,
+    "lesbianPopulation": 52987,
+    "totalLgbtPopulation": 381206,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Montana",
     "abbreviation": "MT",
     "population": 1143160,
     "populationPercent": 0.33,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -1135,14 +1212,17 @@
       "citation": "SB 544",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 13673,
+    "lesbianPopulation": 9181,
+    "totalLgbtPopulation": 66055,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Nebraska",
     "abbreviation": "NE",
     "population": 2023070,
     "populationPercent": 0.59,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 1,
       "idRequired": true,
@@ -1177,14 +1257,17 @@
       "citation": "LB 1092",
       "effectiveDate": null,
       "notes": "Parent may recover actual damages"
-    }
+    },
+    "gayMalePopulation": 24753,
+    "lesbianPopulation": 16622,
+    "totalLgbtPopulation": 119583,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Nevada",
     "abbreviation": "NV",
     "population": 3320570,
     "populationPercent": 0.97,
-    "lgbtqDensity": "high",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1219,14 +1302,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 47814,
+    "lesbianPopulation": 32107,
+    "totalLgbtPopulation": 230985,
+    "gayMaleDensity": "high"
   },
   {
     "state": "New Hampshire",
     "abbreviation": "NH",
     "population": 1415860,
     "populationPercent": 0.41,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1261,14 +1347,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 18213,
+    "lesbianPopulation": 12230,
+    "totalLgbtPopulation": 87987,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "New Jersey",
     "abbreviation": "NJ",
     "population": 9622060,
     "populationPercent": 2.8,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1303,14 +1392,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 121875,
+    "lesbianPopulation": 81839,
+    "totalLgbtPopulation": 588769,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "New Mexico",
     "abbreviation": "NM",
     "population": 2139350,
     "populationPercent": 0.62,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1345,14 +1437,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 31544,
+    "lesbianPopulation": 21181,
+    "totalLgbtPopulation": 152386,
+    "gayMaleDensity": "high"
   },
   {
     "state": "New York",
     "abbreviation": "NY",
     "population": 19997100,
     "populationPercent": 5.82,
-    "lgbtqDensity": "high",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1387,14 +1482,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 287925,
+    "lesbianPopulation": 193341,
+    "totalLgbtPopulation": 1390945,
+    "gayMaleDensity": "high"
   },
   {
     "state": "North Carolina",
     "abbreviation": "NC",
     "population": 11210900,
     "populationPercent": 3.27,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 2,
       "idRequired": true,
@@ -1429,14 +1527,17 @@
       "citation": "§ 66501",
       "effectiveDate": null,
       "notes": "Allows punitive damages"
-    }
+    },
+    "gayMalePopulation": 130048,
+    "lesbianPopulation": 87327,
+    "totalLgbtPopulation": 628252,
+    "gayMaleDensity": "low"
   },
   {
     "state": "North Dakota",
     "abbreviation": "ND",
     "population": 791251,
     "populationPercent": 0.23,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -1471,14 +1572,17 @@
       "citation": "HB 1561",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 9283,
+    "lesbianPopulation": 6234,
+    "totalLgbtPopulation": 44849,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Ohio",
     "abbreviation": "OH",
     "population": 11942600,
     "populationPercent": 3.48,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1513,14 +1617,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 141831,
+    "lesbianPopulation": 95239,
+    "totalLgbtPopulation": 685175,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Oklahoma",
     "abbreviation": "OK",
     "population": 4126900,
     "populationPercent": 1.2,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -1555,14 +1662,17 @@
       "citation": "SB 1959",
       "effectiveDate": null,
       "notes": "ISP blocking requirement"
-    }
+    },
+    "gayMalePopulation": 51044,
+    "lesbianPopulation": 34276,
+    "totalLgbtPopulation": 246594,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Oregon",
     "abbreviation": "OR",
     "population": 4291090,
     "populationPercent": 1.25,
-    "lgbtqDensity": "high",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1597,14 +1707,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 73057,
+    "lesbianPopulation": 49058,
+    "totalLgbtPopulation": 352936,
+    "gayMaleDensity": "high"
   },
   {
     "state": "Pennsylvania",
     "abbreviation": "PA",
     "population": 13139800,
     "populationPercent": 3.83,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1639,14 +1752,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 181598,
+    "lesbianPopulation": 121942,
+    "totalLgbtPopulation": 877285,
+    "gayMaleDensity": "high"
   },
   {
     "state": "Rhode Island",
     "abbreviation": "RI",
     "population": 1121190,
     "populationPercent": 0.33,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1681,14 +1797,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 15232,
+    "lesbianPopulation": 10228,
+    "totalLgbtPopulation": 73587,
+    "gayMaleDensity": "high"
   },
   {
     "state": "South Carolina",
     "abbreviation": "SC",
     "population": 5569830,
     "populationPercent": 1.62,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 2,
       "idRequired": true,
@@ -1723,14 +1842,17 @@
       "citation": "HB 3424",
       "effectiveDate": null,
       "notes": "Punitive damages when minor affected"
-    }
+    },
+    "gayMalePopulation": 63979,
+    "lesbianPopulation": 42962,
+    "totalLgbtPopulation": 309081,
+    "gayMaleDensity": "low"
   },
   {
     "state": "South Dakota",
     "abbreviation": "SD",
     "population": 942683,
     "populationPercent": 0.27,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 1,
       "idRequired": true,
@@ -1765,14 +1887,17 @@
       "citation": "HB 1053",
       "effectiveDate": null,
       "notes": "Explicitly allows credit/debit cards - Tier 1"
-    }
+    },
+    "gayMalePopulation": 0,
+    "lesbianPopulation": 0,
+    "totalLgbtPopulation": 0,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Tennessee",
     "abbreviation": "TN",
     "population": 7307200,
     "populationPercent": 2.13,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 4,
       "idRequired": true,
@@ -1808,14 +1933,17 @@
       "citation": "SB 1792",
       "effectiveDate": null,
       "notes": "Anonymized age-verification data must be retained for 7 years."
-    }
+    },
+    "gayMalePopulation": 88372,
+    "lesbianPopulation": 59341,
+    "totalLgbtPopulation": 426919,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Texas",
     "abbreviation": "TX",
     "population": 31853800,
     "populationPercent": 9.28,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -1850,14 +1978,17 @@
       "citation": "129B.001",
       "effectiveDate": null,
       "notes": "High penalties; $250k if minors access"
-    }
+    },
+    "gayMalePopulation": 393815,
+    "lesbianPopulation": 264446,
+    "totalLgbtPopulation": 1902490,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Utah",
     "abbreviation": "UT",
     "population": 3564000,
     "populationPercent": 1.04,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 3,
       "idRequired": true,
@@ -1892,14 +2023,17 @@
       "citation": "SB 287",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 40584,
+    "lesbianPopulation": 27252,
+    "totalLgbtPopulation": 196058,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Vermont",
     "abbreviation": "VT",
     "population": 652788,
     "populationPercent": 0.19,
-    "lgbtqDensity": "high",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -1934,14 +2068,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 9876,
+    "lesbianPopulation": 6631,
+    "totalLgbtPopulation": 47710,
+    "gayMaleDensity": "high"
   },
   {
     "state": "Virginia",
     "abbreviation": "VA",
     "population": 8887700,
     "populationPercent": 2.59,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 2,
       "idRequired": true,
@@ -1976,14 +2113,17 @@
       "citation": "§ 8.01-40.5",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 113080,
+    "lesbianPopulation": 75933,
+    "totalLgbtPopulation": 546282,
+    "gayMaleDensity": "medium"
   },
   {
     "state": "Washington",
     "abbreviation": "WA",
     "population": 8059040,
     "populationPercent": 2.35,
-    "lgbtqDensity": "high",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -2018,14 +2158,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 120918,
+    "lesbianPopulation": 81196,
+    "totalLgbtPopulation": 584145,
+    "gayMaleDensity": "high"
   },
   {
     "state": "West Virginia",
     "abbreviation": "WV",
     "population": 1769460,
     "populationPercent": 0.52,
-    "lgbtqDensity": "medium",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -2060,14 +2203,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 20905,
+    "lesbianPopulation": 14038,
+    "totalLgbtPopulation": 100994,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Wisconsin",
     "abbreviation": "WI",
     "population": 5991540,
     "populationPercent": 1.74,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 0,
       "idRequired": false,
@@ -2102,14 +2248,17 @@
       "citation": "-",
       "effectiveDate": null,
       "notes": ""
-    }
+    },
+    "gayMalePopulation": 72827,
+    "lesbianPopulation": 48903,
+    "totalLgbtPopulation": 351825,
+    "gayMaleDensity": "low"
   },
   {
     "state": "Wyoming",
     "abbreviation": "WY",
     "population": 587344,
     "populationPercent": 0.17,
-    "lgbtqDensity": "low",
     "legal": {
       "tier": 1,
       "idRequired": true,
@@ -2144,6 +2293,10 @@
       "citation": "HB 43",
       "effectiveDate": null,
       "notes": "Explicitly allows credit cards (18+ required) - Tier 1"
-    }
+    },
+    "gayMalePopulation": 6907,
+    "lesbianPopulation": 4638,
+    "totalLgbtPopulation": 33369,
+    "gayMaleDensity": "low"
   }
 ]

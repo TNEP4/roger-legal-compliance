@@ -2,6 +2,7 @@
 // Main application JavaScript
 
 let statesData = [];
+let populationMetadata = {};
 let map = null;
 let geojsonLayer = null;
 
@@ -261,6 +262,11 @@ async function loadStatesData() {
     const response = await fetch('data/states-data.json');
     statesData = await response.json();
     console.log(`Loaded ${statesData.length} states`);
+    
+    // Load population metadata
+    const metaResponse = await fetch('data/population-metadata.json');
+    populationMetadata = await metaResponse.json();
+    console.log('Loaded population metadata:', populationMetadata);
   } catch (error) {
     console.error('Error loading states data:', error);
     alert('Error loading data. Please refresh the page.');
@@ -419,9 +425,9 @@ function styleState(feature) {
   // Determine fill color or pattern
   let fillValue;
 
-  if (isSelected && showLgbtq && stateData.lgbtqDensity && ['high', 'medium', 'low'].includes(stateData.lgbtqDensity)) {
+  if (isSelected && showLgbtq && stateData.gayMaleDensity && ['high', 'medium', 'low'].includes(stateData.gayMaleDensity)) {
     // Use pattern that includes both color and dots (State Category mode uses tier-X-density)
-    fillValue = `url(#tier-${stateData.legal.tier}-${stateData.lgbtqDensity})`;
+    fillValue = `url(#tier-${stateData.legal.tier}-${stateData.gayMaleDensity})`;
   } else {
     // Use solid color
     if (isSelected) {
@@ -540,9 +546,9 @@ function styleStateByIdMethod(feature) {
     const showLgbtq = document.getElementById('show-lgbtq')?.checked ?? true;
 
     let fillValue;
-    if (showLgbtq && stateData.lgbtqDensity && ['high', 'medium', 'low'].includes(stateData.lgbtqDensity)) {
+    if (showLgbtq && stateData.gayMaleDensity && ['high', 'medium', 'low'].includes(stateData.gayMaleDensity)) {
       // Use pattern for Group 0 (noLaw) - ID Check Method mode uses group-X-density
-      fillValue = `url(#group-0-${stateData.lgbtqDensity})`;
+      fillValue = `url(#group-0-${stateData.gayMaleDensity})`;
     } else {
       fillValue = '#9ca3af';  // Gray - No law states when actively selected
     }
@@ -677,17 +683,17 @@ function styleStateByIdMethod(feature) {
     bestMethod = null;
   }
 
-  // Check LGBTQ+ density visualization toggle
+  // Check Gay Male density visualization toggle
   const showLgbtq = document.getElementById('show-lgbtq')?.checked ?? true;
 
   // Determine fill value (solid color or pattern)
   let fillValue;
 
-  if (showLgbtq && stateData.lgbtqDensity && ['high', 'medium', 'low'].includes(stateData.lgbtqDensity)) {
+  if (showLgbtq && stateData.gayMaleDensity && ['high', 'medium', 'low'].includes(stateData.gayMaleDensity)) {
     // Get the group number for the best method to use correct pattern
     const groupNum = methodToGroup[bestMethod];
     // Use pattern that includes both color and dots (ID Check Method mode uses group-X-density)
-    fillValue = `url(#group-${groupNum}-${stateData.lgbtqDensity})`;
+    fillValue = `url(#group-${groupNum}-${stateData.gayMaleDensity})`;
   } else {
     // Use solid color
     fillValue = fillColor;
@@ -715,12 +721,26 @@ function onEachFeature(feature, layer) {
   
   if (!stateData) return;
   
+  // Calculate US gay % for this state
+  const stateGayMalePercent = populationMetadata && populationMetadata.totalUSGayMalePopulation > 0 ? 
+    ((stateData.gayMalePopulation || 0) / populationMetadata.totalUSGayMalePopulation * 100).toFixed(2) : '0.00';
+  
+  // Format gay male count
+  const gayMaleCount = stateData.gayMalePopulation || 0;
+  const formattedGayMaleCount = gayMaleCount >= 1000000 ? 
+    `${(gayMaleCount / 1000000).toFixed(1)}M` : 
+    gayMaleCount >= 1000 ? 
+    `${(gayMaleCount / 1000).toFixed(0)}K` : 
+    gayMaleCount.toString();
+  
   // Tooltip - special handling for Florida
   let tooltipContent = `
     <strong>${stateName}</strong><br>
     Tier ${stateData.legal.tier}<br>
     Pop: ${stateData.populationPercent}%<br>
-    LGBTQ+: ${stateData.lgbtqDensity}`;
+    Gay Male Density: ${stateData.gayMaleDensity}<br>
+    Gay Males: ${formattedGayMaleCount}<br>
+    US Gay %: ${stateGayMalePercent}%`;
 
   // Add special notice for Florida
   if (stateName === 'Florida') {
@@ -755,7 +775,7 @@ function showStateDetail(state) {
   document.getElementById('panel-state-name').textContent = state.state;
   document.getElementById('panel-tier-badge').textContent = `Tier ${state.legal.tier}`;
   document.getElementById('panel-tier-badge').className = `tier-badge tier-${state.legal.tier}`;
-  document.getElementById('panel-lgbtq').textContent = `LGBTQ+ Density: ${state.lgbtqDensity}`;
+  document.getElementById('panel-lgbtq').textContent = `Gay Male Density: ${state.gayMaleDensity}`;
   document.getElementById('panel-population').textContent = state.population.toLocaleString();
   document.getElementById('panel-pop-percent').textContent = `${state.populationPercent}% of US`;
   document.getElementById('panel-id-required').textContent = state.legal.idRequired ? 'Yes' : 'No';
@@ -863,6 +883,12 @@ function updateMarketStats() {
   const totalStates = selectedStates.length;
   const totalPopPercent = selectedStates.reduce((sum, state) => sum + state.populationPercent, 0);
   const totalPopulation = selectedStates.reduce((sum, state) => sum + state.population, 0);
+  
+  // Calculate gay population statistics
+  const totalGayPopulation = selectedStates.reduce((sum, state) => sum + (state.totalLgbtPopulation || 0), 0);
+  const totalGayMalePopulation = selectedStates.reduce((sum, state) => sum + (state.gayMalePopulation || 0), 0);
+  const gayMalePercentCoverage = populationMetadata.totalUSGayMalePopulation > 0 ? 
+    (totalGayMalePopulation / populationMetadata.totalUSGayMalePopulation * 100) : 0;
 
   // Update UI - ensure we show correct precision
   document.getElementById('selected-states-count').textContent = totalStates;
@@ -876,6 +902,28 @@ function updateMarketStats() {
   } else {
     document.getElementById('selected-population-count').textContent = '0';
   }
+  
+  // Update gay population displays (new)
+  // Total gay population
+  if (totalGayPopulation >= 1000000) {
+    document.getElementById('selected-gay-population-count').textContent = `${(totalGayPopulation / 1000000).toFixed(1)}M`;
+  } else if (totalGayPopulation > 0) {
+    document.getElementById('selected-gay-population-count').textContent = `${(totalGayPopulation / 1000).toFixed(0)}K`;
+  } else {
+    document.getElementById('selected-gay-population-count').textContent = '0';
+  }
+  
+  // Gay male population  
+  if (totalGayMalePopulation >= 1000000) {
+    document.getElementById('selected-gay-male-population-count').textContent = `${(totalGayMalePopulation / 1000000).toFixed(1)}M`;
+  } else if (totalGayMalePopulation > 0) {
+    document.getElementById('selected-gay-male-population-count').textContent = `${(totalGayMalePopulation / 1000).toFixed(0)}K`;
+  } else {
+    document.getElementById('selected-gay-male-population-count').textContent = '0';
+  }
+  
+  // Gay male coverage percentage
+  document.getElementById('selected-gay-male-percent').textContent = `${gayMalePercentCoverage.toFixed(1)}%`;
 
   // Update verification methods display
   updateVerificationMethods(selectedStates);
@@ -1296,7 +1344,7 @@ function initTierFilters() {
   // Create patterns on initialization
   createDynamicPatterns();
 
-  // LGBTQ+ density toggle handler
+  // Gay Male density toggle handler
   if (showLgbtqToggle) {
     showLgbtqToggle.addEventListener('change', () => {
       if (geojsonLayer) {
@@ -1565,8 +1613,8 @@ function renderTable() {
         break;
       case 'lgbtq':
         const lgbtqOrder = { 'high': 3, 'medium': 2, 'low': 1 };
-        aVal = lgbtqOrder[a.lgbtqDensity] || 0;
-        bVal = lgbtqOrder[b.lgbtqDensity] || 0;
+        aVal = lgbtqOrder[a.gayMaleDensity] || 0;
+        bVal = lgbtqOrder[b.gayMaleDensity] || 0;
         break;
       case 'idRequired':
         aVal = a.legal.idRequired ? 1 : 0;
@@ -1595,7 +1643,7 @@ function renderTable() {
         <span class="tier-badge tier-${state.legal.tier}">Tier ${state.legal.tier}</span>
       </td>
       <td class="px-4 py-3 text-sm text-gray-700">${state.populationPercent}%</td>
-      <td class="px-4 py-3 text-sm text-gray-700">${state.lgbtqDensity}</td>
+      <td class="px-4 py-3 text-sm text-gray-700">${state.gayMaleDensity}</td>
       <td class="px-4 py-3 text-sm ${state.legal.idRequired ? 'text-red-600' : 'text-green-600'} font-semibold">
         ${state.legal.idRequired ? 'Yes' : 'No'}
       </td>
