@@ -479,6 +479,9 @@
         <button class="tab-btn" data-tab="table">
           Data
         </button>
+        <button class="tab-btn" data-tab="idchecks">
+          Explanation
+        </button>
         <div class="tab-switch-slider"></div>
       </nav>
     </div>
@@ -616,31 +619,31 @@
           <div class="id-group-container">
             <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
               <input type="checkbox" class="mr-2 group-checkbox" data-group="2" style="accent-color: #10b981;">
-              <span class="font-semibold text-xs text-gray-900">2 - Background database checks</span>
+              <span class="font-semibold text-xs text-gray-900">2 - Silent background check</span>
             </label>
             <div class="id-methods-list ml-6 mt-1 space-y-0.5">
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="commercialDatabase" data-group="2" style="accent-color: #0891b2;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="commercialDatabase" data-group="2" style="accent-color: #10b981;">
                 <span>Commercial database</span>
-              </label>
-              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="transactionalData" data-group="2" style="accent-color: #10b981;">
-                <span>Transactional data</span>
-              </label>
-              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="commerciallySoftware" data-group="2" style="accent-color: #84cc16;">
-                <span>Commercially reasonable software</span>
               </label>
             </div>
           </div>
 
-          <!-- Group 3: Low-Medium Friction -->
+          <!-- Group 3: Low Friction -->
           <div class="id-group-container">
             <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
               <input type="checkbox" class="mr-2 group-checkbox" data-group="3" style="accent-color: #f59e0b;">
-              <span class="font-semibold text-xs text-gray-900">3 - External verification services</span>
+              <span class="font-semibold text-xs text-gray-900">3 - User input required</span>
             </label>
             <div class="id-methods-list ml-6 mt-1 space-y-0.5">
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="transactionalData" data-group="3" style="accent-color: #f59e0b;">
+                <span>Transactional data</span>
+              </label>
+              <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="commerciallySoftware" data-group="3" style="accent-color: #eab308;">
+                <span>Commercially reasonable software</span>
+              </label>
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
                 <input type="checkbox" class="mr-2 method-checkbox" data-method="thirdPartyService" data-group="3" style="accent-color: #ea580c;">
                 <span>Third-party service</span>
@@ -656,7 +659,7 @@
           <div class="id-group-container">
             <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
               <input type="checkbox" class="mr-2 group-checkbox" data-group="4" style="accent-color: #f43f5e;">
-              <span class="font-semibold text-xs text-gray-900">4 - ID upload required</span>
+              <span class="font-semibold text-xs text-gray-900">4 - ID upload & biometric</span>
             </label>
             <div class="id-methods-list ml-6 mt-1 space-y-0.5">
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
@@ -671,26 +674,16 @@
                 <input type="checkbox" class="mr-2 method-checkbox" data-method="governmentId" data-group="4" style="accent-color: #b91c1c;">
                 <span>Government-issued ID</span>
               </label>
-            </div>
-          </div>
-
-          <!-- Group 5: Very High Friction -->
-          <div class="id-group-container">
-            <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
-              <input type="checkbox" class="mr-2 group-checkbox" data-group="5" style="accent-color: #a855f7;">
-              <span class="font-semibold text-xs text-gray-900">5 - Biometric verification</span>
-            </label>
-            <div class="id-methods-list ml-6 mt-1 space-y-0.5">
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="photoMatching" data-group="5" style="accent-color: #d946ef;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="photoMatching" data-group="4" style="accent-color: #d946ef;">
                 <span>Photo matching</span>
               </label>
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="ial2Required" data-group="5" style="accent-color: #9333ea;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="ial2Required" data-group="4" style="accent-color: #9333ea;">
                 <span>IAL2 certification</span>
               </label>
               <label class="flex items-center text-xs text-gray-700 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                <input type="checkbox" class="mr-2 method-checkbox" data-method="anonymousOption" data-group="5" style="accent-color: #6b21a8;">
+                <input type="checkbox" class="mr-2 method-checkbox" data-method="anonymousOption" data-group="4" style="accent-color: #6b21a8;">
                 <span>Anonymous option</span>
               </label>
             </div>
@@ -854,6 +847,364 @@
   <div id="state-list-tooltip" class="state-list-tooltip">
     <div class="state-list-tooltip-header">States Covered</div>
     <div id="state-list-content" class="state-list-tooltip-content"></div>
+  </div>
+
+  <!-- ID Checks Tab Content (Hidden by default) -->
+  <div id="tab-idchecks" class="tab-content-overlay hidden bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6 py-8">
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">ID Verification Methods Guide</h1>
+        <p class="text-lg text-gray-600 mb-8">Understanding age verification options: Strategy, friction, and implementation costs</p>
+
+        <!-- Strategy Overview -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8 rounded">
+          <h2 class="text-xl font-bold text-blue-900 mb-3">📋 Core Strategy</h2>
+          <p class="text-gray-700 mb-3">Our ranking prioritizes methods that minimize both <strong>user friction</strong> and <strong>implementation costs</strong> while maintaining <strong>legal compliance</strong>.</p>
+          <div class="bg-white bg-opacity-70 p-4 rounded">
+            <p class="text-sm font-semibold text-gray-800 mb-2">Key Principle:</p>
+            <p class="text-sm text-gray-700">A $0 method requiring document uploads (high friction) ranks <strong>lower</strong> than a $0.10/check automated verification (zero friction). User experience matters more than raw cost.</p>
+          </div>
+        </div>
+
+        <!-- Groups Section -->
+        <div class="space-y-8">
+
+          <!-- Group 0: No Law -->
+          <div class="border-2 border-green-200 rounded-lg overflow-hidden">
+            <div class="bg-green-500 text-white px-6 py-4">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold">Group 0: No Restrictions</h3>
+                <span class="bg-white text-green-500 px-3 py-1 rounded-full text-sm font-semibold">Best Case</span>
+              </div>
+            </div>
+            <div class="p-6 bg-green-50">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <span class="text-sm font-semibold text-gray-600">User Friction:</span>
+                  <span class="text-sm text-gray-800 ml-2">None</span>
+                </div>
+                <div>
+                  <span class="text-sm font-semibold text-gray-600">Implementation Cost:</span>
+                  <span class="text-sm text-gray-800 ml-2">$0/month</span>
+                </div>
+              </div>
+              <p class="text-gray-700 mb-3">No age verification law exists in these states. Your standard business model applies without modifications.</p>
+              <div class="bg-white p-4 rounded">
+                <p class="text-sm text-gray-600"><strong>States:</strong> 27 states including California, New York, Illinois, etc.</p>
+                <p class="text-sm text-gray-600 mt-2"><strong>Coverage:</strong> 52.9% of US population</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Group 1: Credit Card -->
+          <div class="border-2 border-blue-200 rounded-lg overflow-hidden">
+            <div class="bg-blue-500 text-white px-6 py-4">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold">Group 1: Payment Verification</h3>
+                <span class="bg-white text-blue-500 px-3 py-1 rounded-full text-sm font-semibold">Zero Friction</span>
+              </div>
+            </div>
+            <div class="p-6 bg-blue-50">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <span class="text-sm font-semibold text-gray-600">User Friction:</span>
+                  <span class="text-sm text-gray-800 ml-2">Zero - Already in payment flow</span>
+                </div>
+                <div>
+                  <span class="text-sm font-semibold text-gray-600">Implementation Cost:</span>
+                  <span class="text-sm text-gray-800 ml-2">$0 (existing infrastructure)</span>
+                </div>
+              </div>
+
+              <h4 class="font-semibold text-gray-900 mb-2">Method: Credit Card Verification</h4>
+              <p class="text-gray-700 mb-4">Credit card ownership inherently requires users to be 18+ or have parental authorization. This method is explicitly accepted by several states as sufficient age verification.</p>
+
+              <div class="bg-white p-4 rounded space-y-3">
+                <div>
+                  <p class="text-sm font-semibold text-gray-700">How it works:</p>
+                  <p class="text-sm text-gray-600">User completes payment → Age automatically verified → Instant access granted</p>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-700">User experience:</p>
+                  <p class="text-sm text-gray-600">Seamless - No additional steps beyond payment</p>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-700">Legal acceptance:</p>
+                  <p class="text-sm text-gray-600">Explicitly accepted in South Dakota, Wyoming, Nebraska. May qualify under "commercially reasonable" in 20+ states.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Group 2: Commercial Database -->
+          <div class="border-2 border-emerald-200 rounded-lg overflow-hidden">
+            <div class="bg-emerald-500 text-white px-6 py-4">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold">Group 2: Silent Background Check</h3>
+                <span class="bg-white text-emerald-500 px-3 py-1 rounded-full text-sm font-semibold">Zero Friction</span>
+              </div>
+            </div>
+            <div class="p-6 bg-emerald-50">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <span class="text-sm font-semibold text-gray-600">User Friction:</span>
+                  <span class="text-sm text-gray-800 ml-2">Zero - Invisible to user</span>
+                </div>
+                <div>
+                  <span class="text-sm font-semibold text-gray-600">Implementation Cost:</span>
+                  <span class="text-sm text-gray-800 ml-2">~$0.10/check ($500-2k/month)</span>
+                </div>
+              </div>
+
+              <h4 class="font-semibold text-gray-900 mb-2">Method: Commercial Database Verification</h4>
+              <p class="text-gray-700 mb-4">Credit bureaus and commercial databases verify age using billing information already provided. This happens invisibly in 1-2 seconds after payment.</p>
+
+              <div class="bg-white p-4 rounded space-y-3">
+                <div>
+                  <p class="text-sm font-semibold text-gray-700">How it works:</p>
+                  <p class="text-sm text-gray-600">API call to Experian/Equifax using billing info → Age confirmed → Access granted</p>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-700">User experience:</p>
+                  <p class="text-sm text-gray-600">Completely invisible - 1-2 second background check</p>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-700">Implementation options:</p>
+                  <ul class="text-sm text-gray-600 ml-4 list-disc">
+                    <li>Credit bureau APIs (Experian, Equifax)</li>
+                    <li>Identity verification services (LexisNexis, IDology)</li>
+                    <li>Public records aggregators</li>
+                  </ul>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-700">Legal acceptance:</p>
+                  <p class="text-sm text-gray-600">Accepted in Virginia, North Carolina, Kansas, South Carolina</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Group 3: User Input Required -->
+          <div class="border-2 border-yellow-200 rounded-lg overflow-hidden">
+            <div class="bg-yellow-500 text-white px-6 py-4">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold">Group 3: User Input Required</h3>
+                <span class="bg-white text-yellow-700 px-3 py-1 rounded-full text-sm font-semibold">Low-Medium Friction</span>
+              </div>
+            </div>
+            <div class="p-6 bg-yellow-50">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <span class="text-sm font-semibold text-gray-600">User Friction:</span>
+                  <span class="text-sm text-gray-800 ml-2">Low to Medium - Extra steps required</span>
+                </div>
+                <div>
+                  <span class="text-sm font-semibold text-gray-600">Implementation Cost:</span>
+                  <span class="text-sm text-gray-800 ml-2">$0.05-0.25/check or $1k-5k/month</span>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <!-- Transactional Data -->
+                <div class="bg-white p-4 rounded">
+                  <h4 class="font-semibold text-gray-900 mb-2">Transactional Data Verification</h4>
+                  <p class="text-sm text-gray-700 mb-2">Requires users to input personal information (full name, date of birth, address) for database matching against mortgage, employment, or education records.</p>
+                  <div class="text-sm text-gray-600">
+                    <p><strong>User action:</strong> Enter personal details → Wait for verification</p>
+                    <p><strong>Processing time:</strong> 3-10 seconds</p>
+                    <p><strong>Success rate:</strong> 70-90% match rate</p>
+                  </div>
+                </div>
+
+                <!-- Commercially Reasonable -->
+                <div class="bg-white p-4 rounded">
+                  <h4 class="font-semibold text-gray-900 mb-2">Commercially Reasonable Software</h4>
+                  <p class="text-sm text-gray-700 mb-2">Catch-all legal term allowing "any reasonable method." Often requires user to provide additional information beyond payment.</p>
+                  <div class="text-sm text-gray-600">
+                    <p><strong>User action:</strong> Varies by implementation</p>
+                    <p><strong>Flexibility:</strong> Can adapt to state requirements</p>
+                    <p><strong>Legal coverage:</strong> Accepted in 20 states</p>
+                  </div>
+                </div>
+
+                <!-- Third-Party Service -->
+                <div class="bg-white p-4 rounded">
+                  <h4 class="font-semibold text-gray-900 mb-2">Third-Party Verification Service</h4>
+                  <p class="text-sm text-gray-700 mb-2">Redirects users to external services like Yoti, Veriff, or ID.me for verification.</p>
+                  <div class="text-sm text-gray-600">
+                    <p><strong>User action:</strong> Leave site → Create account → Verify → Return</p>
+                    <p><strong>Abandonment risk:</strong> High - Users may not return</p>
+                    <p><strong>Cost:</strong> $1k-5k/month</p>
+                  </div>
+                </div>
+
+                <!-- Bank Account -->
+                <div class="bg-white p-4 rounded">
+                  <h4 class="font-semibold text-gray-900 mb-2">Bank Account Verification</h4>
+                  <p class="text-sm text-gray-700 mb-2">Confirms bank account ownership through micro-deposits or instant verification.</p>
+                  <div class="text-sm text-gray-600">
+                    <p><strong>User action:</strong> Link bank account or verify micro-deposits</p>
+                    <p><strong>Time delay:</strong> Instant to 2-3 business days</p>
+                    <p><strong>Friction:</strong> Requires bank login or waiting period</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Group 4: High Friction -->
+          <div class="border-2 border-red-200 rounded-lg overflow-hidden">
+            <div class="bg-red-500 text-white px-6 py-4">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold">Group 4: Document & Biometric Verification</h3>
+                <span class="bg-white text-red-500 px-3 py-1 rounded-full text-sm font-semibold">High Friction</span>
+              </div>
+            </div>
+            <div class="p-6 bg-red-50">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <span class="text-sm font-semibold text-gray-600">User Friction:</span>
+                  <span class="text-sm text-gray-800 ml-2">High to Very High</span>
+                </div>
+                <div>
+                  <span class="text-sm font-semibold text-gray-600">Implementation Cost:</span>
+                  <span class="text-sm text-gray-800 ml-2">$2k-25k/month</span>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <!-- ID Upload Methods -->
+                <div class="bg-white p-4 rounded">
+                  <h4 class="font-semibold text-gray-900 mb-2">📱 ID Upload Methods</h4>
+                  <div class="space-y-3">
+                    <div>
+                      <p class="text-sm font-semibold text-gray-700">Government-Issued ID</p>
+                      <p class="text-sm text-gray-600">Upload driver's license or passport photo → OCR processing → Manual review if needed</p>
+                      <p class="text-xs text-gray-500 mt-1">Cost: $2k-10k/month | Required in 14 states</p>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold text-gray-700">Digitized ID</p>
+                      <p class="text-sm text-gray-600">Digital driver's license from state apps or Apple Wallet (limited availability)</p>
+                      <p class="text-xs text-gray-500 mt-1">Cost: $2k-10k/month | Mentioned in 13 states</p>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold text-gray-700">Financial Documents</p>
+                      <p class="text-sm text-gray-600">Upload mortgage statements, tax returns, insurance policies</p>
+                      <p class="text-xs text-gray-500 mt-1">Cost: $0-10k/month | Very high user friction</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Biometric Methods -->
+                <div class="bg-white p-4 rounded">
+                  <h4 class="font-semibold text-gray-900 mb-2">🎭 Biometric Verification</h4>
+                  <div class="space-y-3">
+                    <div>
+                      <p class="text-sm font-semibold text-gray-700">Photo Matching</p>
+                      <p class="text-sm text-gray-600">Live selfie + ID photo → Facial recognition match → Liveness detection</p>
+                      <p class="text-xs text-gray-500 mt-1">Cost: $5k-15k/month | Required in Tennessee</p>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold text-gray-700">IAL2 Certification</p>
+                      <p class="text-sm text-gray-600">NIST standard: Multi-factor verification with biometrics + documents + background checks</p>
+                      <p class="text-xs text-gray-500 mt-1">Cost: $10k-25k/month | Required in Arkansas, Georgia</p>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold text-gray-700">Anonymous Option</p>
+                      <p class="text-sm text-gray-600">Cryptographic tokens for age verification without sharing personal data</p>
+                      <p class="text-xs text-gray-500 mt-1">Cost: $5k-20k/month | Required in Florida</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Warning Box -->
+                <div class="bg-red-100 border border-red-300 p-3 rounded">
+                  <p class="text-sm text-red-800">
+                    <strong>⚠️ Business Impact:</strong> These methods cause significant user drop-off. Consider geo-blocking states requiring these methods until revenue justifies the cost and friction.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Implementation Roadmap -->
+        <div class="mt-12 bg-gray-100 rounded-lg p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">🗺️ Implementation Roadmap</h2>
+
+          <div class="space-y-4">
+            <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <h3 class="font-semibold text-gray-900 mb-2">Phase 1: Launch (Groups 0-1)</h3>
+              <p class="text-sm text-gray-700 mb-2">Start with credit card verification. Covers 30 states (58.8% of US).</p>
+              <div class="text-sm text-gray-600">
+                <p>✅ Zero additional cost</p>
+                <p>✅ No user friction</p>
+                <p>✅ Immediate market entry</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+              <h3 class="font-semibold text-gray-900 mb-2">Phase 2: Expansion (Group 2)</h3>
+              <p class="text-sm text-gray-700 mb-2">Add commercial database checks. Covers additional states with minimal friction.</p>
+              <div class="text-sm text-gray-600">
+                <p>💰 $500-2k/month</p>
+                <p>⚡ 1-2 second verification</p>
+                <p>📊 Covers major markets</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
+              <h3 class="font-semibold text-gray-900 mb-2">Phase 3: Full Coverage (Group 3)</h3>
+              <p class="text-sm text-gray-700 mb-2">Implement transactional data verification for remaining compliant states.</p>
+              <div class="text-sm text-gray-600">
+                <p>💰 Additional $500-2k/month</p>
+                <p>📝 Requires user input</p>
+                <p>🎯 Acceptable conversion rates</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg border-l-4 border-red-500">
+              <h3 class="font-semibold text-gray-900 mb-2">Phase 4: Evaluate High-Friction States (Group 4)</h3>
+              <p class="text-sm text-gray-700 mb-2">Decision point: Implement expensive biometric verification or geo-block.</p>
+              <div class="text-sm text-gray-600">
+                <p>⚠️ $10k-25k/month for full compliance</p>
+                <p>📉 High user abandonment rate</p>
+                <p>🚫 Consider geo-blocking until scale justifies cost</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="mt-8 bg-indigo-50 rounded-lg p-6">
+          <h2 class="text-xl font-bold text-indigo-900 mb-4">💡 Key Business Insights</h2>
+
+          <div class="space-y-4">
+            <div class="bg-white p-4 rounded">
+              <p class="text-sm font-semibold text-gray-800 mb-1">Friction Matters More Than Cost</p>
+              <p class="text-sm text-gray-600">A free method requiring document uploads loses more revenue through abandonment than a $0.10 silent verification.</p>
+            </div>
+
+            <div class="bg-white p-4 rounded">
+              <p class="text-sm font-semibold text-gray-800 mb-1">The "OR" Rule</p>
+              <p class="text-sm text-gray-600">When laws say "ID upload OR database check," always choose the lowest-friction option that satisfies the statute.</p>
+            </div>
+
+            <div class="bg-white p-4 rounded">
+              <p class="text-sm font-semibold text-gray-800 mb-1">Geographic Strategy</p>
+              <p class="text-sm text-gray-600">4 states (7.8% of US) require extreme verification. Calculate if their revenue justifies $10k-25k/month compliance costs.</p>
+            </div>
+
+            <div class="bg-white p-4 rounded">
+              <p class="text-sm font-semibold text-gray-800 mb-1">Payment = Verification</p>
+              <p class="text-sm text-gray-600">Your paid model inherently provides age verification through credit card requirements, satisfying many state laws.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
   <!-- Removed Glossary Tab - Legal terms now show as tooltips throughout the app -->

@@ -308,15 +308,14 @@ function createDynamicPatterns() {
     4: '#ef4444'   // red - Tier 4
   };
 
-  // ID Check Method mode colors (Groups 0-5)
+  // ID Check Method mode colors (Groups 0-4)
   // Using the group base colors that represent each group
   const groupColors = {
     0: '#9ca3af',  // Gray - Group 0 (No Law / No ID Required)
     1: '#06b6d4',  // Cyan - Group 1 (Zero Friction, Zero Cost - Credit Card only)
-    2: '#10b981',  // Emerald - Group 2 (Zero Friction, Low Cost)
-    3: '#f59e0b',  // Amber - Group 3 (Low-Medium Friction)
-    4: '#f43f5e',  // Rose - Group 4 (High Friction)
-    5: '#a855f7'   // Violet - Group 5 (Very High Friction)
+    2: '#10b981',  // Emerald - Group 2 (Zero Friction, Low Cost - Commercial Database only)
+    3: '#f59e0b',  // Amber - Group 3 (Low Friction, Low-Medium Cost)
+    4: '#f43f5e'   // Rose - Group 4 (High Friction - includes biometric)
   };
 
   const densitySettings = {
@@ -475,16 +474,16 @@ function styleStateByIdMethod(feature) {
     'noLaw': 0,
     'creditCard': 1,
     'commercialDatabase': 2,
-    'transactionalData': 2,
-    'commerciallySoftware': 2,
+    'transactionalData': 3,
+    'commerciallySoftware': 3,
     'thirdPartyService': 3,
     'bankAccount': 3,
     'digitizedId': 4,
     'financialDocument': 4,
     'governmentId': 4,
-    'photoMatching': 5,
-    'ial2Required': 5,
-    'anonymousOption': 5
+    'photoMatching': 4,
+    'ial2Required': 4,
+    'anonymousOption': 4
   };
 
   // Individual method colors (variations within each group family)
@@ -496,21 +495,19 @@ function styleStateByIdMethod(feature) {
     // Group 1: Cyan family (Zero Friction, Zero Cost)
     'creditCard': '#06b6d4',           // Bright cyan
 
-    // Group 2: Green-Blue spectrum (Zero Friction, Low Cost) - DRAMATIC differences
-    'commercialDatabase': '#0891b2',    // Dark cyan (very different from others)
-    'transactionalData': '#10b981',     // Emerald green (middle)
-    'commerciallySoftware': '#84cc16',  // Yellow-green/lime (very bright, very different)
+    // Group 2: Green family (Zero Friction, Low Cost)
+    'commercialDatabase': '#10b981',    // Emerald green
 
-    // Group 3: Orange spectrum (Low-Medium Friction) - STRONG contrast
+    // Group 3: Orange-Yellow spectrum (Low Friction) - STRONG contrast
+    'transactionalData': '#f59e0b',     // Amber orange (base)
+    'commerciallySoftware': '#eab308',  // Yellow (bright)
     'thirdPartyService': '#ea580c',     // Deep orange (dark)
-    'bankAccount': '#fbbf24',           // Golden yellow (light, very different)
+    'bankAccount': '#fbbf24',           // Golden yellow (light)
 
-    // Group 4: Pink-Red spectrum (High Friction) - MAXIMUM differentiation
+    // Group 4: Red-Purple spectrum (High Friction) - MAXIMUM differentiation
     'digitizedId': '#db2777',           // Hot pink (saturated)
     'financialDocument': '#f43f5e',     // Rose (middle)
     'governmentId': '#b91c1c',          // Dark red (very different)
-
-    // Group 5: Purple spectrum (Very High Friction) - WIDE range
     'photoMatching': '#d946ef',         // Bright magenta (light and vibrant)
     'ial2Required': '#9333ea',          // Purple (middle)
     'anonymousOption': '#6b21a8'        // Deep purple (very dark)
@@ -520,10 +517,9 @@ function styleStateByIdMethod(feature) {
   const groupColors = {
     0: '#9ca3af',  // Gray - Group 0 (No Law / No ID Required)
     1: '#06b6d4',  // Cyan - Group 1 (Zero Friction, Zero Cost - Credit Card only)
-    2: '#10b981',  // Emerald - Group 2 (Zero Friction, Low Cost)
-    3: '#f59e0b',  // Amber - Group 3 (Low-Medium Friction)
-    4: '#f43f5e',  // Rose - Group 4 (High Friction)
-    5: '#a855f7'   // Violet - Group 5 (Very High Friction)
+    2: '#10b981',  // Emerald - Group 2 (Zero Friction, Low Cost - Commercial Database only)
+    3: '#f59e0b',  // Amber - Group 3 (Low Friction, Low-Medium Cost)
+    4: '#f43f5e',  // Rose - Group 4 (High Friction - includes biometric)
   };
 
   // Find ALL methods this state accepts (regardless of selection)
@@ -820,27 +816,25 @@ function updateVerificationMethods(selectedStates) {
   // Define verification method hierarchy (ranked by user friction + implementation cost)
   // Lower rank number = better UX + lower cost
   const methodHierarchy = {
-    // Tier 1: Zero Friction, Zero Cost ✅
+    // Group 1: Zero Friction, Zero Cost ✅
     'creditCard': { group: 1, groupName: 'Zero Friction, Zero Cost', label: 'Credit card', term: 'Credit Card', cost: '$0' },
 
-    // Tier 2: Zero Friction, Low Cost 💰
+    // Group 2: Zero Friction, Low Cost 💰
     'commercialDatabase': { group: 2, groupName: 'Zero Friction, Low Cost', label: 'Commercial database', term: 'Commercial Database', cost: '~$0.10/check' },
-    'transactionalData': { group: 2, groupName: 'Zero Friction, Low Cost', label: 'Transactional data', term: 'Transactional Data', cost: '~$0.05-0.25/check' },
-    'commerciallySoftware': { group: 2, groupName: 'Zero Friction, Low Cost', label: 'Commercially reasonable software', term: 'Commercially Reasonable Software', cost: '$0-500/mo' },
 
-    // Tier 3: Low-Medium Friction, Medium Cost ⚠️
-    'thirdPartyService': { group: 3, groupName: 'Low-Medium Friction, Medium Cost', label: 'Third-party service', term: 'Third-Party Service', cost: '$1k-5k/mo' },
-    'bankAccount': { group: 3, groupName: 'Low-Medium Friction, Medium Cost', label: 'Bank account', term: 'Bank Account', cost: '$0' },
+    // Group 3: Low Friction, Low-Medium Cost ⚠️
+    'transactionalData': { group: 3, groupName: 'Low Friction, Low-Medium Cost', label: 'Transactional data', term: 'Transactional Data', cost: '~$0.05-0.25/check' },
+    'commerciallySoftware': { group: 3, groupName: 'Low Friction, Low-Medium Cost', label: 'Commercially reasonable software', term: 'Commercially Reasonable Software', cost: '$0-500/mo' },
+    'thirdPartyService': { group: 3, groupName: 'Low Friction, Low-Medium Cost', label: 'Third-party service', term: 'Third-Party Service', cost: '$1k-5k/mo' },
+    'bankAccount': { group: 3, groupName: 'Low Friction, Low-Medium Cost', label: 'Bank account', term: 'Bank Account', cost: '$0' },
 
-    // Tier 4: High Friction, Medium-High Cost ❌
-    'digitizedId': { group: 4, groupName: 'High Friction, Medium-High Cost', label: 'Digitized ID', term: 'Digital ID', cost: '$2k-10k/mo' },
-    'financialDocument': { group: 4, groupName: 'High Friction, Medium-High Cost', label: 'Financial documents', term: 'Financial Document', cost: '$0-10k/mo' },
-    'governmentId': { group: 4, groupName: 'High Friction, Medium-High Cost', label: 'Government-issued ID', term: 'Photo ID', cost: '$2k-10k/mo' },
-
-    // Tier 5: Very High Friction, Very High Cost 🚫
-    'photoMatching': { group: 5, groupName: 'Very High Friction, Very High Cost', label: 'Photo matching', term: 'Photo ID', cost: '$5k-15k/mo' },
-    'ial2Required': { group: 5, groupName: 'Very High Friction, Very High Cost', label: 'IAL2 certification', term: 'IAL2', cost: '$10k-25k/mo' },
-    'anonymousOption': { group: 5, groupName: 'Very High Friction, Very High Cost', label: 'Anonymous option', term: 'Anonymous Option', cost: '$5k-20k/mo' }
+    // Group 4: High Friction ❌
+    'digitizedId': { group: 4, groupName: 'High Friction', label: 'Digitized ID', term: 'Digital ID', cost: '$2k-10k/mo' },
+    'financialDocument': { group: 4, groupName: 'High Friction', label: 'Financial documents', term: 'Financial Document', cost: '$0-10k/mo' },
+    'governmentId': { group: 4, groupName: 'High Friction', label: 'Government-issued ID', term: 'Photo ID', cost: '$2k-10k/mo' },
+    'photoMatching': { group: 4, groupName: 'High Friction', label: 'Photo matching', term: 'Photo ID', cost: '$5k-15k/mo' },
+    'ial2Required': { group: 4, groupName: 'High Friction', label: 'IAL2 certification', term: 'IAL2', cost: '$10k-25k/mo' },
+    'anonymousOption': { group: 4, groupName: 'High Friction', label: 'Anonymous option', term: 'Anonymous Option', cost: '$5k-20k/mo' }
   };
 
   // Filter out Tier 0 states (no requirements) for method counting
@@ -1193,10 +1187,9 @@ function initTierFilters() {
 const groupMethodColors = {
   0: { group: '#9ca3af', methods: { noLaw: '#9ca3af' } },
   1: { group: '#06b6d4', methods: { creditCard: '#06b6d4' } },
-  2: { group: '#10b981', methods: { commercialDatabase: '#0891b2', transactionalData: '#10b981', commerciallySoftware: '#84cc16' } },
-  3: { group: '#f59e0b', methods: { thirdPartyService: '#ea580c', bankAccount: '#fbbf24' } },
-  4: { group: '#f43f5e', methods: { digitizedId: '#db2777', financialDocument: '#f43f5e', governmentId: '#b91c1c' } },
-  5: { group: '#a855f7', methods: { photoMatching: '#d946ef', ial2Required: '#9333ea', anonymousOption: '#6b21a8' } }
+  2: { group: '#10b981', methods: { commercialDatabase: '#10b981' } },
+  3: { group: '#f59e0b', methods: { transactionalData: '#f59e0b', commerciallySoftware: '#eab308', thirdPartyService: '#ea580c', bankAccount: '#fbbf24' } },
+  4: { group: '#f43f5e', methods: { digitizedId: '#db2777', financialDocument: '#f43f5e', governmentId: '#b91c1c', photoMatching: '#d946ef', ial2Required: '#9333ea', anonymousOption: '#6b21a8' } }
 };
 
 // Update checkbox colors based on parent state
